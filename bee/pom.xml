@@ -73,13 +73,14 @@
 		  compilation classpath by vaadin-maven-plugin so normally there is no need for an
 		  explicit dependency.
 		-->
-		<!--
+		
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-client-compiler</artifactId>
-			<scope>provided</scope>
+			<version>${vaadin.version}</version>
+			
 		</dependency>
-		-->
+		
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-themes</artifactId>
@@ -89,7 +90,6 @@
 		<groupId>org.apache.solr</groupId>
 			<artifactId>solr-core</artifactId>
 			<version>5.1.0</version>
-			<scope>compiled</scope>
 		</dependency>
 
 		<dependency>
@@ -99,21 +99,24 @@
 		</dependency>
 		
 		<!-- Fix the damn crash log -->
-<dependency>
-    <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-api</artifactId>
-    <version>1.7.7</version>
-</dependency>
-<dependency>
-     <groupId>org.slf4j</groupId>
-     <artifactId>slf4j-log4j12</artifactId>
-     <version>1.7.7</version>
-</dependency>
-<dependency>
-        <groupId>commons-logging</groupId>
-        <artifactId>commons-logging</artifactId>
-        <version>LATEST</version>
-</dependency>
+		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-api</artifactId>
+    		<version>1.7.7</version>
+		</dependency>
+		<dependency>
+     		<groupId>org.slf4j</groupId>
+     		<artifactId>slf4j-log4j12</artifactId>
+     		<version>1.7.7</version>
+		</dependency>
+		
+		<!-- This part took ages to get it right. Be careful -->
+		<dependency>
+		        <groupId>commons-logging</groupId>
+		        <artifactId>commons-logging</artifactId>
+		        <version>LATEST</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
