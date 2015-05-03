@@ -28,6 +28,7 @@ public class MyUI extends UI {
 	static int i = 0;
 	SearchForm searchUI = new SearchForm();
 	FileUpload fileUploadUI = new FileUpload();
+	Login loginui = new Login();
 	CustomLayout custom;
 	
 	
@@ -47,6 +48,7 @@ public class MyUI extends UI {
 			//custom = new CustomLayout(new FileInputStream(new File("/home/swoorup/KBLSys/bee/src/main/webapp/VAADIN/themes/layouts/Search.html")));
 		custom = new CustomLayout("html_pages/index/home");
     	setContent(custom);
+    	setContent(loginui);
     	
     }
 
