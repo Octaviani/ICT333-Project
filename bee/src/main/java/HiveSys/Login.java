@@ -1,39 +1,45 @@
 package HiveSys;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import HiveSys.layout.LoginLayout;
 
 public class Login extends LoginLayout{
-	Login()
+	Login(Connection connection)
 	{
-		
+		ClickListener listener= new ClickListener() {
+			@Override
+			public void buttonClick(ClickEvent event) 
+			{
+				// TODO Auto-generated method stub
+				String userName1 = usrNmeFld.getValue();
+			    String password1 = pwFld.getValue();
+			    Class.forName("com.mysql.jdbc.Driver");
+			    Connection con = DriverManager.getConnection("jdbc:mysql://datahive.com:3306/Hive","daniel", "password");
+			    Statement st = con.createStatement();
+			    ResultSet rs;
+			    rs = st.executeQuery("SELECT * FROM User WHERE UserName='" + userName1 + "' AND password='" +password1 + "'");
+			    if (rs.next()) 
+			    {
+			        session.setAttribute("userid", userName1);
+			        response.sendRedirect("FileUpload.java");
+			    } 
+			    	else 
+			    	{
+			    		out.println("Invalid password try again");
+			    	}
+			}
+			
+		};
+		this.btnLogin.addClickListener(listener);
+	    
 	}
 }
 
-protected void ValidateUser(object sender, EventArgs e)
-{
-    int Id = 0;
-    string kblConnectionString1 = ConfigurationManager.ConnectionStrings["kblConnectionString1"].ConnectionString;
-    using (SqlConnection con = new SqlConnection(kblConnectionString1))
-    {
-        using (SqlCommand cmd = new SqlCommand("Validate_User"))
-        {
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Username", Login1.UserName);
-            cmd.Parameters.AddWithValue("@Password", Login1.Password);
-            cmd.Connection = con;
-            con.Open();
-            Id = Convert.ToInt32(cmd.ExecuteScalar());
-            con.Close();
-        }
-        switch (Id)
-        {
-            case -1:
-                Login1.FailureText = "Username and/or password is incorrect.";
-                break;
-            default:
-                FormsAuthentication.RedirectFromLoginPage(Login1.UserName, Login1.RememberMeSet);
-                break;
-        }
-    }
-}
-}
+
+
+
