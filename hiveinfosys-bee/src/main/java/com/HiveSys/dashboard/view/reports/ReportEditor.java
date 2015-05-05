@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.HiveSys.dashboard.component.InlineTextEditor;
-import com.HiveSys.dashboard.component.TopSixTheatersChart;
 import com.HiveSys.dashboard.component.TopTenMoviesTable;
 import com.HiveSys.dashboard.component.TransactionsListing;
 import com.HiveSys.dashboard.domain.Transaction;
@@ -186,7 +185,7 @@ public final class ReportEditor extends VerticalLayout {
             } else if (type == PaletteItemType.TABLE) {
                 result = new TopTenMoviesTable();
             } else if (type == PaletteItemType.CHART) {
-                result = new TopSixTheatersChart();
+                
             } else if (type == PaletteItemType.TRANSACTIONS) {
                 result = new TransactionsListing(
                         (Collection<Transaction>) prefillData);

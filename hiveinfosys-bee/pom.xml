@@ -49,20 +49,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.vaadin.addon</groupId>
-			<artifactId>vaadin-charts</artifactId>
-			<version>2.0.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.vaadin.addons</groupId>
 			<artifactId>googleanalyticstracker</artifactId>
 			<version>2.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-testbench</artifactId>
-			<version>4.0.0.rc1</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.peimari</groupId>

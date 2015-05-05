@@ -41,10 +41,6 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.MultimapBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.util.CurrentInstance;
 
@@ -106,7 +102,6 @@ public class DummyDataProvider implements DataProvider {
      */
     private static Collection<Movie> loadMoviesData() {
 
-        JsonObject json = null;
         File cache;
         VaadinRequest vaadinRequest = CurrentInstance.get(VaadinRequest.class);
 
@@ -118,23 +113,19 @@ public class DummyDataProvider implements DataProvider {
                     && System.currentTimeMillis() < cache.lastModified()
                             + (1000 * 60 * 60 * 24)) {
                 // Use cache if it's under 24h old
-                json = readJsonFromFile(cache);
             } else {
                 if (ROTTEN_TOMATOES_API_KEY != null) {
                     try {
-                        json = readJsonFromUrl("http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=30&apikey="
-                                + ROTTEN_TOMATOES_API_KEY);
+
                         // Store in cache
                         FileWriter fileWriter = new FileWriter(cache);
-                        fileWriter.write(json.toString());
+
                         fileWriter.close();
                     } catch (Exception e) {
-                        json = readJsonFromFile(new File(baseDirectory
-                                + "/movies-fallback.txt"));
+
                     }
                 } else {
-                    json = readJsonFromFile(new File(baseDirectory
-                            + "/movies-fallback.txt"));
+
                 }
             }
         } catch (Exception e) {
@@ -142,49 +133,7 @@ public class DummyDataProvider implements DataProvider {
         }
 
         Collection<Movie> result = new ArrayList<Movie>();
-        if (json != null) {
-            JsonArray moviesJson;
 
-            moviesJson = json.getAsJsonArray("movies");
-            for (int i = 0; i < moviesJson.size(); i++) {
-                JsonObject movieJson = moviesJson.get(i).getAsJsonObject();
-                JsonObject posters = movieJson.get("posters").getAsJsonObject();
-                if (!posters.get("profile").getAsString()
-                        .contains("poster_default")) {
-                    Movie movie = new Movie();
-                    movie.setId(i);
-                    movie.setTitle(movieJson.get("title").getAsString());
-                    movie.setDuration(movieJson.get("runtime").getAsInt());
-                    movie.setSynopsis(movieJson.get("synopsis").getAsString());
-                    movie.setThumbUrl(posters.get("profile").getAsString()
-                            .replace("_tmb", "_320"));
-                    movie.setPosterUrl(posters.get("detailed").getAsString()
-                            .replace("_tmb", "_640"));
-
-                    try {
-                        JsonObject releaseDates = movieJson
-                                .get("release_dates").getAsJsonObject();
-                        String datestr = releaseDates.get("theater")
-                                .getAsString();
-                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                        movie.setReleaseDate(df.parse(datestr));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        movie.setScore(movieJson.get("ratings")
-                                .getAsJsonObject().get("critics_score")
-                                .getAsInt());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    result.add(movie);
-
-                }
-            }
-        }
         return result;
     }
 
@@ -199,28 +148,6 @@ public class DummyDataProvider implements DataProvider {
     }
 
     /* JSON utility method */
-    private static JsonObject readJsonFromUrl(String url) throws IOException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is,
-                    Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JsonElement jelement = new JsonParser().parse(jsonText);
-            JsonObject jobject = jelement.getAsJsonObject();
-            return jobject;
-        } finally {
-            is.close();
-        }
-    }
-
-    /* JSON utility method */
-    private static JsonObject readJsonFromFile(File path) throws IOException {
-        BufferedReader rd = new BufferedReader(new FileReader(path));
-        String jsonText = readAll(rd);
-        JsonElement jelement = new JsonParser().parse(jsonText);
-        JsonObject jobject = jelement.getAsJsonObject();
-        return jobject;
-    }
 
     /**
      * =========================================================================
