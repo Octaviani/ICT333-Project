@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import org.apache.solr.client.solrj.SolrServerException;
+
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Upload.Receiver;
@@ -15,7 +18,9 @@ import com.vaadin.ui.Upload.SucceededListener;
 import HiveSys.core.SolrConnection;
 import HiveSys.layout.FileUploadLayout;
 
-public class FileUpload extends FileUploadLayout{
+public class FileUpload extends FileUploadLayout implements View{
+	public static final String NAME = "fileupload";
+	
 	public FileUpload() {
 		
 		// Set the handler to upload the files to the server first
@@ -58,6 +63,12 @@ public class FileUpload extends FileUploadLayout{
 		String currentDir = System.getProperty("user.dir");
 		
 		//SolrInputDocument sd = new SolrInputDocument()
+		
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+		// TODO Auto-generated method stub
 		
 	}
 	

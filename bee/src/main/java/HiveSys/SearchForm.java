@@ -4,14 +4,17 @@ import org.apache.solr.common.SolrDocumentList;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 
 import HiveSys.core.*;
 import HiveSys.layout.SearchFormLayout;
 
-public class SearchForm extends SearchFormLayout {
-	 
+public class SearchForm extends SearchFormLayout implements View{
+	public static final String NAME = "search";
+	
 	public SearchForm()
 	{
 		this.tfSearch.setImmediate(true);
@@ -39,5 +42,11 @@ public class SearchForm extends SearchFormLayout {
 		{
 			this.vertlayout.addComponent(new Label(doclist.get(i).getFieldValue("resourcename").toString()));
 		}
+	}
+
+	@Override
+	public void enter(ViewChangeEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 }
