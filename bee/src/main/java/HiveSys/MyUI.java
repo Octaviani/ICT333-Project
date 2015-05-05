@@ -20,7 +20,7 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 
 /**
- *	
+ *
  */
 @Theme("mytheme")
 @Widgetset("HiveSys.MyAppWidgetset")
@@ -30,19 +30,24 @@ public class MyUI extends UI {
 	SearchForm searchview = new SearchForm();
 	FileUpload fileuploadview = new FileUpload();
 	MainView mainview = new MainView();
-	
+
 	Navigator nav = new Navigator(this, this);
-	
+	static int i = 0;
+	SearchForm searchUI = new SearchForm();
+	FileUpload fileUploadUI = new FileUpload();
+	Login loginui = new Login();
+	CustomLayout custom;
+
 	Connection dbconnection;
-	
+
 	Window main = new Window("My application");
-	
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
     	initDatabaseConnection();
     	initSolrConnection();
     	initNavigator();
-    	
+
     	main.setContent(searchview);
     	main.center();
     	addWindow(main);
@@ -61,20 +66,32 @@ public class MyUI extends UI {
 
     	bottom.addComponent(new Tree("Major Planets and Their Moons"));
     	bottom.addComponent(new Panel());
-    	
+    	System.out.println("Initialized " + i + "times");
+    	solr = SolrConnection.getDefault();
+    	solr.connect("http://localhost:8983/solr/test/");
+
+    	final SearchForm searchUI = new SearchForm();
+    	searchUI.addComponent(new Upload());
+    	setContent(searchUI);
+    	setContent(fileUploadUI);
+			//custom = new CustomLayout(new FileInputStream(new File("/home/swoorup/KBLSys/bee/src/main/webapp/VAADIN/themes/layouts/Search.html")));
+		custom = new CustomLayout("html_pages/index/home");
+    	setContent(custom);
+    	setContent(loginui);
+
     }
-    
+
     public void initNavigator() {
     	nav.addView(SearchForm.NAME, searchview);
     	nav.addView(FileUpload.NAME, fileuploadview);
     	nav.addView(MainView.NAME, mainview);
     }
-    
+
     public void initSolrConnection(){
     	SolrConnection solr = SolrConnection.getDefault();
     	solr.connect("http://localhost:8983/solr/test/");
     }
-    
+
     public void initDatabaseConnection() {
     	try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -85,7 +102,7 @@ public class MyUI extends UI {
 			while (rs.next())
 		      {
 		        String username = rs.getString("username");
-		        String password = rs.getString("password");		         
+		        String password = rs.getString("password");
 		        // print the results
 		        System.out.println("Username: " + username +"\nPassword: "+ password + "\n\n\n\n\n\n");
 		      }
@@ -97,12 +114,12 @@ public class MyUI extends UI {
 			//e.printStackTrace();
 		}
     }
-    
+
 
     @WebServlet(value = {"/myui/*", "/VAADIN/*"},asyncSupported = true)
     //@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
-    
+
     public static class MyUIServlet extends VaadinServlet {
     }
 }
