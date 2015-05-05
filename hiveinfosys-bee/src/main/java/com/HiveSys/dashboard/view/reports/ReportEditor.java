@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.HiveSys.dashboard.component.InlineTextEditor;
-import com.HiveSys.dashboard.component.TopTenMoviesTable;
 import com.HiveSys.dashboard.component.TransactionsListing;
 import com.HiveSys.dashboard.domain.Transaction;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -68,8 +67,7 @@ public final class ReportEditor extends VerticalLayout {
         paletteLayout.addStyleName("palette");
 
         paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TEXT));
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TABLE));
-        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.CHART));
+        paletteLayout.addComponent(buildPaletteItem(PaletteItemType.TEXT));
 
         paletteLayout.addLayoutClickListener(new LayoutClickListener() {
             @Override
@@ -182,10 +180,6 @@ public final class ReportEditor extends VerticalLayout {
                 result = new InlineTextEditor(
                         prefillData != null ? String.valueOf(prefillData)
                                 : null);
-            } else if (type == PaletteItemType.TABLE) {
-                result = new TopTenMoviesTable();
-            } else if (type == PaletteItemType.CHART) {
-                
             } else if (type == PaletteItemType.TRANSACTIONS) {
                 result = new TransactionsListing(
                         (Collection<Transaction>) prefillData);
@@ -303,10 +297,8 @@ public final class ReportEditor extends VerticalLayout {
     }
 
     public enum PaletteItemType {
-        TEXT("Text Block", FontAwesome.FONT), TABLE("Top 10 Movies",
-                FontAwesome.TABLE), CHART("Top 6 Revenue",
-                FontAwesome.BAR_CHART_O), TRANSACTIONS("Latest transactions",
-                null);
+        TEXT("Text Block", FontAwesome.FONT), 
+        TRANSACTIONS("Latest transactions",null);
 
         private final String title;
         private final FontAwesome icon;

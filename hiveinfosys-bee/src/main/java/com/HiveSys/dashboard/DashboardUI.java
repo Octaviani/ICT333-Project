@@ -33,7 +33,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 @Theme("dashboard")
 @Widgetset("com.HiveSys.dashboard.DashboardWidgetSet")
-@Title("QuickTickets Dashboard")
+@Title("DataHive Dashboard")
 @SuppressWarnings("serial")
 public final class DashboardUI extends UI {
 

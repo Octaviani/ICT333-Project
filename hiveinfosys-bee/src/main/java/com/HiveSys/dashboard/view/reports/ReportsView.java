@@ -107,7 +107,7 @@ public final class ReportsView extends TabSheet implements View, CloseHandler,
         delete.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(final ClickEvent event) {
-                Notification.show("Not implemented in this demo");
+                Notification.show("Give me some time");
             }
         });
         draftThumb.addComponent(delete);
@@ -151,8 +151,6 @@ public final class ReportsView extends TabSheet implements View, CloseHandler,
 
         if (reportType == ReportType.MONTHLY) {
             reportEditor.setTitle("Monthly revenue");
-            reportEditor.addWidget(PaletteItemType.CHART, null);
-            reportEditor.addWidget(PaletteItemType.TABLE, null);
         } else if (reportType == ReportType.EMPTY) {
             DateFormat df = new SimpleDateFormat("M/dd/yyyy");
             reportEditor.setTitle("Unnamed Report – " + (df.format(new Date()))

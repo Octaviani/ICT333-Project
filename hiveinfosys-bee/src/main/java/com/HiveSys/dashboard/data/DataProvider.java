@@ -11,7 +11,7 @@ import com.HiveSys.dashboard.domain.Transaction;
 import com.HiveSys.dashboard.domain.User;
 
 /**
- * QuickTickets Dashboard backend API.
+ * DataHive Dashboard backend API.
  */
 public interface DataProvider {
     /**

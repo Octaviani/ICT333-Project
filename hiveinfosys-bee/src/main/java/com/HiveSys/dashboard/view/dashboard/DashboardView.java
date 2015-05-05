@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import com.HiveSys.dashboard.DashboardUI;
-import com.HiveSys.dashboard.component.TopTenMoviesTable;
-import com.HiveSys.dashboard.data.dummy.DummyDataGenerator;
 import com.HiveSys.dashboard.domain.DashboardNotification;
 import com.HiveSys.dashboard.event.DashboardEventBus;
 import com.HiveSys.dashboard.event.DashboardEvent.CloseOpenWindowsEvent;
@@ -153,7 +151,7 @@ public final class DashboardView extends Panel implements View,
 
 	private Component buildNotes() {
 		TextArea notes = new TextArea("Notes");
-		notes.setValue("Remember to:\n· Zoom in and out in the Sales view\n· Filter the transactions and drag a set of them to the Reports tab\n· Create a new report\n· Change the schedule of the movie theater");
+		notes.setValue("Remember to:\n· Faceted Search Working\n· Fix things\n· Fix Layouts\n· Add the admin panel");
 		notes.setSizeFull();
 		notes.addStyleName(ValoTheme.TEXTAREA_BORDERLESS);
 		Component panel = createContentWrapper(notes);
@@ -202,14 +200,14 @@ public final class DashboardView extends Panel implements View,
 		root.addItem("Configure", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
-				Notification.show("Not implemented in this demo");
+				Notification.show("Give me some time");
 			}
 		});
 		root.addSeparator();
 		root.addItem("Close", new Command() {
 			@Override
 			public void menuSelected(final MenuItem selectedItem) {
-				Notification.show("Not implemented in this demo");
+				Notification.show("Give me some time");
 			}
 		});
 
@@ -263,7 +261,7 @@ public final class DashboardView extends Panel implements View,
 				new ClickListener() {
 					@Override
 					public void buttonClick(final ClickEvent event) {
-						Notification.show("Not implemented in this demo");
+						Notification.show("Give me some time");
 					}
 				});
 		showAll.addStyleName(ValoTheme.BUTTON_BORDERLESS_COLORED);

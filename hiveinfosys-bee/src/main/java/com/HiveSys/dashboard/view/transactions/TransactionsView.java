@@ -305,7 +305,7 @@ public final class TransactionsView extends VerticalLayout implements View {
             if (action == report) {
                 createNewReportFromSelection();
             } else if (action == discard) {
-                Notification.show("Not implemented in this demo");
+                Notification.show("Give me some time");
             } else if (action == details) {
                 Item item = ((Table) sender).getItem(target);
                 if (item != null) {
