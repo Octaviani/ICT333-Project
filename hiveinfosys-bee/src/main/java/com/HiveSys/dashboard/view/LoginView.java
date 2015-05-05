@@ -32,10 +32,10 @@ public class LoginView extends VerticalLayout {
         addComponent(loginForm);
         setComponentAlignment(loginForm, Alignment.MIDDLE_CENTER);
 
-        Notification notification = new Notification(
-                "Welcome to Dashboard Demo");
+        Notification notification = new Notification("Welcome to Hive Info Systems");
+        notification.setDelayMsec(4000);
         notification
-                .setDescription("<span>This application is not real, it only demonstrates an application built with the <a href=\"https://vaadin.com\">Vaadin framework</a>.</span> <span>No username or password is required, just click the <b>Sign In</b> button to continue.</span>");
+                .setDescription("<span>Knowledge Based Management by Hive Info System. This application is built with the <a href=\"https://vaadin.com\">Vaadin framework</a>.</span> <span>At the moment no username or password is required, just click the <b>Sign In</b> button to continue.</span>");
         notification.setHtmlContentAllowed(true);
         notification.setStyleName("tray dark small closable login-help");
         notification.setPosition(Position.BOTTOM_CENTER);
@@ -79,8 +79,7 @@ public class LoginView extends VerticalLayout {
         signin.addClickListener(new ClickListener() {
             @Override
             public void buttonClick(final ClickEvent event) {
-                DashboardEventBus.post(new UserLoginRequestedEvent(username
-                        .getValue(), password.getValue()));
+                DashboardEventBus.post(new UserLoginRequestedEvent(username.getValue(), password.getValue()));
             }
         });
         return fields;
@@ -96,7 +95,7 @@ public class LoginView extends VerticalLayout {
         welcome.addStyleName(ValoTheme.LABEL_COLORED);
         labels.addComponent(welcome);
 
-        Label title = new Label("QuickTickets Dashboard");
+        Label title = new Label("Hive Knowledge Based Learning");
         title.setSizeUndefined();
         title.addStyleName(ValoTheme.LABEL_H3);
         title.addStyleName(ValoTheme.LABEL_LIGHT);

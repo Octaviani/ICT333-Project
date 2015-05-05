@@ -1,5 +1,6 @@
 package com.HiveSys.dashboard.data;
 
+import java.security.AccessControlException;
 import java.util.Collection;
 import java.util.Date;
 
@@ -37,7 +38,7 @@ public interface DataProvider {
      * @param password
      * @return Authenticated used.
      */
-    User authenticate(String userName, String password);
+    User authenticate(String userName, String password) throws AccessControlException;
 
     /**
      * @return The number of unread notifications for the current user.

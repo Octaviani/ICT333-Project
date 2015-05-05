@@ -44,20 +44,13 @@ public class SolrConnection {
 		}
 	}
 	
-	public SolrDocumentList query(String queryString) 
+	public SolrDocumentList query(String queryString) throws SolrServerException, IOException 
 	{
 		SolrQuery parameters = new SolrQuery();
 		parameters.set("q", queryString);
 		QueryResponse query = null;
-		try {
 			query = mSolr.query(parameters);
 			return query.getResults();
-		} catch (SolrServerException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return null;
 	}
 	
 	public SolrClient getSolrContext() 

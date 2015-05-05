@@ -1,4 +1,8 @@
 package com.HiveSys.dashboard.view.search;
+
+import java.io.IOException;
+
+import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocumentList;
 
 import com.HiveSys.core.SolrConnection;
@@ -7,45 +11,55 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 
-
-public class SearchView extends SearchLayout implements View{
+@SuppressWarnings("serial")
+public class SearchView extends SearchLayout implements View {
 	public static final String NAME = "search";
-	
-	public SearchView()
-	{
+
+	public SearchView() {
 		this.tfSearch.setImmediate(true);
-		
+
 		// handle enter key shortcut
-		ShortcutListener shortcut = new ShortcutListener("Enter", ShortcutAction.KeyCode.ENTER, null) {
+		ShortcutListener shortcut = new ShortcutListener("Enter",
+				ShortcutAction.KeyCode.ENTER, null) {
 			@Override
-			public void handleAction(Object sender, Object target){
+			public void handleAction(Object sender, Object target) {
 				SubmitQuery();
 			}
 		};
-		
+
 		this.tfSearch.addShortcutListener(shortcut);
 	}
-	
-	public void SubmitQuery()
-	{
-		Notification.show(this.tfSearch.getValue(), Notification.Type.HUMANIZED_MESSAGE);
-		
-		// query the solr
-		SolrDocumentList doclist = SolrConnection.getDefault().query(tfSearch.getValue());
-		
-		System.out.println(doclist.size());
-		for (int i=0; i<doclist.size();i++)
-		{
-			this.vertlayout.addComponent(new Label(doclist.get(i).getFieldValue("resourcename").toString()));
+
+	public void SubmitQuery() {
+		try {
+			SolrDocumentList doclist = null;
+			doclist = SolrConnection.getDefault().query(tfSearch.getValue());
+
+			System.out.println(doclist.size());
+			for (int i = 0; i < doclist.size(); i++) {
+				this.vertlayout.addComponent(new Label(doclist.get(i)
+						.getFieldValue("resourcename").toString()));
+			}
+			
+		} catch (SolrServerException | IOException e) {
+			Notification notification = new Notification("Solr Server Error!");
+	        notification.setDelayMsec(8000);
+	        notification.setDescription("It looks the Solr server is not running. Please consult your IT Administrator");
+	        notification.setStyleName("tray dark small closable login-help");
+	        notification.setPosition(Position.TOP_CENTER);
+	        notification.show(Page.getCurrent());
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

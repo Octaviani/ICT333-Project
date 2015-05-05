@@ -1,7 +1,10 @@
 package com.HiveSys.dashboard;
 
+import java.security.AccessControlException;
+import java.sql.SQLException;
 import java.util.Locale;
 
+import com.HiveSys.core.DatabaseConnection;
 import com.HiveSys.dashboard.data.DataProvider;
 import com.HiveSys.dashboard.data.dummy.DummyDataProvider;
 import com.HiveSys.dashboard.domain.User;
@@ -22,6 +25,8 @@ import com.vaadin.server.Page.BrowserWindowResizeListener;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
+import com.vaadin.shared.Position;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
@@ -32,88 +37,113 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public final class DashboardUI extends UI {
 
-    /*
-     * This field stores an access to the dummy backend layer. In real
-     * applications you most likely gain access to your beans trough lookup or
-     * injection; and not in the UI but somewhere closer to where they're
-     * actually accessed.
-     */
-    private final DataProvider dataProvider = new DummyDataProvider();
-    private final DashboardEventBus dashboardEventbus = new DashboardEventBus();
+	/*
+	 * This field stores an access to the dummy backend layer. In real
+	 * applications you most likely gain access to your beans trough lookup or
+	 * injection; and not in the UI but somewhere closer to where they're
+	 * actually accessed.
+	 */
+	private final DataProvider dataProvider = new DummyDataProvider();
+	private final DashboardEventBus dashboardEventbus = new DashboardEventBus();
 
-    @Override
-    protected void init(final VaadinRequest request) {
-        setLocale(Locale.US);
+	@Override
+	protected void init(final VaadinRequest request) {
+		DatabaseConnection dbconn = DatabaseConnection.getDefault();
+		try {
+			dbconn.connect("jdbc:mariadb://datahive.tk:3306/Hive", "daniel",
+					"password1");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-        DashboardEventBus.register(this);
-        Responsive.makeResponsive(this);
-        addStyleName(ValoTheme.UI_WITH_MENU);
+		setLocale(Locale.US);
 
-        updateContent();
+		DashboardEventBus.register(this);
+		Responsive.makeResponsive(this);
+		addStyleName(ValoTheme.UI_WITH_MENU);
 
-        // Some views need to be aware of browser resize events so a
-        // BrowserResizeEvent gets fired to the event bus on every occasion.
-        Page.getCurrent().addBrowserWindowResizeListener(
-                new BrowserWindowResizeListener() {
-                    @Override
-                    public void browserWindowResized(
-                            final BrowserWindowResizeEvent event) {
-                        DashboardEventBus.post(new BrowserResizeEvent());
-                    }
-                });
-    }
+		updateContent();
 
-    /**
-     * Updates the correct content for this UI based on the current user status.
-     * If the user is logged in with appropriate privileges, main view is shown.
-     * Otherwise login view is shown.
-     */
-    private void updateContent() {
-        User user = (User) VaadinSession.getCurrent().getAttribute(
-                User.class.getName());
-        if (user != null && "admin".equals(user.getRole())) {
-            // Authenticated user
-            setContent(new MainView());
-            removeStyleName("loginview");
-            getNavigator().navigateTo(getNavigator().getState());
-        } else {
-            setContent(new LoginView());
-            addStyleName("loginview");
-        }
-    }
+		// Some views need to be aware of browser resize events so a
+		// BrowserResizeEvent gets fired to the event bus on every occasion.
+		Page.getCurrent().addBrowserWindowResizeListener(
+				new BrowserWindowResizeListener() {
+					@Override
+					public void browserWindowResized(
+							final BrowserWindowResizeEvent event) {
+						DashboardEventBus.post(new BrowserResizeEvent());
+					}
+				});
+	}
 
-    @Subscribe
-    public void userLoginRequested(final UserLoginRequestedEvent event) {
-        User user = getDataProvider().authenticate(event.getUserName(),
-                event.getPassword());
-        VaadinSession.getCurrent().setAttribute(User.class.getName(), user);
-        updateContent();
-    }
+	/**
+	 * Updates the correct content for this UI based on the current user status.
+	 * If the user is logged in with appropriate privileges, main view is shown.
+	 * Otherwise login view is shown.
+	 */
+	private void updateContent() {
+		User user = (User) VaadinSession.getCurrent().getAttribute(
+				User.class.getName());
+		if (user != null && "admin".equals(user.getRole())) {
+			// Authenticated user
+			setContent(new MainView());
+			removeStyleName("loginview");
+			getNavigator().navigateTo(getNavigator().getState());
+		} else {
+			setContent(new LoginView());
+			addStyleName("loginview");
+		}
+	}
 
-    @Subscribe
-    public void userLoggedOut(final UserLoggedOutEvent event) {
-        // When the user logs out, current VaadinSession gets closed and the
-        // page gets reloaded on the login screen. Do notice the this doesn't
-        // invalidate the current HttpSession.
-        VaadinSession.getCurrent().close();
-        Page.getCurrent().reload();
-    }
+	@Subscribe
+	public void userLoginRequested(final UserLoginRequestedEvent event) {
+		User user = null;
 
-    @Subscribe
-    public void closeOpenWindows(final CloseOpenWindowsEvent event) {
-        for (Window window : getWindows()) {
-            window.close();
-        }
-    }
+		try {
+			user = getDataProvider().authenticate(event.getUserName(),
+					event.getPassword());
+		} catch (AccessControlException e) {
+			Notification notification = new Notification(
+					"Cannot authenticate the user.");
+			notification.setDelayMsec(5000);
+			notification
+					.setDescription("Either the username or the password is incorrect");
+			notification.setHtmlContentAllowed(true);
+			notification.setStyleName("tray dark small closable login-help");
+			notification.setPosition(Position.MIDDLE_CENTER);
+			notification.show(Page.getCurrent());
+			return;
+		}
 
-    /**
-     * @return An instance for accessing the (dummy) services layer.
-     */
-    public static DataProvider getDataProvider() {
-        return ((DashboardUI) getCurrent()).dataProvider;
-    }
+		VaadinSession.getCurrent().setAttribute(User.class.getName(), user);
+		updateContent();
+	}
 
-    public static DashboardEventBus getDashboardEventbus() {
-        return ((DashboardUI) getCurrent()).dashboardEventbus;
-    }
+	@Subscribe
+	public void userLoggedOut(final UserLoggedOutEvent event) {
+		// When the user logs out, current VaadinSession gets closed and the
+		// page gets reloaded on the login screen. Do notice the this doesn't
+		// invalidate the current HttpSession.
+		VaadinSession.getCurrent().close();
+		Page.getCurrent().reload();
+	}
+
+	@Subscribe
+	public void closeOpenWindows(final CloseOpenWindowsEvent event) {
+		for (Window window : getWindows()) {
+			window.close();
+		}
+	}
+
+	/**
+	 * @return An instance for accessing the (dummy) services layer.
+	 */
+	public static DataProvider getDataProvider() {
+		return ((DashboardUI) getCurrent()).dataProvider;
+	}
+
+	public static DashboardEventBus getDashboardEventbus() {
+		return ((DashboardUI) getCurrent()).dashboardEventbus;
+	}
 }

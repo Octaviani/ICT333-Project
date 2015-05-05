@@ -10,6 +10,10 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.security.AccessControlException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.HiveSys.core.StaticDatabaseConnection;
 import com.HiveSys.dashboard.data.DataProvider;
 import com.HiveSys.dashboard.domain.DashboardNotification;
 import com.HiveSys.dashboard.domain.Movie;
@@ -380,7 +385,33 @@ public class DummyDataProvider implements DataProvider {
     }
 
     @Override
-    public User authenticate(String userName, String password) {
+    public User authenticate(String userName, String password) throws AccessControlException{
+    	MessageDigest md = null;
+    	try {
+			md = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	byte[] passwordDigest = md.digest(password.getBytes());
+    	StringBuffer passwordmd5hash = new StringBuffer();
+        for (int i = 0; i < passwordDigest.length; ++i) {
+        	passwordmd5hash.append(Integer.toHexString((passwordDigest[i] & 0xFF) | 0x100).substring(1,3));
+       }
+    	System.out.println(passwordmd5hash.toString());
+    	
+	    try {
+	    	Statement st = StaticDatabaseConnection.getDefault().getConnection().createStatement();
+	    	ResultSet rs = st.executeQuery("SELECT * FROM User WHERE UserName='" + userName + "' AND password='" +passwordmd5hash.toString() + "';");
+	    	if (!rs.next()) 
+		    {
+		    	throw new AccessControlException("Exception: Invalid username or password");
+		    } 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
         User user = new User();
         user.setFirstName(DummyDataGenerator.randomFirstName());
         user.setLastName(DummyDataGenerator.randomLastName());

@@ -4,6 +4,7 @@ import com.HiveSys.dashboard.view.dashboard.DashboardView;
 import com.HiveSys.dashboard.view.reports.ReportsView;
 import com.HiveSys.dashboard.view.repository.UploadView;
 import com.HiveSys.dashboard.view.schedule.ScheduleView;
+import com.HiveSys.dashboard.view.search.SearchView;
 import com.HiveSys.dashboard.view.transactions.TransactionsView;
 //import com.vaadin.demo.dashboard.view.sales.SalesView;
 import com.vaadin.navigator.View;
@@ -11,13 +12,15 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 public enum DashboardViewType {
-    DASHBOARD("dashboard", DashboardView.class, FontAwesome.HOME, true), 
-    UPLOAD("upload", UploadView.class, FontAwesome.HOME, true),
-    //SALES("sales", SalesView.class, FontAwesome.BAR_CHART_O, false), 
-    TRANSACTIONS( "transactions", TransactionsView.class, FontAwesome.TABLE, false), 
+    DASHBOARD("dashboard", DashboardView.class, FontAwesome.HOME, true),
+    SEARCH("search", SearchView.class, FontAwesome.SEARCH, false),
+    UPLOAD("upload", UploadView.class, FontAwesome.UPLOAD, true),
     REPORTS( "reports", ReportsView.class, FontAwesome.FILE_TEXT_O, true), 
-    SCHEDULE( "schedule", ScheduleView.class, FontAwesome.CALENDAR_O, false);
-
+    //SALES("sales", SalesView.class, FontAwesome.BAR_CHART_O, false), 
+    //TRANSACTIONS( "transactions", TransactionsView.class, FontAwesome.TABLE, false), 
+    //
+    //SCHEDULE( "schedule", ScheduleView.class, FontAwesome.CALENDAR_O, false);
+;
     private final String viewName;
     private final Class<? extends View> viewClass;
     private final Resource icon;

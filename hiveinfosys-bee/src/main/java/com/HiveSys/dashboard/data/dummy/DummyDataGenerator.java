@@ -10,7 +10,7 @@ import com.vaadin.addon.charts.model.style.SolidColor;
 public abstract class DummyDataGenerator {
 
     static String randomFirstName() {
-        String[] names = { "Dave", "Mike", "Katherine", "Jonas", "Linus",
+        String[] names = { "Swoorup", "Philip", "Dian", "Daniel", "Linus",
                 "Bob", "Anne", "Minna", "Elisa", "George", "Mathias", "Pekka",
                 "Fredrik", "Kate", "Teppo", "Kim", "Samatha", "Sam", "Linda",
                 "Jo", "Sarah", "Ray", "Michael", "Steve" };
