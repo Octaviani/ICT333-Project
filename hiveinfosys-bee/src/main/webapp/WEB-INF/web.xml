@@ -14,7 +14,8 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DataHiveDashboard</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/myui/*</url-pattern>
+		<url-pattern>/VAADIN/*</url-pattern>
 	</servlet-mapping>
 
 	<filter>
