@@ -9,7 +9,6 @@ public final class User {
     private String email;
     private String location;
     private String phone;
-    private Integer newsletterSubscription;
     private String website;
     private String bio;
 
@@ -35,14 +34,6 @@ public final class User {
 
     public void setPhone(final String phone) {
         this.phone = phone;
-    }
-
-    public Integer getNewsletterSubscription() {
-        return newsletterSubscription;
-    }
-
-    public void setNewsletterSubscription(final Integer newsletterSubscription) {
-        this.newsletterSubscription = newsletterSubscription;
     }
 
     public String getWebsite() {
