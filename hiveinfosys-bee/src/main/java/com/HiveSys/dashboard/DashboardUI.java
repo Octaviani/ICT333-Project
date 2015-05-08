@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Locale;
 
 import com.HiveSys.core.DatabaseConnection;
+import com.HiveSys.core.SolrConnection;
 import com.HiveSys.dashboard.data.DataProvider;
 import com.HiveSys.dashboard.data.dummy.DummyDataProvider;
 import com.HiveSys.dashboard.domain.User;
@@ -49,6 +50,9 @@ public final class DashboardUI extends UI {
 	@Override
 	protected void init(final VaadinRequest request) {
 		DatabaseConnection dbconn = DatabaseConnection.getDefault();
+		SolrConnection solr = SolrConnection.getDefault();
+        solr.connect("http://localhost:8983/solr/test/");
+        
 		try {
 			dbconn.connect("jdbc:mariadb://datahive.tk:3306/Hive", "daniel",
 					"password1");

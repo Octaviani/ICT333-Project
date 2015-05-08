@@ -22,6 +22,8 @@ public class SearchView extends SearchLayout implements View {
 
 	public SearchView() {
 		this.tfSearch.setImmediate(true);
+		this.panel.setSizeFull();
+		this.vertLayout.setSizeFull();
 
 		// handle enter key shortcut
 		ShortcutListener shortcut = new ShortcutListener("Enter",
@@ -40,10 +42,11 @@ public class SearchView extends SearchLayout implements View {
 			SolrDocumentList doclist = null;
 			doclist = SolrConnection.getDefault().query(tfSearch.getValue());
 
-			System.out.println(doclist.size());
+			System.out.println("Number of Search results: " + doclist.size());
 			for (int i = 0; i < doclist.size(); i++) {
-				this.vertlayout.addComponent(new Label(doclist.get(i)
-						.getFieldValue("resourcename").toString()));
+				this.vertLayout.addComponent(new Label(
+						doclist.get(i).getFieldNames().toString())
+				);
 			}
 			
 		} catch (SolrServerException | IOException e) {

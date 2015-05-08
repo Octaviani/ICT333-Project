@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
- <head>
-  <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:true,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:false,&quot;SNAPPING_DISTANCE&quot;:10,&quot;GRID_TYPE&quot;:&quot;RegularGrid,19&quot;,&quot;PAPER_WIDTH&quot;:1168,&quot;PAPER_HEIGHT&quot;:461,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo&quot;}">
+ <head> 
+  <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:true,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:false,&quot;SNAPPING_DISTANCE&quot;:10,&quot;GRID_TYPE&quot;:&quot;RegularGrid,19&quot;,&quot;PAPER_WIDTH&quot;:1440,&quot;PAPER_HEIGHT&quot;:900,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo&quot;}">
+  <meta charset="UTF-8" name="package-mapping" content="com_HiveSys_dashboard_component:com.HiveSys.dashboard.component">
  </head> 
  <body> 
   <v-absolute-layout> 
@@ -9,7 +10,9 @@
      Search 
    </v-label> 
    <v-text-field input-prompt="Please enter the search" width="845px" _id="tfSearch" :top="57px" :left="114px"></v-text-field> 
-   <v-vertical-layout width="719px" height="252px" _id="vertlayout" :top="172px" :left="133px"></v-vertical-layout> 
+   <v-panel width="843px" height="338px" _id="panel" :top="160px" :left="114px"> 
+    <v-vertical-layout width="842px" height="311px" margin="true" _id="vertLayout"></v-vertical-layout> 
+   </v-panel> 
   </v-absolute-layout>  
  </body>
 </html>
