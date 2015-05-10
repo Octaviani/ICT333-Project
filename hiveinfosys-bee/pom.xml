@@ -13,8 +13,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jetty.plugin.version>9.2.3.v20140905</jetty.plugin.version>
+		<!--
+		Don't know why this is causing java.lang.ClassNotFoundException: com.HiveSys.dashboard.DashboardServlet
+		 -->
 		<project.source.version>1.8</project.source.version>
 		<project.target.version>1.8</project.target.version>
+		 
 	</properties>
 
 	<repositories>
@@ -259,6 +263,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<webResources>
 						<webResource>
 							<directory>${basedir}/src/main/webapp/WEB-INF</directory>

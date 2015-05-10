@@ -4,6 +4,9 @@ import java.security.AccessControlException;
 import java.sql.SQLException;
 import java.util.Locale;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+
 import com.HiveSys.core.DatabaseConnection;
 import com.HiveSys.core.SolrConnection;
 import com.HiveSys.dashboard.data.DataProvider;
@@ -19,12 +22,14 @@ import com.HiveSys.dashboard.view.MainView;
 import com.google.common.eventbus.Subscribe;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.Page;
 import com.vaadin.server.Page.BrowserWindowResizeEvent;
 import com.vaadin.server.Page.BrowserWindowResizeListener;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.Notification;
@@ -38,6 +43,17 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public final class DashboardUI extends UI {
 
+	@WebServlet(value = {"/myui/*", "/VAADIN/*"}, asyncSupported = true)
+    @VaadinServletConfiguration(productionMode = false, ui = com.HiveSys.dashboard.DashboardUI.class)
+	public static class DashboardServlet extends VaadinServlet {
+
+	    @Override
+	    protected final void servletInitialized() throws ServletException {
+	        super.servletInitialized();
+	        getService().addSessionInitListener(new DashboardSessionInitListener());
+	    }
+	}
+	
 	/*
 	 * This field stores an access to the dummy backend layer. In real
 	 * applications you most likely gain access to your beans trough lookup or
