@@ -12,11 +12,23 @@
 			<param-value>com.HiveSys.dashboard.DashboardUI</param-value>
 		</init-param>
 	</servlet>
+	<!-- 
 	<servlet-mapping>
 		<servlet-name>DataHiveDashboard</servlet-name>
 		<url-pattern>/myui/*</url-pattern>
 		<url-pattern>/VAADIN/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
+	-->
+	
+	 <servlet-mapping>
+        <servlet-name>DataHiveDashboard</servlet-name>
+        <url-pattern>/myui/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DataHiveDashboard</servlet-name>
+        <url-pattern>/VAADIN/*</url-pattern>
+    </servlet-mapping>
 
 	<filter>
 		<filter-name>CompressionFilter</filter-name>
