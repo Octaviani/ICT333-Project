@@ -45,6 +45,8 @@ public final class DashboardUI extends UI {
 
 	@WebServlet(value = {"/myui/*", "/VAADIN/*"}, asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = com.HiveSys.dashboard.DashboardUI.class)
+	
+	//TODO: Add back filters
 	public static class DashboardServlet extends VaadinServlet {
 
 	    @Override
