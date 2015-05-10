@@ -130,6 +130,8 @@
 
 	<build>
 		<plugins>
+		
+			<!--  Might need this later to seperate into production and debug mode. See dashboard example
 			<plugin>
 				<groupId>com.vaadin</groupId>
 				<artifactId>vaadin-maven-plugin</artifactId>
@@ -148,9 +150,11 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			-->
 			<!-- The Jetty plugin allows us to easily test the development build by 
 				running jetty:run on the command line. -->
+				
+		<!-- Duplicate artifact
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
@@ -159,11 +163,13 @@
 					<scanIntervalSeconds>2</scanIntervalSeconds>
 				</configuration>
 			</plugin>
-
+			
+			We should be able to get rid of integration tests
+		-->
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.2.3.v20140905</version>
+				<version>${jetty.plugin.version}</version>
 				<executions>
 					<!-- start and stop jetty (running our app) when running integration 
 						tests -->
