@@ -313,7 +313,7 @@ public class DummyDataProvider implements DataProvider {
 
     @Override
     public User authenticate(String userName, String password) throws AccessControlException{
-    	if (userName.equals("secret"))
+    	if (userName.equals(""))
     	{
     		User user = new User();
             user.setFirstName(DummyDataGenerator.randomFirstName());

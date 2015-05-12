@@ -72,8 +72,7 @@ public final class DashboardUI extends UI {
         solr.connect("http://localhost:8983/solr/test/");
         
 		try {
-			dbconn.connect("jdbc:mariadb://datahive.tk:3306/Hive", "daniel",
-					"password1");
+			dbconn.connect("jdbc:mariadb://localhost:3306/Hive", "daniel", "password1");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
