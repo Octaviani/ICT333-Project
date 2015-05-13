@@ -403,6 +403,7 @@
   <field name="application_name" type="strings"/>
   <field name="application_version" type="tdoubles"/>
   <field name="applicationextensions_applicationextension" type="strings"/>
+  <field name="appligent" type="strings"/>
   <field name="author" type="strings"/>
   <field name="character_count" type="tlongs"/>
   <field name="character_count_with_spaces" type="tlongs"/>
@@ -449,6 +450,7 @@
   <field name="generator" type="strings"/>
   <field name="graphiccontrolextension" type="strings"/>
   <field name="height" type="tlongs"/>
+  <field name="hive_uploaded_date" type="tdates" multiValued="false" indexed="true" required="true"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
   <field name="image_height" type="strings"/>
   <field name="image_width" type="strings"/>
@@ -487,6 +489,7 @@
   <field name="resourcename" type="strings"/>
   <field name="revision_number" type="tlongs"/>
   <field name="size" type="strings"/>
+  <field name="spdf" type="tdoubles"/>
   <field name="stream_content_type" type="strings"/>
   <field name="stream_name" type="strings" multiValued="false" indexed="true" required="true"/>
   <field name="stream_size" type="tlongs"/>
