@@ -419,7 +419,7 @@
   <field name="compression_type" type="strings"/>
   <field name="content" type="strings"/>
   <field name="content_encoding" type="strings"/>
-  <field name="content_type" type="strings"/>
+  <field name="content_type" type="strings" multiValued="false"/>
   <field name="cp_revision" type="tlongs"/>
   <field name="cp_subject" type="strings"/>
   <field name="created" type="strings"/>
@@ -455,9 +455,9 @@
   <field name="imagedescriptor" type="strings"/>
   <field name="keywords" type="strings"/>
   <field name="last_author" type="strings"/>
-  <field name="last_modified" type="tdates"/>
+  <field name="last_modified" type="tdates" multiValued="false"/>
   <field name="last_printed" type="tdates"/>
-  <field name="last_save_date" type="tdates"/>
+  <field name="last_save_date" type="tdates" multiValued="false"/>
   <field name="licensed_to" type="strings"/>
   <field name="line_count" type="tlongs"/>
   <field name="meta_author" type="strings"/>
