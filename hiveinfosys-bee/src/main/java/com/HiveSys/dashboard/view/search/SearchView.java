@@ -23,7 +23,7 @@ public class SearchView extends SearchLayout implements View {
 
 	public SearchView() {
 		this.tfSearch.setImmediate(true);
-		//this.panel.setSizeFull();
+		// this.panel.setSizeFull();
 
 		// handle enter key shortcut
 		ShortcutListener shortcut = new ShortcutListener("Enter",
@@ -46,7 +46,7 @@ public class SearchView extends SearchLayout implements View {
 			@Override
 			protected String getCss(Component c) {
 				if (c.getStyleName().contains("hellome")) {
-				//if (c instanceof Label) {
+					// if (c instanceof Label) {
 					// Color the boxes with random colors
 					int rgb = (int) (Math.random() * (1 << 24));
 					return "display:inline-block; width: #"
@@ -57,39 +57,47 @@ public class SearchView extends SearchLayout implements View {
 		};
 		csslayout.setSizeUndefined();
 		int nresults = docs.size();
+
+		Label labelResultSummary = new Label("About " + nresults
+				+ " results found <br><br>", ContentMode.HTML);
+		csslayout.addComponent(labelResultSummary);
+
 		for (int i = 0; i < nresults; i++) {
 
+			Object streamName = docs.get(i).getFieldValue("stream_name");
+			Object resourcepath = docs.get(i).getFieldValue("resourcename");
+
 			Object lastModified = docs.get(i).getFieldValue("last_modified");
+			Object contentType = docs.get(i).getFieldValue("content_type");
+
+			System.out.println(docs.get(i).toString());
 			if (lastModified != null) {
-				com.vaadin.ui.
-				CustomComponent hello = new CustomComponent();
-				hello.setCaption("<p>Fuck</p>");
-				
-				Link linkDocument = new Link("Hello.docs", new ExternalResource("http://www.google.com"));
-				Label lblDate = new Label(
-						"<span class='v-button-wrap'>" +
-						"<span class='v-button-caption'>" +
-						lastModified.toString() + "</span>" + "</span>",
-						ContentMode.HTML);
-				
-				lblDate.setStyleName("hellome");
-				Label lblDate2 = new Label(
-						"<span class='v-button-wrap'>" +
-						"<span class='v-button-caption'>" +
-						lastModified.toString() + "<br><br></span>" + "</span>",
-						ContentMode.HTML);
-				
-				lblDate.setStyleName("hellome");
+				Link linkDocument = new Link(streamName.toString(),
+						new ExternalResource(resourcepath.toString()));
+				linkDocument.setCaptionAsHtml(true);
+				linkDocument.setCaption("<h3>" + streamName.toString()
+						+ "</h3>");
+				Label labelLastModifiedDate = new Label(
+						"<span class='v-button-wrap'>"
+								+ "<span class='v-button-caption'>"
+								+ lastModified.toString() + "</span>"
+								+ "</span>", ContentMode.HTML);
+
+				labelLastModifiedDate.setStyleName("hellome");
+
+				Label labelContentType = new Label(contentType.toString()
+						+ "<br>", ContentMode.HTML);
+
+				labelLastModifiedDate.setStyleName("hellome");
 				csslayout.addComponent(linkDocument);
-				csslayout.addComponent(lblDate);
-				csslayout.addComponent(lblDate2);
-				csslayout.addComponent(hello);
+				csslayout.addComponent(labelLastModifiedDate);
+				csslayout.addComponent(labelContentType);
 			}
 		}
 		System.out.println("hello");
 
-		//panel.setWidth("300px");
-		//panel.setHeight("300px");
+		// panel.setWidth("300px");
+		// panel.setHeight("300px");
 		panel.setContent(csslayout);
 	}
 
