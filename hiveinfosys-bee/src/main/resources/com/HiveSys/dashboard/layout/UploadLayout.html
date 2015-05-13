@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;PAPER_WIDTH&quot;:1440,&quot;PAPER_HEIGHT&quot;:900,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;dashboard&quot;}">
+  <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;PAPER_WIDTH&quot;:460,&quot;PAPER_HEIGHT&quot;:528,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;dashboard&quot;}">
  </head> 
  <body> 
-  <v-absolute-layout> 
-   <v-form-layout width="796px" height="405px" margin="true" :top="245px" :left="335px"> 
-    <v-text-field caption="Title" width="360px" height="37px" _id="title"></v-text-field> 
-    <v-text-field caption="Author" _id="author"></v-text-field> 
-    <v-text-field caption="File Type" _id="fileType"></v-text-field> 
-    <v-text-field></v-text-field> 
-    <v-date-field caption="Date Created" _id="dateCreated"></v-date-field> 
-    <v-date-field caption="Date Modified" _id="dateModified"></v-date-field> 
-    <v-date-field caption="Date Uploaded" _id="dateUploaded"></v-date-field> 
-   </v-form-layout> 
-   <v-upload caption="Select Document to Upload" description="dssdfsdf" width-full="true" height="73px" _id="boxUpload" :top="95px" :right="862px" :left="335px"></v-upload> 
-  </v-absolute-layout>  
+  <v-panel size-full="true"> 
+   <v-vertical-layout size-auto="true"> 
+    <v-upload caption="Select Document to Analyze" description="Analyze" width-full="true" height="40px" _id="boxUpload"></v-upload> 
+    <v-text-field caption="Title" width="442px" _id="txtTitle"></v-text-field> 
+    <v-text-field caption="File Type" width="442px" _id="txtFileType"></v-text-field> 
+    <v-text-field caption="Author" width="442px" _id="txtAuthor"></v-text-field> 
+    <v-date-field caption="Date Created" width="442px" _id="txtDateCreated"></v-date-field> 
+    <v-date-field caption="Date Modified" width="442px" _id="txtDateModified"></v-date-field> 
+    <v-date-field caption="Date Uploaded" width="442px" _id="txtDateUploaded"></v-date-field> 
+   </v-vertical-layout> 
+  </v-panel>  
  </body>
 </html>

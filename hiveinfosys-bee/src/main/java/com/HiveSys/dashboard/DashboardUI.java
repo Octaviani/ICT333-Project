@@ -69,7 +69,7 @@ public final class DashboardUI extends UI {
 	protected void init(final VaadinRequest request) {
 		DatabaseConnection dbconn = DatabaseConnection.getDefault();
 		SolrConnection solr = SolrConnection.getDefault();
-        solr.connect("http://localhost:8983/solr/test/");
+        solr.connect("http://localhost:8983/solr/hive-solr-schema/");
         
 		try {
 			dbconn.connect("jdbc:mariadb://localhost:3306/Hive", "daniel", "password1");
