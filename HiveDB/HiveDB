@@ -1,0 +1,370 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.3.6
+-- Dumped by pg_dump version 9.3.6
+-- Started on 2015-05-03 03:55:28 AWST
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 174 (class 3079 OID 11787)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 1999 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 172 (class 1259 OID 16401)
+-- Name: Annotation; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "Annotation" (
+    "AnnotationID" numeric,
+    "DateCreated" date
+);
+
+
+ALTER TABLE public."Annotation" OWNER TO postgres;
+
+--
+-- TOC entry 2000 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: TABLE "Annotation"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE "Annotation" IS 'Entity that stores annotation details';
+
+
+--
+-- TOC entry 2001 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: COLUMN "Annotation"."AnnotationID"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "Annotation"."AnnotationID" IS 'Unique Identifier for annotations';
+
+
+--
+-- TOC entry 2002 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: COLUMN "Annotation"."DateCreated"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "Annotation"."DateCreated" IS 'Record of date that the annotation was made';
+
+
+--
+-- TOC entry 171 (class 1259 OID 16393)
+-- Name: File; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "File" (
+    "FileID" numeric NOT NULL,
+    "FileName" character varying,
+    "Tags" character varying,
+    "DateModified" date,
+    "DateUploaded" date,
+    "DateCreated" date,
+    "FileType" character(4),
+    "Author" character varying,
+    "FilePath" character varying
+);
+
+
+ALTER TABLE public."File" OWNER TO postgres;
+
+--
+-- TOC entry 2003 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: TABLE "File"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE "File" IS 'Entity that stores File related attributes; full-metadata';
+
+
+--
+-- TOC entry 2004 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: COLUMN "File"."FileName"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "File"."FileName" IS 'Name of the file';
+
+
+--
+-- TOC entry 2005 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: COLUMN "File"."Tags"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "File"."Tags" IS 'One-word type of description filled by the users. The tags are specified on a list of words with autocomplete';
+
+
+--
+-- TOC entry 2006 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: COLUMN "File"."DateModified"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "File"."DateModified" IS 'Record of the most recent update on the file';
+
+
+--
+-- TOC entry 2007 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: COLUMN "File"."DateUploaded"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "File"."DateUploaded" IS 'Record of File''s upload date ';
+
+
+--
+-- TOC entry 2008 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: COLUMN "File"."DateCreated"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "File"."DateCreated" IS 'Record of the file''s original creation date';
+
+
+--
+-- TOC entry 2009 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: COLUMN "File"."FileType"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "File"."FileType" IS 'Format Type of the File ';
+
+
+--
+-- TOC entry 2010 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: COLUMN "File"."Author"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "File"."Author" IS 'The username of the uploader of the file';
+
+
+--
+-- TOC entry 2011 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: COLUMN "File"."FilePath"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "File"."FilePath" IS 'The path specifies the path of the file''s location ';
+
+
+--
+-- TOC entry 173 (class 1259 OID 16407)
+-- Name: History; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "History" (
+    "RecordID" numeric NOT NULL,
+    "SearchDate" date,
+    "SearchedKW" character varying,
+    "Frequency" numeric,
+    "DateViewed" date
+);
+
+
+ALTER TABLE public."History" OWNER TO postgres;
+
+--
+-- TOC entry 2012 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: TABLE "History"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE "History" IS 'Entity that records user''s past searches and activity history';
+
+
+--
+-- TOC entry 2013 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: COLUMN "History"."RecordID"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "History"."RecordID" IS 'Unique identifier for each record of history; ranging from search to file access';
+
+
+--
+-- TOC entry 170 (class 1259 OID 16385)
+-- Name: User; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "User" (
+    "UserID" numeric NOT NULL,
+    "FirstName" character(35),
+    "LastName" character(35),
+    "PasswordHash" numeric,
+    "IsAdmin" boolean,
+    "Sensitivity" boolean,
+    "Email" character(1)
+);
+
+
+ALTER TABLE public."User" OWNER TO postgres;
+
+--
+-- TOC entry 2014 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: TABLE "User"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON TABLE "User" IS 'Tables to store user''s details, passwords and username';
+
+
+--
+-- TOC entry 2015 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: COLUMN "User"."UserID"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "User"."UserID" IS 'Combination of numeric values that consists of 8 characters';
+
+
+--
+-- TOC entry 2016 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: COLUMN "User"."IsAdmin"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "User"."IsAdmin" IS 'True or False';
+
+
+--
+-- TOC entry 2017 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: COLUMN "User"."Sensitivity"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "User"."Sensitivity" IS 'Sensitive Content: True or False';
+
+
+--
+-- TOC entry 1990 (class 0 OID 16401)
+-- Dependencies: 172
+-- Data for Name: Annotation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Annotation" ("AnnotationID", "DateCreated") FROM stdin;
+\.
+
+
+--
+-- TOC entry 1989 (class 0 OID 16393)
+-- Dependencies: 171
+-- Data for Name: File; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "File" ("FileID", "FileName", "Tags", "DateModified", "DateUploaded", "DateCreated", "FileType", "Author", "FilePath") FROM stdin;
+\.
+
+
+--
+-- TOC entry 1991 (class 0 OID 16407)
+-- Dependencies: 173
+-- Data for Name: History; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "History" ("RecordID", "SearchDate", "SearchedKW", "Frequency", "DateViewed") FROM stdin;
+\.
+
+
+--
+-- TOC entry 1988 (class 0 OID 16385)
+-- Dependencies: 170
+-- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "User" ("UserID", "FirstName", "LastName", "PasswordHash", "IsAdmin", "Sensitivity", "Email") FROM stdin;
+\.
+
+
+--
+-- TOC entry 1876 (class 2606 OID 16400)
+-- Name: FileID; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "File"
+    ADD CONSTRAINT "FileID" PRIMARY KEY ("FileID");
+
+
+--
+-- TOC entry 1878 (class 2606 OID 16414)
+-- Name: RecordID; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "History"
+    ADD CONSTRAINT "RecordID" PRIMARY KEY ("RecordID");
+
+
+--
+-- TOC entry 1874 (class 2606 OID 16392)
+-- Name: UserID; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "User"
+    ADD CONSTRAINT "UserID" PRIMARY KEY ("UserID");
+
+
+--
+-- TOC entry 1880 (class 2606 OID 16420)
+-- Name: FileID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "History"
+    ADD CONSTRAINT "FileID" FOREIGN KEY ("RecordID") REFERENCES "File"("FileID") ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 1879 (class 2606 OID 16415)
+-- Name: UserID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "History"
+    ADD CONSTRAINT "UserID" FOREIGN KEY ("RecordID") REFERENCES "User"("UserID") ON UPDATE CASCADE;
+
+
+--
+-- TOC entry 1998 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2015-05-03 03:55:29 AWST
+
+--
+-- PostgreSQL database dump complete
+--
+
