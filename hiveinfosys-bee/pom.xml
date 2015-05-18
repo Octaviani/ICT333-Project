@@ -13,7 +13,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jetty.plugin.version>9.2.3.v20140905</jetty.plugin.version>
-        <!-- Don't know why this is causing java.lang.ClassNotFoundException: com.HiveSys.dashboard.DashboardServlet -->
         <project.source.version>1.8</project.source.version>
         <project.target.version>1.8</project.target.version>
 
@@ -140,6 +139,13 @@
             <artifactId>mahout-core</artifactId>
             <version>0.9</version>
         </dependency>
+        
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-sql</artifactId>
+            <version>3.6.3</version>
+        </dependency>
+
 
 
         <!-- Fix the damn crash log -->
