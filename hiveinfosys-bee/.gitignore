@@ -1,4 +1,6 @@
 .*
+nb-configuration.xml
+hiveinfosys-bee.iml
 target/*
 movies.txt
 .settings
@@ -10,3 +12,5 @@ widgetsets/
 styles.css
 addons.scss
 rebel.xml
+/target/
+/target/
