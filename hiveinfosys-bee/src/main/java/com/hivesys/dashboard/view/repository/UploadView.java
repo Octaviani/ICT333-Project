@@ -160,7 +160,7 @@ public class UploadView extends Panel implements View {
 
     private Component buildFileInfoPanel(PluploadFile file) {
         FileInfoPanel fileToCommit = new FileInfoPanel(file);
-        filesToCommit.add(new FileInfoPanel(file));
+        filesToCommit.add(fileToCommit);
         Component panel = createContentWrapper(fileToCommit);
         panel.addStyleName("notes");
         return panel;
@@ -212,6 +212,9 @@ public class UploadView extends Panel implements View {
             @Override
             public void menuSelected(final MenuItem selectedItem) {
                 dashboardPanels.removeComponent(slot);
+                filesToCommit.remove((FileInfoPanel)content);
+                if (filesToCommit.size() == 0)
+                    init();
 
             }
         });
