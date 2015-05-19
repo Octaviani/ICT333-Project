@@ -3,6 +3,7 @@ package com.HiveSys.core;
 import com.HiveSys.dashboard.domain.FileInfo;
 import com.HiveSys.dashboard.view.repository.UploadView;
 import com.google.common.io.Files;
+import com.HiveSys.exception.ContentAlreadyExistException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -72,10 +73,10 @@ public class ContentStore {
         String newFilename = "<" + crcHash + ">" + oldFilename;
 
         File contentFile = new File(strContentFolder + File.separator + newFilename);
-        
+        System.out.println(contentFile);
         // already exists
         if (contentFile.exists())
-            throw new Exception("File Already Exists!");
+            throw new ContentAlreadyExistException("File Already Exists!");
         
         // copy from the temporary directory to the content folder
         Files.copy(new File(tmpFilepath), contentFile);
@@ -103,7 +104,7 @@ public class ContentStore {
         _dumpMetadata(filename, md);
 
         fileInfo.setAuthor(md.get("Author"));
-        fileInfo.setTitle(md.get("Title"));
+        fileInfo.setTitle(md.get("title"));
         fileInfo.setFiletype(md.get("Content-Type"));
 
         SimpleDateFormat dateFormatUTC = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -117,11 +118,6 @@ public class ContentStore {
         }
 
         return fileInfo;
-    }
-
-    private void storeFileToSolrIndex(FileInfo fileInfo)
-    {
-        
     }
 
     private void storeFileInfoToDatabase(FileInfo fileInfo) 

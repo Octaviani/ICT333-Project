@@ -13,6 +13,8 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.shared.ui.label.ContentMode;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UploadView extends Panel implements View {
 
@@ -23,8 +25,8 @@ public class UploadView extends Panel implements View {
     private VerticalLayout root;
     private CssLayout dashboardPanels;
     private Label labelTitle;
-    
-    ArrayList<FileInfoVC> filesToCommit;
+
+    ArrayList<FileInfoPanel> filesToCommit;
 
     public UploadView() {
         init();
@@ -33,7 +35,7 @@ public class UploadView extends Panel implements View {
     private void init() {
         // Initialize the font awesome icons addon pack
 
-        filesToCommit = new ArrayList<FileInfoVC>();
+        filesToCommit = new ArrayList<FileInfoPanel>();
         filesToCommit.clear();
         setContent(null);
         FontAwesome.load();
@@ -157,8 +159,8 @@ public class UploadView extends Panel implements View {
     }
 
     private Component buildFileInfoPanel(PluploadFile file) {
-        FileInfoVC fileToCommit = new FileInfoVC(file);
-        filesToCommit.add(new FileInfoVC(file));
+        FileInfoPanel fileToCommit = new FileInfoPanel(file);
+        filesToCommit.add(new FileInfoPanel(file));
         Component panel = createContentWrapper(fileToCommit);
         panel.addStyleName("notes");
         return panel;
@@ -242,8 +244,14 @@ public class UploadView extends Panel implements View {
     }
 
     private void commitFiles() {
-        this.filesToCommit.stream().forEach((f) -> {
-            System.out.println(f.mtxtTitle.getValue());
+        this.filesToCommit.stream().forEach((FileInfoPanel f) -> {
+            f.setDataToDomain();
+            try {
+                f.CommitChangesToDomain();
+            } catch (Exception error) {
+                Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nFile Already Exists",
+                        Notification.Type.ERROR_MESSAGE);
+            }
         });
     }
 
