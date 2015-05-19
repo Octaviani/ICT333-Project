@@ -1,102 +1,256 @@
 package com.HiveSys.dashboard.view.repository;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import pl.exsio.plupload.*;
+import pl.exsio.plupload.manager.PluploadManager;
 
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.tika.metadata.Metadata;
-
-import com.HiveSys.dashboard.layout.UploadLayout;
+import com.porotype.iconfont.FontAwesome;
+import com.porotype.iconfont.FontAwesome.Icon;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.Page;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.Upload.Receiver;
-import com.vaadin.ui.Upload.SucceededEvent;
-import com.vaadin.ui.Upload.SucceededListener;
-import com.HiveSys.core.SolrConnection;
+import com.vaadin.ui.*;
+import com.vaadin.ui.MenuBar.Command;
+import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.themes.ValoTheme;
+import com.vaadin.shared.ui.label.ContentMode;
+import java.util.ArrayList;
 
-public class UploadView extends UploadLayout implements View {
-	public static final String NAME = "UploadView";
+public class UploadView extends Panel implements View {
 
-	public UploadView() {
+    private static final long serialVersionUID = 1L;
+    public static final String NAME = "UploadView";
+    public static final String TITLE_ID = "dashboard-title";
 
-		// Set the handler to upload the files to the server first
-		class DocumentUploader implements Receiver, SucceededListener {
-			public File file;
+    private VerticalLayout root;
+    private CssLayout dashboardPanels;
+    private Label labelTitle;
+    
+    ArrayList<FileInfoVC> filesToCommit;
 
-			public OutputStream receiveUpload(String filename, String mimeType) {
-				// Create upload stream
-				FileOutputStream fos = null; // Stream to write to
-				try {
-					// Open the file for writing.
-					file = new File("/tmp/" + filename);
-					fos = new FileOutputStream(file);
-				} catch (final java.io.FileNotFoundException e) {
-					new Notification("Could not open file<br/>",
-							e.getMessage(), Notification.Type.ERROR_MESSAGE)
-							.show(Page.getCurrent());
-					return null;
-				}
-				return fos; // Return the output stream to write to
-			}
+    public UploadView() {
+        init();
+    }
 
-			public void uploadSucceeded(SucceededEvent event) {
-				// first extract the meta data
-				Metadata md = SolrConnection.getDefault().getMetaData(
-						file.getAbsolutePath());
-				fillForms(md);
-				/*
-				 * try {
-				 * SolrConnection.getDefault().indexFiles(file.getAbsolutePath
-				 * ()); } catch (IOException e) { // TODO Auto-generated catch
-				 * block e.printStackTrace(); } // Show the uploaded file in the
-				 * image viewer //image.setVisible(true); //image.setSource(new
-				 * FileResource(file));
-				 */
-			}
-		}
-		;
+    private void init() {
+        // Initialize the font awesome icons addon pack
 
-		DocumentUploader receiver = new DocumentUploader();
-		this.boxUpload.setReceiver(receiver);
-		this.boxUpload.addSucceededListener(receiver);
-		String currentDir = System.getProperty("user.dir");
+        filesToCommit = new ArrayList<FileInfoVC>();
+        filesToCommit.clear();
+        setContent(null);
+        FontAwesome.load();
+        addStyleName(ValoTheme.PANEL_BORDERLESS);
+        setSizeFull();
 
-		// SolrInputDocument sd = new SolrInputDocument()
+        root = new VerticalLayout();
+        root.setSizeFull();
+        root.setMargin(true);
+        root.addStyleName("dashboard-view");
+        setContent(root);
+        root.addComponent(buildHeader());
+        root.addComponent(buildSparklines());
+        Component content = buildContent();
+        root.addComponent(content);
+        root.setExpandRatio(content, 1);
+    }
 
-	}
+    private Component buildHeader() {
+        HorizontalLayout header = new HorizontalLayout();
+        header.addStyleName("viewheader");
+        header.setSpacing(true);
 
-	void fillForms(Metadata md) {
-		this.txtTitle.setValue(md.get("title"));
-		this.txtFileType.setValue(md.get("Content-Type"));
-		this.txtAuthor.setValue(md.get("Author"));
+        labelTitle = new Label("Uploads");
+        labelTitle.setId(TITLE_ID);
+        labelTitle.setSizeUndefined();
+        labelTitle.addStyleName(ValoTheme.LABEL_H1);
+        labelTitle.addStyleName(ValoTheme.LABEL_NO_MARGIN);
+        header.addComponent(labelTitle);
 
-		/*
-		 * date:2009-12-03T22:38:43Z pdf:PDFVersion:1.4
-		 * X-Parsed-By:org.apache.tika.parser.DefaultParser creator:ebaafi
-		 * xmp:CreatorTool:PScript5.dll Version 5.2.2 meta:author:ebaafi
-		 * meta:creation-date:2009-12-03T22:38:43Z created:Fri Dec 04 06:38:43
-		 * AWST 2009 dc:creator:ebaafi xmpTPg:NPages:36
-		 * Creation-Date:2009-12-03T22:38:43Z
-		 * dcterms:created:2009-12-03T22:38:43Z
-		 * Last-Modified:2009-12-03T22:38:43Z
-		 * dcterms:modified:2009-12-03T22:38:43Z dc:format:application/pdf;
-		 * version=1.4 title:Monograph 12_09.pdf
-		 * Last-Save-Date:2009-12-03T22:38:43Z
-		 * meta:save-date:2009-12-03T22:38:43Z pdf:encrypted:false
-		 * dc:title:Monograph 12_09.pdf Author:ebaafi producer:Acrobat Distiller
-		 * 7.0 (Windows) modified:2009-12-03T22:38:43Z
-		 * Content-Type:application/pdf
-		 */
-	}
+        return header;
+    }
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+    private Component buildSparklines() {
+        CssLayout sparks = new CssLayout();
+        sparks.addStyleName("sparks");
+        sparks.setWidth("100%");
 
-	}
+        return sparks;
+    }
+
+    private Component buildContent() {
+        dashboardPanels = new CssLayout();
+        dashboardPanels.addStyleName("dashboard-panels");
+
+        PluploadManager manager = new PluploadManager();
+        manager.setCaption("Please select files to analyse");
+        manager.getUploader().setMaxFileSize("100mb");
+        manager.getUploader().addFileUploadedListener(
+                new Plupload.FileUploadedListener() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void onFileUploaded(PluploadFile file) {
+                        //Notification.show("I've just uploaded file: " + file.getUploadedFile().toString());
+                        dashboardPanels.addComponent(buildFileInfoPanel(file));
+                        manager.getUploader().removeFile(file.getId());
+                    }
+                });
+
+        // handle errors
+        manager.getUploader().addErrorListener(new Plupload.ErrorListener() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void onError(PluploadError error) {
+                Notification.show("There was an error: " + error.getMessage()
+                        + " (" + error.getType() + ")",
+                        Notification.Type.ERROR_MESSAGE);
+            }
+        });
+
+        manager.getUploader().addUploadCompleteListener(
+                new Plupload.UploadCompleteListener() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void onUploadComplete() {
+                        Notification.show("Upload Complete!", Notification.Type.TRAY_NOTIFICATION);
+
+                        VerticalLayout parent = (VerticalLayout) manager.getParent();
+                        parent.removeComponent(manager);
+
+                        HorizontalLayout hLayout = new HorizontalLayout();
+                        Button btnCommit = new Button("Commit  " + Icon.ok_sign);
+                        btnCommit.setCaptionAsHtml(true);
+                        btnCommit.setStyleName(ValoTheme.BUTTON_FRIENDLY);
+                        btnCommit.addClickListener((Button.ClickEvent event) -> {
+                            commitFiles();
+                        });
+
+                        Button btnCancel = new Button("Cancel  " + Icon.remove_sign);
+                        btnCancel.setCaptionAsHtml(true);
+                        btnCancel.setStyleName(ValoTheme.BUTTON_DANGER);
+                        btnCancel.addClickListener((Button.ClickEvent event) -> {
+                            UploadView.this.init();
+                        });
+
+                        hLayout.addComponent(btnCommit);
+                        hLayout.addComponent(btnCancel);
+                        hLayout.setWidth("100%");
+                        hLayout.setComponentAlignment(btnCancel, Alignment.MIDDLE_RIGHT);
+                        parent.addComponent(hLayout);
+                        parent.addComponent(new Label("<br>", ContentMode.HTML));
+                    }
+                });
+
+        manager.setStartButtonCaption("Analyze files");
+        manager.setStopButtonCaption("Cancel");
+
+        final VerticalLayout vertLayout = new VerticalLayout();
+        vertLayout.setWidth("100%");
+        // vertLayout.setHeight("400px");
+
+        // Wrap the layout to allow handling drops
+        vertLayout.addComponent(manager);
+
+        dashboardPanels.addComponent(vertLayout);
+
+        return dashboardPanels;
+    }
+
+    private Component buildFileInfoPanel(PluploadFile file) {
+        FileInfoVC fileToCommit = new FileInfoVC(file);
+        filesToCommit.add(new FileInfoVC(file));
+        Component panel = createContentWrapper(fileToCommit);
+        panel.addStyleName("notes");
+        return panel;
+    }
+
+    private Component createContentWrapper(final Component content) {
+        final CssLayout slot = new CssLayout();
+        slot.setWidth("100%");
+        slot.addStyleName("dashboard-panel-slot");
+
+        CssLayout card = new CssLayout();
+        card.setWidth("100%");
+        card.addStyleName(ValoTheme.LAYOUT_CARD);
+        HorizontalLayout toolbar = new HorizontalLayout();
+        toolbar.addStyleName("dashboard-panel-toolbar");
+        toolbar.setWidth("100%");
+
+        Label caption = new Label(content.getCaption());
+        caption.addStyleName(ValoTheme.LABEL_H4);
+        caption.addStyleName(ValoTheme.LABEL_COLORED);
+        caption.addStyleName(ValoTheme.LABEL_NO_MARGIN);
+        content.setCaption(null);
+
+        MenuBar tools = new MenuBar();
+        tools.setHtmlContentAllowed(true);
+        tools.addStyleName(ValoTheme.MENUBAR_BORDERLESS);
+
+        MenuItem max = tools.addItem(Icon.resize_full.toString(), new Command() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void menuSelected(final MenuItem selectedItem) {
+                if (!slot.getStyleName().contains("max")) {
+                    selectedItem.setText(Icon.resize_small.toString());
+                    toggleMaximized(slot, true);
+                } else {
+                    slot.removeStyleName("max");
+                    selectedItem.setText(Icon.resize_full.toString());
+                    toggleMaximized(slot, false);
+                }
+            }
+
+        });
+        max.setStyleName("icon-only");
+
+        MenuItem close = tools.addItem("" + Icon.remove, new Command() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void menuSelected(final MenuItem selectedItem) {
+                dashboardPanels.removeComponent(slot);
+
+            }
+        });
+        close.setStyleName("icon-only");
+
+        toolbar.addComponents(caption, tools);
+        toolbar.setExpandRatio(caption, 1);
+        toolbar.setComponentAlignment(caption, Alignment.MIDDLE_LEFT);
+        card.addComponents(toolbar, content);
+        slot.addComponent(card);
+        return slot;
+    }
+
+    private void toggleMaximized(final Component panel, final boolean maximized) {
+        for (Component component : root) {
+            component.setVisible(!maximized);
+        }
+        dashboardPanels.setVisible(true);
+
+        for (Component c : dashboardPanels) {
+            c.setVisible(!maximized);
+        }
+
+        if (maximized) {
+            panel.setVisible(true);
+            panel.addStyleName("max");
+        } else {
+            panel.removeStyleName("max");
+        }
+    }
+
+    private void commitFiles() {
+        this.filesToCommit.stream().forEach((f) -> {
+            System.out.println(f.mtxtTitle.getValue());
+        });
+    }
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+
+    }
 
 }
