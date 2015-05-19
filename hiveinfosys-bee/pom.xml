@@ -140,11 +140,12 @@
             <version>0.9</version>
         </dependency>
         
-        <dependency>
+<!--        <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-sql</artifactId>
             <version>3.6.3</version>
         </dependency>
+-->
 
 
 
