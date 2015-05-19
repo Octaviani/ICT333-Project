@@ -4,17 +4,13 @@ import com.HiveSys.core.ContentStore;
 import com.HiveSys.dashboard.domain.FileInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import pl.exsio.plupload.PluploadFile;
 
 /**
  *
  * @author swoorup
  */
-public class FileInfoVC extends FormLayout {
+public class FileInfoPanel extends FormLayout {
 
     TextField mtxtTitle;
     TextField mtxtFileType;
@@ -23,30 +19,23 @@ public class FileInfoVC extends FormLayout {
     DateField mdateModified ;
     
     PluploadFile mfile;
+    FileInfo fInfo;
     
-    FileInfoVC(PluploadFile file)
+    FileInfoPanel(PluploadFile file)
+    {
+        initViewComponents();
+        initData(file);
+        
+    }
+    
+    private void initViewComponents()
     {
         mtxtTitle = new TextField("Title");
         mtxtFileType = new TextField("File Type");
         mtxtAuthor = new TextField("Author");
         mdateCreated = new DateField("Date Created");
         mdateModified = new DateField("Date Modified");
-        mfile = file;
         
-        this.setCaption(file.getName());
-        
-        FileInfo fInfo;
-        fInfo = new FileInfo();
-        ContentStore cs = new ContentStore();
-        fInfo = cs.parseFileInfoFromFile(file.getUploadedFile().toString(), fInfo);
-
-        mtxtTitle.setValue(file.getName());
-        mtxtFileType.setValue(fInfo.getFiletype());
-        mtxtAuthor.setValue(fInfo.getAuthor());
-        mdateModified.setValue((fInfo.getDateModified()));
-        mdateCreated.setValue(fInfo.getDateCreated());
-
-
         this.addComponent(mtxtTitle);
         this.addComponent(mtxtFileType);
         this.addComponent(mtxtAuthor);
@@ -64,9 +53,41 @@ public class FileInfoVC extends FormLayout {
         this.setSizeFull();
     }
     
-    public void CommitChangesToDomain()
+    private void initData(PluploadFile file)
     {
+        mfile = file;        
+        fInfo = new FileInfo();
         
+        String tmpFilePath = mfile.getUploadedFile().toString();
+        fInfo = ContentStore.getInstance().parseFileInfoFromFile(tmpFilePath, fInfo);
+        setDataFromDomain();
+    }
+    
+    private void setDataFromDomain()
+    {   
+        this.setCaption(mfile.getName());
+        
+        mtxtTitle.setValue(fInfo.getTitle());
+        mtxtFileType.setValue(fInfo.getFiletype());
+        mtxtAuthor.setValue(fInfo.getAuthor());
+        mdateModified.setValue((fInfo.getDateModified()));
+        mdateCreated.setValue(fInfo.getDateCreated());
+    }
+    
+    public void setDataToDomain()
+    {
+        fInfo.setTitle(mtxtTitle.getValue());
+        fInfo.setFiletype(mtxtFileType.getValue());
+        fInfo.setAuthor(mtxtAuthor.getValue());
+        fInfo.setDateModified(mdateModified.getValue());
+        fInfo.setDateCreated(mdateCreated.getValue());
+    }
+    
+    public void CommitChangesToDomain() throws Exception
+    {
+        String tmpFilePath = mfile.getUploadedFile().toString();
+        fInfo = ContentStore.getInstance().parseFileInfoFromFile(tmpFilePath, fInfo);
+        ContentStore.getInstance().storeFileToRepository(tmpFilePath, mfile.getName(), fInfo);
     }
     
     
