@@ -26,7 +26,7 @@ import org.apache.solr.common.util.ContentStreamBase.FileStream;
 
 public class SolrConnection {
 
-    private static SolrConnection singleton = new SolrConnection();
+    private static final SolrConnection singleton = new SolrConnection();
     private HttpSolrClient mHttpSolrClient = null;
     private String mUrl = "";
 
