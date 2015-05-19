@@ -104,7 +104,7 @@ public class SearchView extends SearchLayout implements View {
 	public void submitQuery() {
 		try {
 			SolrDocumentList doclist = null;
-			doclist = SolrConnection.getDefault().query(tfSearch.getValue());
+			doclist = SolrConnection.getInstance().query(tfSearch.getValue());
 
 			System.out.println("Number of Search results: " + doclist.size());
 			updateSearchResultsView(doclist);
