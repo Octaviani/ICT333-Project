@@ -43,128 +43,128 @@ import com.vaadin.ui.themes.ValoTheme;
 @SuppressWarnings("serial")
 public final class DashboardUI extends UI {
 
-	@WebServlet(value = {"/myui/*", "/VAADIN/*"}, asyncSupported = true)
+    @WebServlet(value = {"/myui/*", "/VAADIN/*"}, asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = com.HiveSys.dashboard.DashboardUI.class)
-	
-	//TODO: Add back filters
-	public static class DashboardServlet extends VaadinServlet {
 
-	    @Override
-	    protected final void servletInitialized() throws ServletException {
-	        super.servletInitialized();
-	        getService().addSessionInitListener(new DashboardSessionInitListener());
-	    }
-	}
-	
-	/*
-	 * This field stores an access to the dummy backend layer. In real
-	 * applications you most likely gain access to your beans trough lookup or
-	 * injection; and not in the UI but somewhere closer to where they're
-	 * actually accessed.
-	 */
-	private final DataProvider dataProvider = new DummyDataProvider();
-	private final DashboardEventBus dashboardEventbus = new DashboardEventBus();
+    //TODO: Add back filters
+    public static class DashboardServlet extends VaadinServlet {
 
-	@Override
-	protected void init(final VaadinRequest request) {
-		DatabaseConnection dbconn = DatabaseConnection.getDefault();
-		SolrConnection solr = SolrConnection.getDefault();
+        @Override
+        protected final void servletInitialized() throws ServletException {
+            super.servletInitialized();
+            getService().addSessionInitListener(new DashboardSessionInitListener());
+        }
+    }
+
+    /*
+     * This field stores an access to the dummy backend layer. In real
+     * applications you most likely gain access to your beans trough lookup or
+     * injection; and not in the UI but somewhere closer to where they're
+     * actually accessed.
+     */
+    private final DataProvider dataProvider = new DummyDataProvider();
+    private final DashboardEventBus dashboardEventbus = new DashboardEventBus();
+
+    @Override
+    protected void init(final VaadinRequest request) {
+        DatabaseConnection dbconn = DatabaseConnection.getInstance();
+        SolrConnection solr = SolrConnection.getInstance();
         solr.connect("http://localhost:8983/solr/hive-solr-schema/");
-        
-		try {
-			dbconn.connect("jdbc:mariadb://localhost:3306/Hive", "daniel", "password1");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		setLocale(Locale.US);
+        try {
+            dbconn.connect("jdbc:mariadb://localhost:3306/Hive", "daniel", "password1");
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            System.out.println("Cannot Connect to MariaDB server!");
+        }
 
-		DashboardEventBus.register(this);
-		Responsive.makeResponsive(this);
-		addStyleName(ValoTheme.UI_WITH_MENU);
+        setLocale(Locale.US);
 
-		updateContent();
+        DashboardEventBus.register(this);
+        Responsive.makeResponsive(this);
+        addStyleName(ValoTheme.UI_WITH_MENU);
+
+        updateContent();
 
 		// Some views need to be aware of browser resize events so a
-		// BrowserResizeEvent gets fired to the event bus on every occasion.
-		Page.getCurrent().addBrowserWindowResizeListener(
-				new BrowserWindowResizeListener() {
-					@Override
-					public void browserWindowResized(
-							final BrowserWindowResizeEvent event) {
-						DashboardEventBus.post(new BrowserResizeEvent());
-					}
-				});
-	}
+        // BrowserResizeEvent gets fired to the event bus on every occasion.
+        Page.getCurrent().addBrowserWindowResizeListener(
+                new BrowserWindowResizeListener() {
+                    @Override
+                    public void browserWindowResized(
+                            final BrowserWindowResizeEvent event) {
+                                DashboardEventBus.post(new BrowserResizeEvent());
+                            }
+                });
+    }
 
-	/**
-	 * Updates the correct content for this UI based on the current user status.
-	 * If the user is logged in with appropriate privileges, main view is shown.
-	 * Otherwise login view is shown.
-	 */
-	private void updateContent() {
-		User user = (User) VaadinSession.getCurrent().getAttribute(
-				User.class.getName());
-		if (user != null && "admin".equals(user.getRole())) {
-			// Authenticated user
-			setContent(new MainView());
-			removeStyleName("loginview");
-			getNavigator().navigateTo(getNavigator().getState());
-		} else {
-			setContent(new LoginView());
-			addStyleName("loginview");
-		}
-	}
+    /**
+     * Updates the correct content for this UI based on the current user status.
+     * If the user is logged in with appropriate privileges, main view is shown.
+     * Otherwise login view is shown.
+     */
+    private void updateContent() {
+        User user = (User) VaadinSession.getCurrent().getAttribute(
+                User.class.getName());
+        if (user != null && "admin".equals(user.getRole())) {
+            // Authenticated user
+            setContent(new MainView());
+            removeStyleName("loginview");
+            getNavigator().navigateTo(getNavigator().getState());
+        } else {
+            setContent(new LoginView());
+            addStyleName("loginview");
+        }
+    }
 
-	@Subscribe
-	public void userLoginRequested(final UserLoginRequestedEvent event) {
-		User user = null;
+    @Subscribe
+    public void userLoginRequested(final UserLoginRequestedEvent event) {
+        User user = null;
 
-		try {
-			user = getDataProvider().authenticate(event.getUserName(),
-					event.getPassword());
-		} catch (AccessControlException e) {
-			Notification notification = new Notification(
-					"Cannot authenticate the user.");
-			notification.setDelayMsec(5000);
-			notification
-					.setDescription("Either the username or the password is incorrect");
-			notification.setHtmlContentAllowed(true);
-			notification.setStyleName("tray dark small closable login-help");
-			notification.setPosition(Position.MIDDLE_CENTER);
-			notification.show(Page.getCurrent());
-			return;
-		}
+        try {
+            user = getDataProvider().authenticate(event.getUserName(),
+                    event.getPassword());
+        } catch (AccessControlException e) {
+            Notification notification = new Notification(
+                    "Cannot authenticate the user.");
+            notification.setDelayMsec(5000);
+            notification
+                    .setDescription("Either the username or the password is incorrect");
+            notification.setHtmlContentAllowed(true);
+            notification.setStyleName("tray dark small closable login-help");
+            notification.setPosition(Position.MIDDLE_CENTER);
+            notification.show(Page.getCurrent());
+            return;
+        }
 
-		VaadinSession.getCurrent().setAttribute(User.class.getName(), user);
-		updateContent();
-	}
+        VaadinSession.getCurrent().setAttribute(User.class.getName(), user);
+        updateContent();
+    }
 
-	@Subscribe
-	public void userLoggedOut(final UserLoggedOutEvent event) {
+    @Subscribe
+    public void userLoggedOut(final UserLoggedOutEvent event) {
 		// When the user logs out, current VaadinSession gets closed and the
-		// page gets reloaded on the login screen. Do notice the this doesn't
-		// invalidate the current HttpSession.
-		VaadinSession.getCurrent().close();
-		Page.getCurrent().reload();
-	}
+        // page gets reloaded on the login screen. Do notice the this doesn't
+        // invalidate the current HttpSession.
+        VaadinSession.getCurrent().close();
+        Page.getCurrent().reload();
+    }
 
-	@Subscribe
-	public void closeOpenWindows(final CloseOpenWindowsEvent event) {
-		for (Window window : getWindows()) {
-			window.close();
-		}
-	}
+    @Subscribe
+    public void closeOpenWindows(final CloseOpenWindowsEvent event) {
+        for (Window window : getWindows()) {
+            window.close();
+        }
+    }
 
-	/**
-	 * @return An instance for accessing the (dummy) services layer.
-	 */
-	public static DataProvider getDataProvider() {
-		return ((DashboardUI) getCurrent()).dataProvider;
-	}
+    /**
+     * @return An instance for accessing the (dummy) services layer.
+     */
+    public static DataProvider getDataProvider() {
+        return ((DashboardUI) getCurrent()).dataProvider;
+    }
 
-	public static DashboardEventBus getDashboardEventbus() {
-		return ((DashboardUI) getCurrent()).dashboardEventbus;
-	}
+    public static DashboardEventBus getDashboardEventbus() {
+        return ((DashboardUI) getCurrent()).dashboardEventbus;
+    }
 }

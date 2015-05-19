@@ -1,5 +1,6 @@
 package com.HiveSys.dashboard.data.dummy;
 
+import com.HiveSys.core.DatabaseConnection;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -27,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import com.HiveSys.core.StaticDatabaseConnection;
 import com.HiveSys.dashboard.data.DataProvider;
 import com.HiveSys.dashboard.domain.DashboardNotification;
 import com.HiveSys.dashboard.domain.Movie;
@@ -344,7 +344,7 @@ public class DummyDataProvider implements DataProvider {
     	System.out.println(passwordmd5hash.toString());
     	
 	    try {
-	    	Statement st = StaticDatabaseConnection.getDefault().getConnection().createStatement();
+	    	Statement st = DatabaseConnection.getInstance().getConnection().createStatement();
 	    	ResultSet rs = st.executeQuery("SELECT * FROM User WHERE UserName='" + userName + "' AND password='" +passwordmd5hash.toString() + "';");
 	    	if (!rs.next()) 
 		    {
