@@ -5,10 +5,24 @@
     <version>1.0</version>
     <properties>
         <querydsl.version>3.6.3</querydsl.version>
-        <derby.version>10.11.1.1</derby.version>
     </properties>
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>../hiveinfosys-bee/src/main/java/com/hivesys/database/domain/</directory>
+                            <includes>
+                                <include>*.java</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>com.mysema.querydsl</groupId>
                 <artifactId>querydsl-maven-plugin</artifactId>
@@ -20,25 +34,21 @@
                         </goals>
                     </execution>
                 </executions>
+                
                 <configuration>
                     <jdbcDriver>org.mariadb.jdbc.Driver</jdbcDriver>
                     <jdbcUrl>jdbc:mariadb://localhost:3306/Hive</jdbcUrl>
-                    <jdbcUser>Put your username here</jdbcUser>
-                    <jdbcPassword>Put your password here</jdbcPassword>
+                    <jdbcUser></jdbcUser>
+                    <jdbcPassword></jdbcPassword>
                     <packageName>com.hivesys.database.domain</packageName>
                     <targetFolder>../hiveinfosys-bee/src/main/java/</targetFolder>
                 </configuration>
+                
                 <dependencies>
                     <dependency>
-                        <groupId>org.apache.derby</groupId>
-                        <artifactId>derby</artifactId>
-                        <version>${derby.version}</version>
-                    </dependency>
-
-                    <dependency>
-                      <groupId>org.mariadb.jdbc</groupId>
-                      <artifactId>mariadb-java-client</artifactId>
-                      <version>1.1.8</version>
+                        <groupId>org.mariadb.jdbc</groupId>
+                        <artifactId>mariadb-java-client</artifactId>
+                        <version>1.1.8</version>
                     </dependency>
 
                 </dependencies>
