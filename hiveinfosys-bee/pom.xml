@@ -133,6 +133,7 @@
             <version>1.1.8</version>
         </dependency>
 
+
         <!-- Apache Mahout recommendation engine for solr -->
         <dependency>
             <groupId>org.apache.mahout</groupId>
@@ -145,19 +146,12 @@
             <artifactId>querydsl-sql</artifactId>
             <version>3.6.3</version>
         </dependency>
-
-
-
-
-
-        <!-- Fix the damn crash log -->
-        <!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
-        <version>1.7.7</version> </dependency> <dependency> <groupId>org.slf4j</groupId> 
-        <artifactId>slf4j-log4j12</artifactId> <version>1.7.7</version> </dependency> 
-        This part took ages to get it right. Be careful <dependency> <groupId>commons-logging</groupId> 
-        <artifactId>commons-logging</artifactId> <version>LATEST</version> </dependency> -->
-
-
+        
+        <dependency>
+            <groupId>com.box</groupId>
+            <artifactId>box-java-sdk</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -312,9 +306,7 @@
                                         <versionRange>[7.1.0,)</versionRange>
                                         <goals>
                                             <goal>resources</goal>
-                                            <goal>
-                                                update-widgetset
-                                            </goal>
+                                            <goal>update-widgetset</goal>
                                             <goal>compile-theme</goal>
                                             <goal>update-theme</goal>
                                         </goals>
