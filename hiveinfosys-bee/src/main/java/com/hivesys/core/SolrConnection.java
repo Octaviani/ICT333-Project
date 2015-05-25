@@ -30,7 +30,8 @@ public class SolrConnection {
     private HttpSolrClient mHttpSolrClient = null;
     private String mUrl = "";
 
-    SolrConnection() {
+    SolrConnection() 
+    {
     }
 
     public void connect(String serverUrl) {
@@ -61,10 +62,10 @@ public class SolrConnection {
         return this.mHttpSolrClient;
     }
 
-    public void indexFile(String filepath, FileInfo fileInfo) {
+    public void indexFile(FileInfo fInfo) {
         ContentStreamUpdateRequest req = new ContentStreamUpdateRequest("/update/extract");
 
-        ContentStreamBase.FileStream fs = new FileStream(new File(filepath));
+        ContentStreamBase.FileStream fs = new FileStream(new File(fInfo.getContentFilepath()));
         req.addContentStream(fs);
         req.setMethod(METHOD.POST);
 
@@ -72,16 +73,14 @@ public class SolrConnection {
         dateFormatUTC.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = new Date();
 
-        req.setParam("resource.name", filepath);
-        req.setParam("literal.id", fileInfo.getID());
+        req.setParam("resource.name", fInfo.getContentFilepath());
+        req.setParam("literal.id", fInfo.getFullFileName());
         req.setParam("literal.hive_uploaded_date", dateFormatUTC.format(date));
 
         try {
             UpdateResponse result = req.process(mHttpSolrClient);
             mHttpSolrClient.commit();
-        } catch (SolrServerException ex) {
-            Logger.getLogger(SolrConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SolrServerException | IOException ex) {
             Logger.getLogger(SolrConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -118,17 +117,13 @@ public class SolrConnection {
                 + "\n" + "\tFile Size: " + fs.getSize() + "\n"
                 + "\tContent Type: " + fs.getContentType() + "\n");
 
-        // req.setAction(AbstractUpdateRequest.ACTION.COMMIT, true, true);
         try {
+            // req.setAction(AbstractUpdateRequest.ACTION.COMMIT, true, true);
             UpdateResponse result = req.process(mHttpSolrClient);
-            mHttpSolrClient.commit();
-        } catch (SolrServerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            UpdateResponse commit = mHttpSolrClient.commit();
+        } catch (SolrServerException ex) {
+            Logger.getLogger(SolrConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        // System.out.println("Response from Solr: ");
-        // System.out.println(result.getResponse());
     }
 
     // return the default instance of the client

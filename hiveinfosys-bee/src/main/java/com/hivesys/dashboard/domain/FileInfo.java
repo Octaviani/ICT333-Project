@@ -5,6 +5,7 @@
  */
 package com.hivesys.dashboard.domain;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -14,32 +15,25 @@ import java.util.Date;
 public class FileInfo {
     private String contentFilepath;
     
-    private String filetype;
+    private String rootFileName;
+    private String fullFileName;
     private String title;
     private String description;
     private String Author;
+    private String crcHash;
     
     private Date dateCreated;
-    private Date dateModified;
+    private Date dateUploaded;
 
     /**
-     * @return the filepath
+     * @return the contentFilepath
      */
-    
-    public FileInfo() {
-        
-    }
-    
     public String getContentFilepath() {
         return contentFilepath;
     }
-    
-    public String getID() {
-        return contentFilepath;
-    }
 
     /**
-     * @param filepath the filepath to set
+     * @param contentFilepath the contentFilepath to set
      */
     public void setContentFilepath(String contentFilepath) {
         this.contentFilepath = contentFilepath;
@@ -88,6 +82,20 @@ public class FileInfo {
     }
 
     /**
+     * @return the crcHash
+     */
+    public String getCrcHash() {
+        return crcHash;
+    }
+
+    /**
+     * @param crcHash the crcHash to set
+     */
+    public void setCrcHash(String crcHash) {
+        this.crcHash = crcHash;
+    }
+
+    /**
      * @return the dateCreated
      */
     public Date getDateCreated() {
@@ -102,30 +110,45 @@ public class FileInfo {
     }
 
     /**
-     * @return the dateModified
+     * @return the dateUploaded
      */
-    public Date getDateModified() {
-        return dateModified;
+    public Date getDateUploaded() {
+        return dateUploaded;
     }
 
     /**
-     * @param dateModified the dateModified to set
+     * @param dateUploaded the dateUploaded to set
      */
-    public void setDateModified(Date dateModified) {
-        this.dateModified = dateModified;
+    public void setDateUploaded(Date dateUploaded) {
+        this.dateUploaded = dateUploaded;
     }
 
     /**
-     * @return the filetype
+     * @return the rootFileName
      */
-    public String getFiletype() {
-        return filetype;
+    public String getRootFileName() {
+        return rootFileName;
     }
 
     /**
-     * @param filetype the filetype to set
+     * @param rootFileName the rootFileName to set
      */
-    public void setFiletype(String filetype) {
-        this.filetype = filetype;
+    public void setRootFileName(String rootFileName) {
+        this.rootFileName = rootFileName;
     }
+
+    /**
+     * @return the fullFileName
+     */
+    public String getFullFileName() {
+        return fullFileName;
+    }
+
+    /**
+     * @param fullFileName the fullFileName to set
+     */
+    public void setFullFileName(String fullFileName) {
+        this.fullFileName = fullFileName;
+    }
+
 }

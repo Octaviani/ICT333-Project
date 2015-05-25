@@ -13,82 +13,75 @@ import pl.exsio.plupload.PluploadFile;
 public class FileInfoPanel extends FormLayout {
 
     TextField mtxtTitle;
-    TextField mtxtFileType;
-    TextField mtxtAuthor ;
-    DateField mdateCreated ;
-    DateField mdateModified ;
-    
+    TextField mtxtAuthor;
+    DateField mdateCreated;
+    DateField mdateUploaded;
+    TextArea mtxtDescription;
+    Label mPrevCopies;
+
     PluploadFile mfile;
     FileInfo fInfo;
-    
-    FileInfoPanel(PluploadFile file)
-    {
+
+    FileInfoPanel(PluploadFile file) {
         initViewComponents();
         initData(file);
-        
+
     }
-    
-    private void initViewComponents()
-    {
+
+    private void initViewComponents() {
         mtxtTitle = new TextField("Title");
-        mtxtFileType = new TextField("File Type");
         mtxtAuthor = new TextField("Author");
         mdateCreated = new DateField("Date Created");
-        mdateModified = new DateField("Date Modified");
+        mdateUploaded = new DateField("Date Uploaded");
+        mPrevCopies = new Label("Previous Copies");
+        mtxtDescription = new TextArea("Brief Description");
         
+
         this.addComponent(mtxtTitle);
-        this.addComponent(mtxtFileType);
         this.addComponent(mtxtAuthor);
         this.addComponent(mdateCreated);
-        this.addComponent(mdateModified);
-        //this.addComponent(dateUploaded);
+        this.addComponent(mdateUploaded);
+        this.addComponent(mtxtDescription);
+        this.addComponent(mPrevCopies);
         this.setComponentAlignment(mtxtTitle, Alignment.TOP_CENTER);
-        this.setComponentAlignment(mtxtFileType, Alignment.TOP_CENTER);
         this.setComponentAlignment(mtxtAuthor, Alignment.TOP_CENTER);
         this.setComponentAlignment(mdateCreated, Alignment.TOP_CENTER);
-        this.setComponentAlignment(mdateModified, Alignment.TOP_CENTER);
-        //this.setComponentAlignment(dateUploaded, Alignment.TOP_CENTER);
+        this.setComponentAlignment(mdateUploaded, Alignment.TOP_CENTER);
+        this.setComponentAlignment(mPrevCopies, Alignment.TOP_CENTER);
+        this.setComponentAlignment(mtxtDescription, Alignment.TOP_CENTER);
 
         this.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
         this.setSizeFull();
     }
-    
-    private void initData(PluploadFile file)
-    {
-        mfile = file;        
+
+    private void initData(PluploadFile file) {
+        mfile = file;
         fInfo = new FileInfo();
-        
+
         String tmpFilePath = mfile.getUploadedFile().toString();
+        fInfo.setRootFileName(mfile.getName());
         fInfo = ContentStore.getInstance().parseFileInfoFromFile(tmpFilePath, fInfo);
         setDataFromDomain();
     }
-    
-    private void setDataFromDomain()
-    {   
+
+    private void setDataFromDomain() {
         this.setCaption(mfile.getName());
-        
+
         mtxtTitle.setValue(fInfo.getTitle());
-        mtxtFileType.setValue(fInfo.getFiletype());
         mtxtAuthor.setValue(fInfo.getAuthor());
-        mdateModified.setValue((fInfo.getDateModified()));
         mdateCreated.setValue(fInfo.getDateCreated());
     }
-    
-    public void setDataToDomain()
-    {
+
+    public void setDataToDomain() {
         fInfo.setTitle(mtxtTitle.getValue());
-        fInfo.setFiletype(mtxtFileType.getValue());
         fInfo.setAuthor(mtxtAuthor.getValue());
-        fInfo.setDateModified(mdateModified.getValue());
         fInfo.setDateCreated(mdateCreated.getValue());
+        fInfo.setDescription(mtxtDescription.getValue());
     }
-    
-    public void CommitChangesToDomain() throws Exception
-    {
+
+    public void CommitChangesToDomain() throws Exception {
         String tmpFilePath = mfile.getUploadedFile().toString();
-        fInfo = ContentStore.getInstance().parseFileInfoFromFile(tmpFilePath, fInfo);
-        ContentStore.getInstance().storeFileToRepository(tmpFilePath, mfile.getName(), fInfo);
+        ContentStore.getInstance().storeFileToRepository(tmpFilePath, fInfo);
     }
-    
-    
+
 }

@@ -1,5 +1,6 @@
 package com.hivesys.dashboard.view.repository;
 
+import com.hivesys.exception.ContentAlreadyExistException;
 import pl.exsio.plupload.*;
 import pl.exsio.plupload.manager.PluploadManager;
 
@@ -16,9 +17,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@SuppressWarnings("serial")
 public class UploadView extends Panel implements View {
-
-    private static final long serialVersionUID = 1L;
     public static final String NAME = "UploadView";
     public static final String TITLE_ID = "dashboard-title";
 
@@ -35,7 +35,7 @@ public class UploadView extends Panel implements View {
     private void init() {
         // Initialize the font awesome icons addon pack
 
-        filesToCommit = new ArrayList<FileInfoPanel>();
+        filesToCommit = new ArrayList<>();
         filesToCommit.clear();
         setContent(null);
         FontAwesome.load();
@@ -86,8 +86,6 @@ public class UploadView extends Panel implements View {
         manager.getUploader().setMaxFileSize("100mb");
         manager.getUploader().addFileUploadedListener(
                 new Plupload.FileUploadedListener() {
-                    private static final long serialVersionUID = 1L;
-
                     @Override
                     public void onFileUploaded(PluploadFile file) {
                         //Notification.show("I've just uploaded file: " + file.getUploadedFile().toString());
@@ -98,7 +96,6 @@ public class UploadView extends Panel implements View {
 
         // handle errors
         manager.getUploader().addErrorListener(new Plupload.ErrorListener() {
-            private static final long serialVersionUID = 1L;
 
             @Override
             public void onError(PluploadError error) {
@@ -110,7 +107,6 @@ public class UploadView extends Panel implements View {
 
         manager.getUploader().addUploadCompleteListener(
                 new Plupload.UploadCompleteListener() {
-                    private static final long serialVersionUID = 1L;
 
                     @Override
                     public void onUploadComplete() {
@@ -189,7 +185,6 @@ public class UploadView extends Panel implements View {
         tools.addStyleName(ValoTheme.MENUBAR_BORDERLESS);
 
         MenuItem max = tools.addItem(Icon.resize_full.toString(), new Command() {
-            private static final long serialVersionUID = 1L;
 
             @Override
             public void menuSelected(final MenuItem selectedItem) {
@@ -207,14 +202,14 @@ public class UploadView extends Panel implements View {
         max.setStyleName("icon-only");
 
         MenuItem close = tools.addItem("" + Icon.remove, new Command() {
-            private static final long serialVersionUID = 1L;
 
             @Override
             public void menuSelected(final MenuItem selectedItem) {
                 dashboardPanels.removeComponent(slot);
-                filesToCommit.remove((FileInfoPanel)content);
-                if (filesToCommit.size() == 0)
+                filesToCommit.remove((FileInfoPanel) content);
+                if (filesToCommit.isEmpty()) {
                     init();
+                }
 
             }
         });
@@ -251,11 +246,16 @@ public class UploadView extends Panel implements View {
             f.setDataToDomain();
             try {
                 f.CommitChangesToDomain();
-            } catch (Exception error) {
+            } catch (ContentAlreadyExistException error) {
                 Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nFile Already Exists",
                         Notification.Type.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                Logger.getLogger(UploadView.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+
+        Notification.show("All files has successfully been commited!", Notification.Type.TRAY_NOTIFICATION);
+        init();
     }
 
     @Override

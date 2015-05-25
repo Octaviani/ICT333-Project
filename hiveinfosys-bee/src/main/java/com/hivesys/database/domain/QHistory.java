@@ -34,6 +34,8 @@ public class QHistory extends com.mysema.query.sql.RelationalPathBase<QHistory> 
 
     public final com.mysema.query.sql.PrimaryKey<QHistory> historyPK = createPrimaryKey(id);
 
+    public final com.mysema.query.sql.ForeignKey<QUser> userFk = createForeignKey(userId, "ID");
+
     public QHistory(String variable) {
         super(QHistory.class, forVariable(variable), "null", "History");
         addMetadata();
@@ -55,8 +57,8 @@ public class QHistory extends com.mysema.query.sql.RelationalPathBase<QHistory> 
     }
 
     public void addMetadata() {
-        addMetadata(id, ColumnMetadata.named("id").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
-        addMetadata(keyword, ColumnMetadata.named("Keyword").withIndex(3).ofType(Types.VARCHAR).withSize(100).notNull());
+        addMetadata(id, ColumnMetadata.named("ID").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
+        addMetadata(keyword, ColumnMetadata.named("Keyword").withIndex(3).ofType(Types.LONGVARCHAR).withSize(65535));
         addMetadata(searchDate, ColumnMetadata.named("SearchDate").withIndex(2).ofType(Types.TIMESTAMP).withSize(19).notNull());
         addMetadata(userId, ColumnMetadata.named("UserId").withIndex(4).ofType(Types.INTEGER).withSize(10).notNull());
     }

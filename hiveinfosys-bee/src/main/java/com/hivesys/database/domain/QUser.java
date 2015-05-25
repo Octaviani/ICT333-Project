@@ -26,9 +26,13 @@ public class QUser extends com.mysema.query.sql.RelationalPathBase<QUser> {
 
     public final BooleanPath admin = createBoolean("admin");
 
+    public final StringPath bio = createString("bio");
+
     public final StringPath email = createString("email");
 
     public final StringPath firstName = createString("firstName");
+
+    public final BooleanPath gender = createBoolean("gender");
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
@@ -36,13 +40,29 @@ public class QUser extends com.mysema.query.sql.RelationalPathBase<QUser> {
 
     public final StringPath lastName = createString("lastName");
 
-    public final StringPath password = createString("password");
+    public final StringPath location = createString("location");
+
+    public final StringPath pword = createString("pword");
+
+    public final StringPath role = createString("role");
 
     public final BooleanPath sensitiv = createBoolean("sensitiv");
 
-    public final StringPath userName = createString("userName");
+    public final NumberPath<Integer> telephone = createNumber("telephone", Integer.class);
+
+    public final StringPath title = createString("title");
+
+    public final StringPath website = createString("website");
 
     public final com.mysema.query.sql.PrimaryKey<QUser> userPK = createPrimaryKey(id);
+
+    public final com.mysema.query.sql.ForeignKey<QHistory> _userFk = createInvForeignKey(id, "UserId");
+
+    public final com.mysema.query.sql.ForeignKey<QViewHistory> _userViewFK = createInvForeignKey(id, "UserId");
+
+    public final com.mysema.query.sql.ForeignKey<QAnnotation> _userAnnoFk = createInvForeignKey(id, "UserId");
+
+    public final com.mysema.query.sql.ForeignKey<QVersionInfo> _userFileFK = createInvForeignKey(id, "UserId");
 
     public QUser(String variable) {
         super(QUser.class, forVariable(variable), "null", "User");
@@ -66,14 +86,20 @@ public class QUser extends com.mysema.query.sql.RelationalPathBase<QUser> {
 
     public void addMetadata() {
         addMetadata(admin, ColumnMetadata.named("Admin").withIndex(5).ofType(Types.BIT).withSize(3));
-        addMetadata(email, ColumnMetadata.named("Email").withIndex(7).ofType(Types.VARCHAR).withSize(200));
-        addMetadata(firstName, ColumnMetadata.named("FirstName").withIndex(2).ofType(Types.CHAR).withSize(50).notNull());
-        addMetadata(id, ColumnMetadata.named("id").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
+        addMetadata(bio, ColumnMetadata.named("Bio").withIndex(15).ofType(Types.LONGVARCHAR).withSize(65535));
+        addMetadata(email, ColumnMetadata.named("Email").withIndex(7).ofType(Types.VARCHAR).withSize(1024));
+        addMetadata(firstName, ColumnMetadata.named("FirstName").withIndex(2).ofType(Types.CHAR).withSize(255));
+        addMetadata(gender, ColumnMetadata.named("Gender").withIndex(11).ofType(Types.BIT).withSize(3));
+        addMetadata(id, ColumnMetadata.named("ID").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(lastLogin, ColumnMetadata.named("LastLogin").withIndex(8).ofType(Types.TIMESTAMP).withSize(19));
-        addMetadata(lastName, ColumnMetadata.named("LastName").withIndex(3).ofType(Types.CHAR).withSize(50).notNull());
-        addMetadata(password, ColumnMetadata.named("Password").withIndex(4).ofType(Types.VARCHAR).withSize(100).notNull());
+        addMetadata(lastName, ColumnMetadata.named("LastName").withIndex(3).ofType(Types.VARCHAR).withSize(1024));
+        addMetadata(location, ColumnMetadata.named("Location").withIndex(12).ofType(Types.CHAR).withSize(255));
+        addMetadata(pword, ColumnMetadata.named("Pword").withIndex(4).ofType(Types.VARCHAR).withSize(100).notNull());
+        addMetadata(role, ColumnMetadata.named("Role").withIndex(9).ofType(Types.CHAR).withSize(255));
         addMetadata(sensitiv, ColumnMetadata.named("Sensitiv").withIndex(6).ofType(Types.BIT).withSize(3));
-        addMetadata(userName, ColumnMetadata.named("UserName").withIndex(9).ofType(Types.VARCHAR).withSize(45).notNull());
+        addMetadata(telephone, ColumnMetadata.named("Telephone").withIndex(13).ofType(Types.INTEGER).withSize(10));
+        addMetadata(title, ColumnMetadata.named("Title").withIndex(10).ofType(Types.CHAR).withSize(4));
+        addMetadata(website, ColumnMetadata.named("Website").withIndex(14).ofType(Types.VARCHAR).withSize(1024));
     }
 
 }

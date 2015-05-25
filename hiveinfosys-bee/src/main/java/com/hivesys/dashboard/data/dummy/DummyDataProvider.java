@@ -1,6 +1,6 @@
 package com.hivesys.dashboard.data.dummy;
 
-import com.hivesys.core.DatabaseConnection;
+import com.hivesys.core.DatabaseSource;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -344,7 +344,7 @@ public class DummyDataProvider implements DataProvider {
     	System.out.println(passwordmd5hash.toString());
     	
 	    try {
-	    	Statement st = DatabaseConnection.getInstance().getConnection().createStatement();
+	    	Statement st = DatabaseSource.getInstance().getConnection().createStatement();
 	    	ResultSet rs = st.executeQuery("SELECT * FROM User WHERE UserName='" + userName + "' AND password='" +passwordmd5hash.toString() + "';");
 	    	if (!rs.next()) 
 		    {

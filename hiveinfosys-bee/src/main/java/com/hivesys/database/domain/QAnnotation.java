@@ -36,6 +36,10 @@ public class QAnnotation extends com.mysema.query.sql.RelationalPathBase<QAnnota
 
     public final com.mysema.query.sql.PrimaryKey<QAnnotation> annotationPK = createPrimaryKey(id);
 
+    public final com.mysema.query.sql.ForeignKey<QUser> userAnnoFk = createForeignKey(userId, "ID");
+
+    public final com.mysema.query.sql.ForeignKey<QVersionInfo> fileAnnoFk = createForeignKey(fileId, "ID");
+
     public QAnnotation(String variable) {
         super(QAnnotation.class, forVariable(variable), "null", "Annotation");
         addMetadata();
@@ -60,7 +64,7 @@ public class QAnnotation extends com.mysema.query.sql.RelationalPathBase<QAnnota
         addMetadata(createdDate, ColumnMetadata.named("CreatedDate").withIndex(2).ofType(Types.TIMESTAMP).withSize(19).notNull());
         addMetadata(fileId, ColumnMetadata.named("FileId").withIndex(3).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(fileName, ColumnMetadata.named("FileName").withIndex(5).ofType(Types.VARCHAR).withSize(100));
-        addMetadata(id, ColumnMetadata.named("id").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
+        addMetadata(id, ColumnMetadata.named("ID").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(userId, ColumnMetadata.named("UserId").withIndex(4).ofType(Types.INTEGER).withSize(10).notNull());
     }
 

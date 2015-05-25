@@ -34,6 +34,10 @@ public class QViewHistory extends com.mysema.query.sql.RelationalPathBase<QViewH
 
     public final com.mysema.query.sql.PrimaryKey<QViewHistory> viewHistoryPK = createPrimaryKey(id);
 
+    public final com.mysema.query.sql.ForeignKey<QUser> userViewFK = createForeignKey(userId, "ID");
+
+    public final com.mysema.query.sql.ForeignKey<QVersionInfo> fileViewFk = createForeignKey(fileId, "ID");
+
     public QViewHistory(String variable) {
         super(QViewHistory.class, forVariable(variable), "null", "ViewHistory");
         addMetadata();
@@ -57,7 +61,7 @@ public class QViewHistory extends com.mysema.query.sql.RelationalPathBase<QViewH
     public void addMetadata() {
         addMetadata(dateViewed, ColumnMetadata.named("DateViewed").withIndex(2).ofType(Types.TIMESTAMP).withSize(19).notNull());
         addMetadata(fileId, ColumnMetadata.named("FileId").withIndex(4).ofType(Types.INTEGER).withSize(10));
-        addMetadata(id, ColumnMetadata.named("id").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
+        addMetadata(id, ColumnMetadata.named("ID").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(userId, ColumnMetadata.named("UserId").withIndex(3).ofType(Types.INTEGER).withSize(10).notNull());
     }
 

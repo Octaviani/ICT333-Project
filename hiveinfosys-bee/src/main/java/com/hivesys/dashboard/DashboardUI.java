@@ -7,7 +7,7 @@ import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-import com.hivesys.core.DatabaseConnection;
+import com.hivesys.core.DatabaseSource;
 import com.hivesys.core.SolrConnection;
 import com.hivesys.dashboard.data.DataProvider;
 import com.hivesys.dashboard.data.dummy.DummyDataProvider;
@@ -67,17 +67,6 @@ public final class DashboardUI extends UI {
 
     @Override
     protected void init(final VaadinRequest request) {
-        DatabaseConnection dbconn = DatabaseConnection.getInstance();
-        SolrConnection solr = SolrConnection.getInstance();
-        solr.connect("http://localhost:8983/solr/hive-solr-schema/");
-
-        try {
-            dbconn.connect("jdbc:mariadb://localhost:3306/Hive", "daniel", "password1");
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            System.out.println("Cannot Connect to MariaDB server!");
-        }
-
         setLocale(Locale.US);
 
         DashboardEventBus.register(this);

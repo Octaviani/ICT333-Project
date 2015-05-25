@@ -427,6 +427,8 @@
   <field name="creation_date" type="tdates"/>
   <field name="creator" type="strings"/>
   <field name="custom_ksoproductbuildver" type="strings"/>
+  <field name="data_bitspersample" type="strings"/>
+  <field name="data_planarconfiguration" type="strings"/>
   <field name="data_precision" type="strings"/>
   <field name="data_sampleformat" type="strings"/>
   <field name="date" type="tdates"/>
@@ -440,8 +442,11 @@
   <field name="dcterms_modified" type="tdates"/>
   <field name="description" type="strings"/>
   <field name="dimension_horizontalpixeloffset" type="tlongs"/>
+  <field name="dimension_horizontalpixelsize" type="tdoubles"/>
   <field name="dimension_imageorientation" type="strings"/>
+  <field name="dimension_pixelaspectratio" type="tdoubles"/>
   <field name="dimension_verticalpixeloffset" type="tlongs"/>
+  <field name="dimension_verticalpixelsize" type="tdoubles"/>
   <field name="extended_properties_application" type="strings"/>
   <field name="extended_properties_appversion" type="tdoubles"/>
   <field name="extended_properties_company" type="strings"/>
@@ -452,6 +457,7 @@
   <field name="height" type="tlongs"/>
   <field name="hive_uploaded_date" type="tdates" multiValued="false" indexed="true" required="true"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+  <field name="ihdr" type="strings"/>
   <field name="image_height" type="strings"/>
   <field name="image_width" type="strings"/>
   <field name="imagedescriptor" type="strings"/>
@@ -483,6 +489,7 @@
   <field name="pdf_encrypted" type="booleans"/>
   <field name="pdf_pdfextensionversion" type="strings"/>
   <field name="pdf_pdfversion" type="tdoubles"/>
+  <field name="phys" type="strings"/>
   <field name="producer" type="strings"/>
   <field name="publisher" type="strings"/>
   <field name="resolution_units" type="strings"/>
@@ -502,6 +509,7 @@
   <field name="tiff_imagewidth" type="tlongs"/>
   <field name="title" type="strings"/>
   <field name="total_time" type="tlongs"/>
+  <field name="transparency_alpha" type="strings"/>
   <field name="transparency_transparentindex" type="tlongs"/>
   <field name="trapped" type="booleans"/>
   <field name="viewport" type="strings"/>

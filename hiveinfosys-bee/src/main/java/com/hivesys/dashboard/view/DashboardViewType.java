@@ -2,6 +2,7 @@ package com.hivesys.dashboard.view;
 
 import com.hivesys.dashboard.view.dashboard.DashboardView;
 import com.hivesys.dashboard.view.reports.ReportsView;
+import com.hivesys.dashboard.view.repository.RepositoryView;
 import com.hivesys.dashboard.view.repository.UploadView;
 import com.hivesys.dashboard.view.schedule.ScheduleView;
 import com.hivesys.dashboard.view.search.SearchView;
@@ -16,8 +17,8 @@ public enum DashboardViewType {
     SEARCH("search", SearchView.class, FontAwesome.SEARCH, false),
     UPLOAD("upload", UploadView.class, FontAwesome.UPLOAD, false),
     REPORTS( "reports", ReportsView.class, FontAwesome.FILE_TEXT_O, true), 
-    //SALES("sales", SalesView.class, FontAwesome.BAR_CHART_O, false), 
     TRANSACTIONS( "transactions", TransactionsView.class, FontAwesome.TABLE, false), 
+    REPOSITORY("repository", RepositoryView.class, FontAwesome.ARCHIVE, false),
     //
     SCHEDULE( "schedule", ScheduleView.class, FontAwesome.CALENDAR_O, false);
 ;
