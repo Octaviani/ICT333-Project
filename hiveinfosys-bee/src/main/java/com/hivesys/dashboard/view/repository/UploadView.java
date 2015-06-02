@@ -4,21 +4,25 @@ import com.hivesys.exception.ContentAlreadyExistException;
 import pl.exsio.plupload.*;
 import pl.exsio.plupload.manager.PluploadManager;
 
-import com.porotype.iconfont.FontAwesome;
 import com.porotype.iconfont.FontAwesome.Icon;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.StreamResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.shared.ui.label.ContentMode;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
 public class UploadView extends Panel implements View {
+
     public static final String NAME = "UploadView";
     public static final String TITLE_ID = "dashboard-title";
 
@@ -38,7 +42,7 @@ public class UploadView extends Panel implements View {
         filesToCommit = new ArrayList<>();
         filesToCommit.clear();
         setContent(null);
-        FontAwesome.load();
+
         addStyleName(ValoTheme.PANEL_BORDERLESS);
         setSizeFull();
 
@@ -47,19 +51,19 @@ public class UploadView extends Panel implements View {
         root.setMargin(true);
         root.addStyleName("dashboard-view");
         setContent(root);
-        root.addComponent(buildHeader());
+        root.addComponent(buildHeader("Uploads"));
         root.addComponent(buildSparklines());
         Component content = buildContent();
         root.addComponent(content);
         root.setExpandRatio(content, 1);
     }
 
-    private Component buildHeader() {
+    private Component buildHeader(String headername) {
         HorizontalLayout header = new HorizontalLayout();
         header.addStyleName("viewheader");
         header.setSpacing(true);
 
-        labelTitle = new Label("Uploads");
+        labelTitle = new Label(headername);
         labelTitle.setId(TITLE_ID);
         labelTitle.setSizeUndefined();
         labelTitle.addStyleName(ValoTheme.LABEL_H1);
@@ -84,71 +88,100 @@ public class UploadView extends Panel implements View {
         PluploadManager manager = new PluploadManager();
         manager.setCaption("Please select files to analyse");
         manager.getUploader().setMaxFileSize("100mb");
-        manager.getUploader().addFileUploadedListener(
-                new Plupload.FileUploadedListener() {
-                    @Override
-                    public void onFileUploaded(PluploadFile file) {
-                        //Notification.show("I've just uploaded file: " + file.getUploadedFile().toString());
-                        dashboardPanels.addComponent(buildFileInfoPanel(file));
-                        manager.getUploader().removeFile(file.getId());
-                    }
-                });
 
-        // handle errors
-        manager.getUploader().addErrorListener(new Plupload.ErrorListener() {
+        ProgressBar progress = new ProgressBar();
+        progress.setIndeterminate(true);
+        progress.setVisible(false);
 
-            @Override
-            public void onError(PluploadError error) {
-                Notification.show("There was an error: " + error.getMessage()
-                        + " (" + error.getType() + ")",
-                        Notification.Type.ERROR_MESSAGE);
-            }
+        manager.getUploader().addFileUploadedListener((PluploadFile file) -> {
+            dashboardPanels.addComponent(buildFileInfoPanel(file));
+            manager.getUploader().removeFile(file.getId());
         });
 
-        manager.getUploader().addUploadCompleteListener(
-                new Plupload.UploadCompleteListener() {
+        // handle errors
+        manager.getUploader().addErrorListener((PluploadError error) -> {
+            Notification.show("There was an error: " + error.getMessage()
+                    + " (" + error.getType() + ")",
+                    Notification.Type.ERROR_MESSAGE);
+        });
 
-                    @Override
-                    public void onUploadComplete() {
-                        Notification.show("Upload Complete!", Notification.Type.TRAY_NOTIFICATION);
+        manager.getUploader().addUploadCompleteListener(() -> {
+            Notification.show("Upload Complete!", Notification.Type.TRAY_NOTIFICATION);
+            VerticalLayout parent1 = (VerticalLayout) manager.getParent();
+            parent1.removeComponent(manager);
+            Button btnCommit = new Button("Commit  " + Icon.ok_sign);
+            btnCommit.setWidth("100%");
+            //btnCommit.setHtmlContentAllowed(true);
+            btnCommit.setHtmlContentAllowed(true);
+            btnCommit.setStyleName(ValoTheme.BUTTON_FRIENDLY);
+            btnCommit.addClickListener((Button.ClickEvent event) -> {
+                commitFiles();
+            });
+            Button btnCancel = new Button("Cancel  " + Icon.remove_sign);
+            btnCancel.setWidth("100%");
+            btnCancel.setHtmlContentAllowed(true);
+            btnCancel.setStyleName(ValoTheme.BUTTON_DANGER);
+            btnCancel.addClickListener((Button.ClickEvent event) -> {
+                UploadView.this.init();
+            });
+            parent1.addComponent(btnCommit);
+            parent1.addComponent(new Label("<br>", ContentMode.HTML));
+            parent1.addComponent(btnCancel);
+            parent1.addComponent(new Label("<br>", ContentMode.HTML));
+            parent1.addComponent(new Label("<br>", ContentMode.HTML));
+            
+        });
 
-                        VerticalLayout parent = (VerticalLayout) manager.getParent();
-                        parent.removeComponent(manager);
-
-                        HorizontalLayout hLayout = new HorizontalLayout();
-                        Button btnCommit = new Button("Commit  " + Icon.ok_sign);
-                        btnCommit.setCaptionAsHtml(true);
-                        btnCommit.setStyleName(ValoTheme.BUTTON_FRIENDLY);
-                        btnCommit.addClickListener((Button.ClickEvent event) -> {
-                            commitFiles();
-                        });
-
-                        Button btnCancel = new Button("Cancel  " + Icon.remove_sign);
-                        btnCancel.setCaptionAsHtml(true);
-                        btnCancel.setStyleName(ValoTheme.BUTTON_DANGER);
-                        btnCancel.addClickListener((Button.ClickEvent event) -> {
-                            UploadView.this.init();
-                        });
-
-                        hLayout.addComponent(btnCommit);
-                        hLayout.addComponent(btnCancel);
-                        hLayout.setWidth("100%");
-                        hLayout.setComponentAlignment(btnCancel, Alignment.MIDDLE_RIGHT);
-                        parent.addComponent(hLayout);
-                        parent.addComponent(new Label("<br>", ContentMode.HTML));
-                    }
-                });
-
-        manager.setStartButtonCaption("Analyze files");
+        manager.setStartButtonCaption("Analyse files");
         manager.setStopButtonCaption("Cancel");
 
         final VerticalLayout vertLayout = new VerticalLayout();
+        vertLayout.setSizeUndefined();
         vertLayout.setWidth("100%");
         // vertLayout.setHeight("400px");
 
         // Wrap the layout to allow handling drops
         vertLayout.addComponent(manager);
 
+        //vertLayout.setComponentAlignment(manager, Alignment.MIDDLE_RIGHT);
+
+        final Label infoLabel = new Label("asasasasasasasxasx");
+
+        final VerticalLayout dropPane = new VerticalLayout(infoLabel);
+
+        dropPane.setComponentAlignment(infoLabel, Alignment.MIDDLE_CENTER);
+        dropPane.setWidth(280.0f, Unit.PIXELS);
+        dropPane.setHeight(200.0f, Unit.PIXELS);
+        dropPane.addStyleName("drop-area");
+
+        ProgressBar pbar = new ProgressBar();
+        pbar.setIndeterminate(true);
+        pbar.setVisible(false);
+        dropPane.addComponent(pbar);
+
+        final DragAndDropBox box = new DragAndDropBox(dropPane, pbar) {
+
+            @Override
+            void processFile(String name, String type, ByteArrayOutputStream bas) {
+                final StreamResource.StreamSource streamSource = () -> {
+                    if (bas != null) {
+                        final byte[] byteArray = bas.toByteArray();
+                        return new ByteArrayInputStream(byteArray);
+                    }
+                    return null;
+                };
+                final StreamResource resource = new StreamResource(streamSource, name);
+
+                // show the file contents - images only for now
+                final Embedded embedded = new Embedded(name, resource);
+
+            }
+        };
+        box.setSizeUndefined();
+        //vertLayout.addComponent(box);
+
+        
+        
         dashboardPanels.addComponent(vertLayout);
 
         return dashboardPanels;
@@ -246,15 +279,17 @@ public class UploadView extends Panel implements View {
             f.setDataToDomain();
             try {
                 f.CommitChangesToDomain();
+                Notification.show(f.getfInfo().getRootFileName() + "has successfully been uploaded!", Notification.Type.TRAY_NOTIFICATION);
             } catch (ContentAlreadyExistException error) {
                 Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nFile Already Exists",
                         Notification.Type.ERROR_MESSAGE);
-            } catch (Exception ex) {
-                Logger.getLogger(UploadView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+               Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nFile Already Exists",
+                        Notification.Type.ERROR_MESSAGE);
             }
         });
 
-        Notification.show("All files has successfully been commited!", Notification.Type.TRAY_NOTIFICATION);
+        
         init();
     }
 

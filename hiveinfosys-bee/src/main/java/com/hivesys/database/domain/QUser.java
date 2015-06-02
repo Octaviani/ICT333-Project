@@ -48,9 +48,11 @@ public class QUser extends com.mysema.query.sql.RelationalPathBase<QUser> {
 
     public final BooleanPath sensitiv = createBoolean("sensitiv");
 
-    public final NumberPath<Integer> telephone = createNumber("telephone", Integer.class);
+    public final StringPath telephone = createString("telephone");
 
     public final StringPath title = createString("title");
+
+    public final StringPath userName = createString("userName");
 
     public final StringPath website = createString("website");
 
@@ -97,8 +99,9 @@ public class QUser extends com.mysema.query.sql.RelationalPathBase<QUser> {
         addMetadata(pword, ColumnMetadata.named("Pword").withIndex(4).ofType(Types.VARCHAR).withSize(100).notNull());
         addMetadata(role, ColumnMetadata.named("Role").withIndex(9).ofType(Types.CHAR).withSize(255));
         addMetadata(sensitiv, ColumnMetadata.named("Sensitiv").withIndex(6).ofType(Types.BIT).withSize(3));
-        addMetadata(telephone, ColumnMetadata.named("Telephone").withIndex(13).ofType(Types.INTEGER).withSize(10));
+        addMetadata(telephone, ColumnMetadata.named("Telephone").withIndex(13).ofType(Types.VARCHAR).withSize(1024));
         addMetadata(title, ColumnMetadata.named("Title").withIndex(10).ofType(Types.CHAR).withSize(4));
+        addMetadata(userName, ColumnMetadata.named("UserName").withIndex(16).ofType(Types.VARCHAR).withSize(1024));
         addMetadata(website, ColumnMetadata.named("Website").withIndex(14).ofType(Types.VARCHAR).withSize(1024));
     }
 

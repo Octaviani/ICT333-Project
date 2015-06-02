@@ -1,6 +1,8 @@
 package com.hivesys.dashboard.domain;
 
 public final class User {
+
+    private int id;
     private String role;
     private String firstName;
     private String lastName;
@@ -11,6 +13,11 @@ public final class User {
     private String phone;
     private String website;
     private String bio;
+    private static final long serialVersionUID = 1L;
+
+    public User(int userid) {
+        this.id = userid;
+    }
 
     public String getEmail() {
         return email;
@@ -90,6 +97,13 @@ public final class User {
 
     public void setLastName(final String lastName) {
         this.lastName = lastName;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
     }
 
 }

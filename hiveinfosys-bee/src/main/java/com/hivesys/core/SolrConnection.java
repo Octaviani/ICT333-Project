@@ -41,8 +41,9 @@ public class SolrConnection {
         // this fixes all the missing stream http header issues. Eg:
         // Content.Length = null causing stream_size=null
         mHttpSolrClient.setUseMultiPartPost(true);
-        mHttpSolrClient.setSoTimeout(1000);
-        mHttpSolrClient.setConnectionTimeout(1000);
+        
+        mHttpSolrClient.setSoTimeout(3000);
+        mHttpSolrClient.setConnectionTimeout(7000);
 
     }
 
@@ -74,7 +75,7 @@ public class SolrConnection {
         Date date = new Date();
 
         req.setParam("resource.name", fInfo.getContentFilepath());
-        req.setParam("literal.id", fInfo.getFullFileName());
+        req.setParam("literal.id", fInfo.getCrcHash());
         req.setParam("literal.hive_uploaded_date", dateFormatUTC.format(date));
 
         try {
@@ -85,45 +86,6 @@ public class SolrConnection {
         }
         
         System.out.println("Done uploading");
-    }
-
-    public void indexFiles(String filename) throws IOException {
-        String id = filename.substring(filename.lastIndexOf('/') + 1);
-        File fd = new File(filename);
-        MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
-        String mimeType = mimeTypesMap.getContentType(fd);
-
-        ContentStreamUpdateRequest req = new ContentStreamUpdateRequest(
-                "/update/extract");
-
-        // req.addFile(fd, mimeType);
-        ContentStreamBase.FileStream fs = new FileStream(fd);
-        req.addContentStream(fs);
-        req.setMethod(METHOD.POST);
-        ModifiableSolrParams out = new ModifiableSolrParams();
-
-        SimpleDateFormat dateFormatUTC = new SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss'Z'");
-        dateFormatUTC.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Date date = new Date();
-        System.out.println(dateFormatUTC.format(date)); // 2014/08/06 15:59:48
-
-        req.setParam("resource.name", filename);
-        req.setParam("literal.id", filename);
-        req.setParam("literal.hive_uploaded_date", dateFormatUTC.format(date));
-        // req.setParam("extractOnly", "true");
-
-        System.out.println("Request to solr: \n" + "\tName: " + fs.getName()
-                + "\n" + "\tFile Size: " + fs.getSize() + "\n"
-                + "\tContent Type: " + fs.getContentType() + "\n");
-
-        try {
-            // req.setAction(AbstractUpdateRequest.ACTION.COMMIT, true, true);
-            UpdateResponse result = req.process(mHttpSolrClient);
-            UpdateResponse commit = mHttpSolrClient.commit();
-        } catch (SolrServerException ex) {
-            Logger.getLogger(SolrConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     // return the default instance of the client

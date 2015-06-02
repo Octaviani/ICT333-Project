@@ -38,6 +38,7 @@
                 <configuration>
                     <jdbcDriver>org.mariadb.jdbc.Driver</jdbcDriver>
                     <jdbcUrl>jdbc:mariadb://localhost:3306/Hive</jdbcUrl>
+                    <schemaPattern>Hive</schemaPattern>
                     <jdbcUser></jdbcUser>
                     <jdbcPassword></jdbcPassword>
                     <packageName>com.hivesys.database.domain</packageName>

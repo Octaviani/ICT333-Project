@@ -1,135 +1,293 @@
 package com.hivesys.dashboard.view.search;
 
-import java.io.IOException;
-
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrDocumentList;
-
-import com.hivesys.core.SolrConnection;
-import com.hivesys.dashboard.layout.SearchLayout;
+import static com.hivesys.dashboard.view.repository.UploadView.TITLE_ID;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.ExternalResource;
-import com.vaadin.server.Page;
-import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
+import com.vaadin.ui.TabSheet.Tab;
+import com.vaadin.ui.themes.ValoTheme;
+import java.util.List;
+import org.vaadin.visjs.networkDiagram.Color;
+import org.vaadin.visjs.networkDiagram.Edge;
+import org.vaadin.visjs.networkDiagram.NetworkDiagram;
+import org.vaadin.visjs.networkDiagram.Node;
+import org.vaadin.visjs.networkDiagram.event.node.ClickEvent;
+import org.vaadin.visjs.networkDiagram.event.node.DoubleClickEvent;
+import org.vaadin.visjs.networkDiagram.options.Options;
 
 @SuppressWarnings("serial")
-public class SearchView extends SearchLayout implements View {
+public class SearchView extends Panel implements View {
 
     public static final String NAME = "search";
     private VerticalLayout root;
     private CssLayout dashboardPanels;
     private Label labelTitle;
-    
-    public SearchView() {
-        
-        
-        this.tfSearch.setImmediate(true);
-	this.panel.setSizeFull();
+    public static int swi = 0;
 
-        // handle enter key shortcut
+    TextField mSearchBox;
+
+    private Component buildHeader(String headername) {
+        HorizontalLayout header = new HorizontalLayout();
+        header.addStyleName("viewheader");
+        header.setSpacing(true);
+
+        labelTitle = new Label(headername);
+        labelTitle.setId(TITLE_ID);
+        labelTitle.setSizeUndefined();
+        labelTitle.addStyleName(ValoTheme.LABEL_H1);
+        labelTitle.addStyleName(ValoTheme.LABEL_NO_MARGIN);
+        header.addComponent(labelTitle);
+
+        return header;
+    }
+
+    private Component buildSparklines() {
+        CssLayout sparks = new CssLayout();
+        sparks.addStyleName("sparks");
+        sparks.setWidth("100%");
+
+        return sparks;
+    }
+
+    public SearchView() {
+        final VerticalLayout root = new VerticalLayout();
+        final CssLayout css = new CssLayout();
+
+        addStyleName(ValoTheme.PANEL_BORDERLESS);
+        setSizeFull();
+
+        root.setSizeFull();
+        root.setMargin(true);
+        root.addStyleName("dashboard-view");
+        setContent(root);
+        root.addComponent(buildHeader("Search"));
+        root.addComponent(buildSparklines());
+
+        //css.addComponent(new Threejs());   
+        Component content = buildContent();
+        root.addComponent(content);
+        root.setExpandRatio(content, 1);
+    }
+
+    Component buildContent() {
+        VerticalLayout vLayout = new VerticalLayout();
+
+        this.mSearchBox = new TextField("Search Box");
+        this.mSearchBox.setWidth("100%");
+
+        // refresh the tab on click vaadin bug?
+        TabSheet tabs = new TabSheet();
+
+        tabs.setHeight(100.0f, Unit.PERCENTAGE);
+        tabs.addStyleName(ValoTheme.TABSHEET_FRAMED);
+        tabs.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
+        tabs.setImmediate(true);
+
+        Component graph2d = buildGraph();
+        graph2d.setId("graph2dbuggy");
+
+        Component graphvis = buildMyGraph();
+        graphvis.setId("actual-vis-graph");
+
+        Component graphcameron = build2dGraph();
+        graphcameron.setId("cameron-graph");
+
+        tabs.addTab(buildTextualSearch(), "Search");
+        tabs.addTab(graph2d, "2D Visualization");
+        tabs.addTab(graphvis, "Actual Visualization");
+        tabs.addTab(graphcameron, "Cameron's Visualization");
+
+        tabs.addSelectedTabChangeListener((TabSheet.SelectedTabChangeEvent event) -> {
+            Component selected = tabs.getSelectedTab();
+            Tab cur = tabs.getTab(selected);
+            // vaadin tabsheet bugs on refresh
+            ;;
+
+            if (selected == null || selected.getId() == null) {
+                return;
+            }
+
+            if (selected.getId().equals("actual-vis-graph"))
+            {
+                ((GraphView) selected).RebuildGraph(this.mSearchBox.getValue());
+            }
+            
+            switch (selected.getId()) {
+                case "graph2dbuggy": {
+                    if (swi == 1) {
+                        swi = 0;
+                        Component gr2d = buildGraph();
+                        gr2d.setId("graph2dbuggy");
+                        tabs.replaceComponent(selected, gr2d);
+                    } else {
+                        swi = 1;
+                    }
+                    break;
+                }
+       
+                case "cameron-graph": {
+                    if (swi == 1) {
+                        swi = 0;
+                        Component gr2d = build2dGraph();
+                        gr2d.setId("cameron-graph");
+                        tabs.replaceComponent(selected, gr2d);
+                    } else {
+                        swi = 1;
+                    }
+                    break;
+                }
+            }
+                    
+
+        });
+
+        tabs.setSizeFull();
+        vLayout.addComponent(this.mSearchBox);
+        vLayout.addComponent(new Label("<br>", ContentMode.HTML));
+        vLayout.addComponent(tabs);
+        vLayout.setSizeFull();
+        vLayout.setExpandRatio(tabs, 1);
+        return vLayout;
+    }
+
+    class MyNodeDoubleClickListener extends Node.NodeDoubleClickListener {
+
+        NetworkDiagram networkDiagram;
+
+        public MyNodeDoubleClickListener(Node node, NetworkDiagram nd) {
+            super(node);
+            networkDiagram = nd;
+        }
+
+        public void setNode(Node node) {
+
+        }
+
+        @Override
+        public void onFired(DoubleClickEvent event) {
+            List<String> nodeid = event.getNodeIds();
+            for (int i = 0; i < nodeid.size(); i++) {
+                Notification.show(nodeid.get(i));
+            }
+
+            Node node2 = new Node("jksdjksd");
+            Edge edge1 = new Edge(nodeid.get(0), node2.getId());
+            networkDiagram.addNode(node2);
+            networkDiagram.addEdge(edge1);
+
+            networkDiagram.addNodeDoubleClickListener(new MyNodeDoubleClickListener(node2, networkDiagram));
+        }
+
+    }
+
+    Component buildMyGraph() {
+        GraphView graphview = new GraphView();
+
         ShortcutListener shortcut = new ShortcutListener("Enter",
                 ShortcutAction.KeyCode.ENTER, null) {
                     @Override
                     public void handleAction(Object sender, Object target) {
-                        submitQuery();
+                        graphview.RebuildGraph(mSearchBox.getValue());
                     }
                 };
 
-        this.tfSearch.addShortcutListener(shortcut);
+        this.mSearchBox.addShortcutListener(shortcut);
+        return graphview;
     }
 
-    public void updateSearchResultsView(SolrDocumentList docs) {
-        panel.setContent(null);
+    Component build2dGraph() {
+        NetworkDiagram networkDiagram = new NetworkDiagram(new Options());
+        networkDiagram.setSizeUndefined();
+        networkDiagram.setSizeFull();
 
-		// use csslayout and only override label, because labels has the bare
-        // minimum content defined for styles. See styles.css
-        CssLayout csslayout = new CssLayout() {
-            @Override
-            protected String getCss(Component c) {
-                if (c.getStyleName().contains("hellome")) {
-					// if (c instanceof Label) {
-                    // Color the boxes with random colors
-                    int rgb = (int) (Math.random() * (1 << 24));
-                    return "display:inline-block; width: #"
-                            + Integer.toHexString(rgb) + "width: 99px";
+        Node node1 = new Node("dncjsdcs");
+        networkDiagram.addNode(node1);
+        networkDiagram.addNodeDoubleClickListener(new MyNodeDoubleClickListener(node1, networkDiagram));
+
+        return networkDiagram;
+    }
+
+    Component buildGraph() {
+        NetworkDiagram networkDiagram = new NetworkDiagram(new Options());
+        networkDiagram.setSizeUndefined();
+        networkDiagram.setSizeFull();
+
+        Node node1 = new Node(1, "circle", Node.Shape.circle, "group_x");
+        Node node2 = new Node(2, "ellipse", Node.Shape.ellipse, "group_x");
+        Node node3 = new Node(3, "database", Node.Shape.database, "group_x");
+        Node node4 = new Node(4, "box", Node.Shape.box, "group_x");
+        Node node5 = new Node(5, "shapes\nand\nsizes", Node.Shape.box, "group_main");
+
+        Edge edge1 = new Edge(3, 1, Edge.Style.arrow);
+        Edge edge2 = new Edge(1, 4, Edge.Style.dashLine);
+        Edge edge3 = new Edge(1, 2, Edge.Style.arrowCenter);
+
+        networkDiagram.addNode(node1, node2, node3, node4, node5);
+        networkDiagram.addEdge(edge1, edge2, edge3);
+
+        int id = 6;
+        int mainId = 5;
+
+        for (int size = 1; size < 4; size++) {
+            int groupId = id;
+            Node node = new Node(id, "size " + size, Node.Shape.box, "group" + size);
+            node.setMass(size);
+            networkDiagram.addNode(node);
+            networkDiagram.addEdge(new Edge(mainId, id, new Color("gray"), size));
+            id++;
+
+            for (Node.Shape shape : Node.Shape.values()) {
+                if (shape != Node.Shape.image) {
+                    node = new Node(id, shape.toString(), shape, "group" + size);
+                    networkDiagram.addNode(node);
+                    networkDiagram.addEdge(new Edge(groupId, id, new Color("red"), size));
+                    id++;
                 }
-                return null;
-            }
-        };
-        csslayout.setSizeUndefined();
-        int nresults = docs.size();
-
-        Label labelResultSummary = new Label("About " + nresults
-                + " results found <br><br>", ContentMode.HTML);
-        csslayout.addComponent(labelResultSummary);
-
-        for (int i = 0; i < nresults; i++) {
-
-            Object streamName = docs.get(i).getFieldValue("stream_name");
-            Object resourcepath = docs.get(i).getFieldValue("resourcename");
-
-            Object lastModified = docs.get(i).getFieldValue("last_modified");
-            Object contentType = docs.get(i).getFieldValue("content_type");
-
-            System.out.println(docs.get(i).toString());
-            if (lastModified != null) {
-                Link linkDocument = new Link(streamName.toString(),
-                        new ExternalResource(resourcepath.toString()));
-                linkDocument.setCaptionAsHtml(true);
-                linkDocument.setCaption("<h3>" + streamName.toString()
-                        + "</h3>");
-                Label labelLastModifiedDate = new Label(
-                        "<span class='v-button-wrap'>"
-                        + "<span class='v-button-caption'>"
-                        + lastModified.toString() + "</span>"
-                        + "</span>", ContentMode.HTML);
-
-                labelLastModifiedDate.setStyleName("hellome");
-
-                Label labelContentType = new Label(contentType.toString()
-                        + "<br>", ContentMode.HTML);
-
-                labelLastModifiedDate.setStyleName("hellome");
-                csslayout.addComponent(linkDocument);
-                csslayout.addComponent(labelLastModifiedDate);
-                csslayout.addComponent(labelContentType);
             }
         }
-        System.out.println("hello");
 
-		// panel.setWidth("300px");
-        // panel.setHeight("300px");
-        panel.setContent(csslayout);
+        networkDiagram.addNodeClickListener(new Node.NodeClickListener(node5) {
+
+            @Override
+            public void onFired(ClickEvent event) {
+                List<String> nodeid = event.getNodeIds();
+                for (int i = 0; i < nodeid.size(); i++) {
+                    Notification.show(nodeid.get(i));
+                }
+            }
+        });
+
+        return networkDiagram;
     }
 
-    public void submitQuery() {
-        try {
-            SolrDocumentList doclist = null;
-            doclist = SolrConnection.getInstance().query(tfSearch.getValue());
+    Component buildTextualSearch() {
+        TextualView textualview = new TextualView();
 
-            System.out.println("Number of Search results: " + doclist.size());
-            updateSearchResultsView(doclist);
+        ShortcutListener shortcut = new ShortcutListener("Enter",
+                ShortcutAction.KeyCode.ENTER, null) {
+                    @Override
+                    public void handleAction(Object sender, Object target) {
+                        textualview.UpdateSearchPane(mSearchBox.getValue());
+                    }
+                };
 
-        } catch (SolrServerException | IOException e) {
-            Notification notification = new Notification("Solr Server Error!");
-            notification.setDelayMsec(8000);
-            notification
-                    .setDescription("It looks the Solr server is not running. Please consult your IT Administrator");
-            notification.setStyleName("tray dark small closable login-help");
-            notification.setPosition(Position.TOP_CENTER);
-            notification.show(Page.getCurrent());
-            e.printStackTrace();
-        }
+        this.mSearchBox.addShortcutListener(shortcut);
+
+        final VerticalLayout layout = new VerticalLayout();
+        layout.setMargin(true);
+        layout.setSizeUndefined();
+        layout.setSizeFull();
+        layout.addComponent(textualview);
+
+        return layout;
     }
 
     @Override
     public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
-
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

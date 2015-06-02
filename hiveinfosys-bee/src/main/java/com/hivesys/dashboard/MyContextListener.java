@@ -5,10 +5,9 @@
  */
 package com.hivesys.dashboard;
 
-import com.hivesys.core.Configuration;
-import com.hivesys.core.DatabaseSource;
+import com.hivesys.config.Config;
+import com.hivesys.core.DBConnectionPool;
 import com.hivesys.core.SolrConnection;
-import java.sql.SQLException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -30,10 +29,10 @@ public class MyContextListener implements ServletContextListener
         ServletContext context = contextEvent.getServletContext();
         System.out.println("Context Initialized!");
         
-        DatabaseSource dbconn = DatabaseSource.getInstance();
+        DBConnectionPool dbconn = DBConnectionPool.getInstance();
         SolrConnection solr = SolrConnection.getInstance();
         solr.connect("http://localhost:8983/solr/hive-solr-schema/");
-        Configuration.getInstance().loadConfig();
+        Config.getInstance().loadConfig();
         // …
     }
 

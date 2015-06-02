@@ -1,37 +1,49 @@
+$v-app-loading-text: "Dark Valo";
+$v-background-color: #444d50;
+$v-focus-color: #07a9ca;
+$v-focus-style: 0 0 3px 2px $v-focus-color;
+$v-bevel-depth: 40%;
+$v-gradient: v-linear 12%;
+$v-border-radius: 10px;
+$v-font-family: Roboto, sans-serif;
+$v-font-weight: 400;
+$v-font-weight--header: 400;
+$v-bevel: inset 0 1px 2px v-tint, inset 0 0 1px (v-tint 0.1);
+$v-shadow: 0 0 0 3px rgba(0,0,0,0.32), 0 1px 0 3px rgba(255,255,255,0.14);
+$v-textfield-bevel: inset 0 2px 2px v-shade;
+$v-textfield-shadow: $v-shadow;
+$v-unit-size: 40px;
+$v-overlay-shadow: 0 0 0 3px (v-shade 8), 0 5px 10px (v-shade 4);
+$v-component-group-spacing: 6px;
+
+
 @import "../valo/valo";
 @import "common";
 @import "views/login";
 @import "views/dashboardview";
-@import "views/schedule";
-@import "views/sales";
-@import "views/transactions";
-@import "views/reports";
+
 
 // Optimize the CSS output
+/*
 $v-included-components: remove($v-included-components, accordion);
 $v-included-components: remove($v-included-components, colorpicker);
-$v-included-components: remove($v-included-components, grid);
 $v-included-components: remove($v-included-components, popupview);
 $v-included-components: remove($v-included-components, progressbar);
 $v-included-components: remove($v-included-components, slider);
 $v-included-components: remove($v-included-components, splitpanel);
 $v-included-components: remove($v-included-components, tree);
 $v-included-components: remove($v-included-components, treetable);
-$v-included-components: remove($v-included-components, twincolselect);
+$v-included-components: remove($v-included-components, twincolselect);*/
 
 // Main layout padding
 $view-padding: round($v-unit-size / 1.5) !default;
 
 // Slight adjustment to menu background-color
-$valo-menu-background-color: #414B56;
+$valo-menu-background-color: #000000;
 
 @mixin dashboard {
   @include valo;
   @include dashboard-common;
   @include dashboard-login-view;
   @include dashboard-dashboard-view;
-  @include dashboard-schedule-view;
-  @include dashboard-sales-view;
-  @include dashboard-transactions-view;
-  @include dashboard-reports-view;
 }

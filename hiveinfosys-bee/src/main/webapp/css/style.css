@@ -35,15 +35,48 @@ h1,h2, h3, h4, h5, h6 {
 	font-family:'Open Sans', Arial, sans-serif;
 	font-weight:700;
 	line-height:1.1em;
-	color:#fff;
+	color:#fff ;
 	margin-bottom: 20px;
 }
 
 /* ===================================
 2. layout
 ==================================== */
-
+.cont {
+	padding:20 0px 100px;
+	margin-left: 0px;
+	position:relative;
+	height:auto;
+	background:     -moz-linear-gradient( bottom,  #080811, #000 30%);
+}
+.cont1 {
+	width: 50%;
+	padding:20 0px 90;
+	margin-left: 80px;
+	position:absolute;
+	height:auto;
+}
+.cont2 {
+	width: 50%;
+	padding:20 0px 10px;
+	margin-right: 900px;
+	position:relative;
+	height:auto;
+	background:     -moz-linear-gradient( bottom,  #080811, #080811 90%);
+}
+.cont3 {
+	padding:10px 0 100px;
+	margin-top: -150px;
+	position:relative;
+	height:auto;
+	background:     -moz-linear-gradient( bottom,  #080811, #000 100%);
+}
 .container {
+	padding:20 0px 20 20px;
+	position:relative;
+    background:     -moz-linear-gradient( bottom,  #080811, #000000 30%)
+}
+.container1 {
 	padding:20 0px 20 20px;
 	position:relative;
     background:     -moz-linear-gradient( bottom,  #080811, #000000 30%)
@@ -336,7 +369,7 @@ ul.nav li.dropdown a {
 .flex-caption {background:none; -ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#4C000000,endColorstr=#4C000000); zoom: 1;}
 .flex-caption { bottom: 90px; background-color: rgba(28, 28, 58, 0.5); color: #fff; margin: 0; padding: 15px 75px 25px 30px; position: absolute; right: 0; width: 485px;}
 .flex-caption h3 {color: #669999; letter-spacing: 1px; margin-bottom: 9px; text-transform: uppercase;}
-.flex-caption p {margin: 20 5 60px; top: 0;}
+.flex-caption p {color:  	#fff ; margin: 20 5 60px; top: 0;}
 
 
 
@@ -385,7 +418,7 @@ section.callaction {
 	width: 100%;
 }
 .box-gray  {
-	color: #858585;
+	color: #fff;
 	background: #000000;
 	padding: 20px 20px 30px;
 
@@ -615,7 +648,7 @@ form#commentform textarea {
 }
 
 .work-nav #filters li a.selected {
-	color: #DE5E60;
+	color: #787878 ;
 }
 
 #thumbs {
@@ -1942,7 +1975,7 @@ article img.pull-right, article .align-right{
 	footer .col-lg-1, footer .col-lg-2, footer .col-lg-3, footer .col-lg-4, footer .col-lg-5, footer .col-lg-6, 
 	footer .col-lg-7, footer .col-lg-8, footer .col-lg-9, footer .col-lg-10, footer .col-lg-11, footer .col-lg-12{
 		margin-bottom:80px;
-		color: #fff;
+		color: #000;
 	}
 
 	#sub-footer ul.social-network {
