@@ -248,7 +248,7 @@ public class ProfilePreferencesWindow extends Window {
                                 .execute();
 
                         // always close the connection (performance optimization)
-                        conn.close();
+                        DBConnectionPool.getInstance().releaseConnection(conn);
                     } catch (SQLException ex) {
                         Logger.getLogger(ProfilePreferencesWindow.class.getName()).log(Level.SEVERE, null, ex);
                     }

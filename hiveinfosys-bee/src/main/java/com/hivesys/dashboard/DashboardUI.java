@@ -24,13 +24,11 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.Page;
 import com.vaadin.server.Page.BrowserWindowResizeEvent;
-import com.vaadin.server.Page.BrowserWindowResizeListener;
 import com.vaadin.server.Responsive;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.Position;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -45,7 +43,6 @@ public final class DashboardUI extends UI {
     @WebServlet(value = {"/myui/*", "/VAADIN/*"}, asyncSupported = true)
     @VaadinServletConfiguration(productionMode = false, ui = com.hivesys.dashboard.DashboardUI.class)
 
-    //TODO: Add back filters
     public static class DashboardServlet extends VaadinServlet {
 
         @Override
@@ -79,20 +76,10 @@ public final class DashboardUI extends UI {
 
 		// Some views need to be aware of browser resize events so a
         // BrowserResizeEvent gets fired to the event bus on every occasion.
-        Page.getCurrent().addBrowserWindowResizeListener(
-                new BrowserWindowResizeListener() {
-                    @Override
-                    public void browserWindowResized(
-                            final BrowserWindowResizeEvent event) {
-                                DashboardEventBus.post(new BrowserResizeEvent());
-                            }
-                });
-        
-        final Window window = new Window("Window");
-        window.setWidth(300.0f, Unit.PIXELS);
-        
-        window.setContent(new Label("dsnjkcnsjdncjsndcjsndckjsndckjsd"));
-        this.getUI().addWindow(window);
+        Page.getCurrent().addBrowserWindowResizeListener((final BrowserWindowResizeEvent event) -> {
+            DashboardEventBus.post(new BrowserResizeEvent());
+        });
+       
     }
 
     /**

@@ -33,7 +33,7 @@ public class QFileInfo extends com.mysema.query.sql.RelationalPathBase<QFileInfo
     public final com.mysema.query.sql.ForeignKey<QVersionInfo> _versionInfoIbfk1 = createInvForeignKey(id, "FileInfoId");
 
     public QFileInfo(String variable) {
-        super(QFileInfo.class, forVariable(variable), "null", "FileInfo");
+        super(QFileInfo.class, forVariable(variable), "Hive", "FileInfo");
         addMetadata();
     }
 
@@ -43,12 +43,12 @@ public class QFileInfo extends com.mysema.query.sql.RelationalPathBase<QFileInfo
     }
 
     public QFileInfo(Path<? extends QFileInfo> path) {
-        super(path.getType(), path.getMetadata(), "null", "FileInfo");
+        super(path.getType(), path.getMetadata(), "Hive", "FileInfo");
         addMetadata();
     }
 
     public QFileInfo(PathMetadata<?> metadata) {
-        super(QFileInfo.class, metadata, "null", "FileInfo");
+        super(QFileInfo.class, metadata, "Hive", "FileInfo");
         addMetadata();
     }
 

@@ -2,15 +2,13 @@ package com.hivesys.core;
 
 import com.hivesys.dashboard.domain.FileInfo;
 import java.io.IOException;
-import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
-import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
-import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
@@ -35,51 +33,63 @@ public class ElasticSearchContext {
 
             //Node node = nodeBuilder().local(true).node();
             //mClient = node.client();
-
-            
-            
             final XContentBuilder map = jsonBuilder().startObject()
                     .startObject(idxType)
-                    .startObject("properties")
-                    .startObject("file")
-                    .field("type", "attachment")
-                    .startObject("fields")
-                    .startObject("title")
-                    .field("store", "yes")
-                    .endObject()
-                    .startObject("file")
-                    .field("term_vector", "with_positions_offsets")
-                    .field("store", "yes")
-                    .endObject()
-                    .endObject()
-                    .endObject()
-                    .endObject()
+                        .startObject("properties")
+                    
+                            // enable binary file converter mapping
+                            .startObject("file")
+                                .field("type", "attachment")
+                                .startObject("fields")
+                                    .startObject("title")
+                                        .field("store", "yes")
+                                    .endObject()
+                                    .startObject("file")
+                                        .field("term_vector", "with_positions_offsets")
+                                        .field("store", "yes")
+                                    .endObject()
+                                .endObject()
+                            .endObject()
+                    
+                            // enable suggester
+                            
+                    
+                        .endObject()
                     .endObject();
 
-            IndicesExistsRequest request = new IndicesExistsRequest(idxName);
             
-            mClient.admin().indices().exists(request, new org.elasticsearch.action.ActionListener<IndicesExistsResponse>() {
+            
+            
+            
 
-                @Override
-                public void onResponse(IndicesExistsResponse rspns) {
-                    if (!rspns.isExists()) {
-                        CreateIndexResponse resp = mClient.admin().indices().prepareCreate(idxName).setSettings(
-                                ImmutableSettings.settingsBuilder()
-                                .put("number_of_shards", 1)
-                                .put("index.numberOfReplicas", 1))
-                                .addMapping("attachment", map).execute().actionGet();
-                    }
-                }
-
-                @Override
-
-                public void onFailure(Throwable thrwbl) {
-
-                }
+            if (mClient.admin().indices().prepareExists(idxName).execute().actionGet().isExists()) {
+                //TODO make sure old and the new are not same
+                
+                
+                mClient.admin().indices().prepareClose(idxName).execute().actionGet();
+//                mClient.admin().indices().prepareUpdateSettings(idxName).setSettings(settings).execute().actionGet();
+                //mClient.admin().indices().prepareUpdateSettings(idxName).execute().actionGet();
+                mClient.admin().indices().prepareOpen(idxName).execute().actionGet();
+                
+                
+                // Delete the mapping only when needed
+                //mClient.admin().indices().prepareDeleteMapping(idxName).setType("attachment").execute().actionGet();
+                //mClient.admin().indices().preparePutMapping(idxName).setType("attachment").setSource(map).execute().actionGet();
+            } else {
+                
+                
+                
+                Settings settings = ImmutableSettings.settingsBuilder()                    .put("number_of_shards", 1)                    .put("index.numberOfReplicas", 1).build();
+                
+                
+                mClient.admin().indices().prepareCreate(idxName)
+                        .addMapping("attachment", map)
+                        .setSettings(settings)
+                        .execute()
+                        .actionGet();
             }
-            );
         } catch (IOException ex) {
-            //Logger.getLogger(ElasticSearchContext.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Elastic search failed to start or create/update index");
         }
     }
 

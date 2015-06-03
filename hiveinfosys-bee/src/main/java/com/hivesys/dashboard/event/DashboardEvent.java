@@ -51,9 +51,6 @@ public abstract class DashboardEvent {
 
     }
 
-    public static final class TransactionReportEvent {
-    }
-
     public static final class PostViewChangeEvent {
         private final DashboardViewType view;
 

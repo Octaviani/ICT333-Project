@@ -7,7 +7,9 @@ import pl.exsio.plupload.manager.PluploadManager;
 import com.porotype.iconfont.FontAwesome.Icon;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
@@ -16,6 +18,7 @@ import com.vaadin.shared.ui.label.ContentMode;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -30,6 +33,9 @@ public class UploadView extends Panel implements View {
     private VerticalLayout root;
     private CssLayout dashboardPanels;
     private Label labelTitle;
+
+    private VerticalLayout analyzedFilePanelContainer;
+    private VerticalLayout commitButtonsContainer;
 
     ArrayList<FileInfoPanel> filesToCommit;
 
@@ -53,6 +59,7 @@ public class UploadView extends Panel implements View {
         root.addStyleName("dashboard-view");
         setContent(root);
         root.addComponent(buildHeader("Uploads"));
+        root.addComponent(new Label("<br>", ContentMode.HTML));
         root.addComponent(buildSparklines());
         Component content = buildContent();
         root.addComponent(content);
@@ -64,11 +71,12 @@ public class UploadView extends Panel implements View {
         header.addStyleName("viewheader");
         header.setSpacing(true);
 
-        labelTitle = new Label(headername);
+        labelTitle = new Label(headername, ContentMode.HTML);
         labelTitle.setId(TITLE_ID);
         labelTitle.setSizeUndefined();
         labelTitle.addStyleName(ValoTheme.LABEL_H1);
         labelTitle.addStyleName(ValoTheme.LABEL_NO_MARGIN);
+
         header.addComponent(labelTitle);
 
         return header;
@@ -86,6 +94,7 @@ public class UploadView extends Panel implements View {
         dashboardPanels = new CssLayout();
         dashboardPanels.addStyleName("dashboard-panels");
 
+        
         PluploadManager manager = new PluploadManager();
         manager.setCaption("Please select files to analyse");
         manager.getUploader().setMaxFileSize("100mb");
@@ -94,8 +103,15 @@ public class UploadView extends Panel implements View {
         progress.setIndeterminate(true);
         progress.setVisible(false);
 
+        dashboardPanels.addComponent(manager);
+        analyzedFilePanelContainer = new VerticalLayout();
+        commitButtonsContainer = new VerticalLayout();
+        dashboardPanels.addComponent(analyzedFilePanelContainer);
+        dashboardPanels.addComponent(commitButtonsContainer);
+
         manager.getUploader().addFileUploadedListener((PluploadFile file) -> {
-            dashboardPanels.addComponent(buildFileInfoPanel(file));
+            analyzedFilePanelContainer.addComponent(buildFileInfoPanel(file));
+            analyzedFilePanelContainer.addComponent(new Label("<br>", ContentMode.HTML));
             manager.getUploader().removeFile(file.getId());
         });
 
@@ -108,8 +124,9 @@ public class UploadView extends Panel implements View {
 
         manager.getUploader().addUploadCompleteListener(() -> {
             Notification.show("Upload Complete!", Notification.Type.TRAY_NOTIFICATION);
-            VerticalLayout parent1 = (VerticalLayout) manager.getParent();
-            parent1.removeComponent(manager);
+            //VerticalLayout parent1 = (VerticalLayout) manager.getParent();
+            dashboardPanels.removeComponent(manager);
+
             Button btnCommit = new Button("Commit  " + Icon.ok_sign);
             btnCommit.setWidth("100%");
             //btnCommit.setHtmlContentAllowed(true);
@@ -125,12 +142,12 @@ public class UploadView extends Panel implements View {
             btnCancel.addClickListener((Button.ClickEvent event) -> {
                 UploadView.this.init();
             });
-            parent1.addComponent(btnCommit);
-            parent1.addComponent(new Label("<br>", ContentMode.HTML));
-            parent1.addComponent(btnCancel);
-            parent1.addComponent(new Label("<br>", ContentMode.HTML));
-            parent1.addComponent(new Label("<br>", ContentMode.HTML));
-            
+
+            commitButtonsContainer.addComponent(btnCommit);
+            commitButtonsContainer.addComponent(btnCancel);
+            commitButtonsContainer.addComponent(new Label("<br>", ContentMode.HTML));
+            commitButtonsContainer.addComponent(new Label("<br>", ContentMode.HTML));
+
         });
 
         manager.setStartButtonCaption("Analyse files");
@@ -142,10 +159,7 @@ public class UploadView extends Panel implements View {
         // vertLayout.setHeight("400px");
 
         // Wrap the layout to allow handling drops
-        vertLayout.addComponent(manager);
-
         //vertLayout.setComponentAlignment(manager, Alignment.MIDDLE_RIGHT);
-
         final Label infoLabel = new Label("asasasasasasasxasx");
 
         final VerticalLayout dropPane = new VerticalLayout(infoLabel);
@@ -181,8 +195,6 @@ public class UploadView extends Panel implements View {
         box.setSizeUndefined();
         //vertLayout.addComponent(box);
 
-        
-        
         dashboardPanels.addComponent(vertLayout);
 
         return dashboardPanels;
@@ -279,22 +291,27 @@ public class UploadView extends Panel implements View {
         this.filesToCommit.stream().forEach((FileInfoPanel f) -> {
             f.setDataToDomain();
             try {
-                
+
                 f.CommitChangesToDomain();
-                Notification.show(f.getfInfo().getRootFileName() + "has successfully been uploaded!", Notification.Type.TRAY_NOTIFICATION);
-            } catch (ContentAlreadyExistException error) {
-                Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nFile Already Exists",
-                        Notification.Type.ERROR_MESSAGE);
-            } catch (SQLException ex) {
-               Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nFile Already Exists",
-                        Notification.Type.ERROR_MESSAGE);
+
             } catch (IOException ex) {
                 Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nPossible Elastic Search Error",
+                        Notification.Type.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nPossible SQL Engine Search Error",
                         Notification.Type.ERROR_MESSAGE);
             }
         });
 
-        
+        Notification notification = new Notification("Uploading Info!");
+        notification.setDelayMsec(50000);
+        notification
+                .setDescription("<span>Files are being analyzed and being processed. Please wait!!!</span>");
+        notification.setHtmlContentAllowed(true);
+        notification.setStyleName("tray dark small closable login-help");
+        notification.setPosition(Position.BOTTOM_CENTER);
+        notification.show(Page.getCurrent());
+        Notification.show("", Notification.Type.HUMANIZED_MESSAGE);
         init();
     }
 

@@ -33,9 +33,9 @@ public class LoginView extends VerticalLayout {
         setComponentAlignment(loginForm, Alignment.MIDDLE_CENTER);
 
         Notification notification = new Notification("Welcome to Hive Info Systems");
-        notification.setDelayMsec(4000);
+        notification.setDelayMsec(50000);
         notification
-                .setDescription("<span>Knowledge Based Management by Hive Info System. This application is built with the <a href=\"https://vaadin.com\">Vaadin framework</a>.</span> <span>At the moment no username or password is required, just click the <b>Sign In</b> button to continue.</span>");
+                .setDescription("<span>Knowledge Based Management by Hive Info Team.</span>");
         notification.setHtmlContentAllowed(true);
         notification.setStyleName("tray dark small closable login-help");
         notification.setPosition(Position.BOTTOM_CENTER);
@@ -76,11 +76,8 @@ public class LoginView extends VerticalLayout {
         fields.addComponents(username, password, signin);
         fields.setComponentAlignment(signin, Alignment.BOTTOM_LEFT);
 
-        signin.addClickListener(new ClickListener() {
-            @Override
-            public void buttonClick(final ClickEvent event) {
-                DashboardEventBus.post(new UserLoginRequestedEvent(username.getValue(), password.getValue()));
-            }
+        signin.addClickListener((final ClickEvent event) -> {
+            DashboardEventBus.post(new UserLoginRequestedEvent(username.getValue(), password.getValue()));
         });
         return fields;
     }

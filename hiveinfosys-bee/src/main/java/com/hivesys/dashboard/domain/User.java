@@ -12,10 +12,12 @@ public final class User {
     private String phone;
     private String website;
     private String bio;
+    private static final long serialVersionUID = 1L;
 
     public User(int userid) {
         this.id = userid;
     }
+
     
     public String getEmail() {
         return email;

@@ -21,25 +21,27 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * A responsive menu component providing user information and the controls for
  * primary navigation between the views.
  */
-@SuppressWarnings({ "serial", "unchecked" })
+@SuppressWarnings({"serial", "unchecked"})
 public final class DashboardMenu extends CustomComponent {
 
     public static final String ID = "dashboard-menu";
     public static final String REPORTS_BADGE_ID = "dashboard-menu-reports-badge";
     public static final String NOTIFICATIONS_BADGE_ID = "dashboard-menu-notifications-badge";
     private static final String STYLE_VISIBLE = "valo-menu-visible";
-    private Label notificationsBadge;
+
     private Label reportsBadge;
     private MenuItem settingsItem;
 
@@ -73,13 +75,21 @@ public final class DashboardMenu extends CustomComponent {
     }
 
     private Component buildTitle() {
-        Label logo = new Label("DataHive <strong>Dashboard</strong>",
-                ContentMode.HTML);
-        logo.setSizeUndefined();
-        HorizontalLayout logoWrapper = new HorizontalLayout(logo);
-        logoWrapper.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
-        logoWrapper.addStyleName("valo-menu-title");
-        return logoWrapper;
+//        
+//        Label logo = new Label("DataHive",                ContentMode.HTML);
+//        logo.setSizeUndefined();
+//        logo.setPrimaryStyleName("datahive-logo");
+        
+        
+        Image logo = new Image(null, new ThemeResource(
+                "img/logo_10.png"));
+        logo.setWidth(100.0f, Unit.PIXELS);
+        logo.setPrimaryStyleName("datahive-logo");
+        VerticalLayout logocontainer = new VerticalLayout(logo);
+        logo.setSizeFull();
+        logocontainer.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
+        logocontainer.setSizeFull();
+        return logo;
     }
 
     private User getCurrentUser() {
@@ -136,9 +146,8 @@ public final class DashboardMenu extends CustomComponent {
         for (final DashboardViewType view : DashboardViewType.values()) {
             Component menuItemComponent = new ValoMenuItemButton(view);
 
-
             //if (view == DashboardViewType.DASHBOARD) {
-              //  notificationsBadge = new Label();
+            //  notificationsBadge = new Label();
 //                notificationsBadge.setId(NOTIFICATIONS_BADGE_ID);
 //                menuItemComponent = buildBadgeWrapper(menuItemComponent,
 //                        notificationsBadge);
@@ -204,12 +213,9 @@ public final class DashboardMenu extends CustomComponent {
             setCaption(view.getViewName().substring(0, 1).toUpperCase()
                     + view.getViewName().substring(1));
             DashboardEventBus.register(this);
-            addClickListener(new ClickListener() {
-                @Override
-                public void buttonClick(final ClickEvent event) {
-                    UI.getCurrent().getNavigator()
-                            .navigateTo(view.getViewName());
-                }
+            addClickListener((final ClickEvent event) -> {
+                UI.getCurrent().getNavigator()
+                        .navigateTo(view.getViewName());
             });
 
         }

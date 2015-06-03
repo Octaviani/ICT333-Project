@@ -6,6 +6,7 @@ import com.hivesys.exception.ContentAlreadyExistException;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import java.io.IOException;
+
 import java.sql.SQLException;
 import pl.exsio.plupload.PluploadFile;
 
@@ -82,7 +83,8 @@ public class FileInfoPanel extends FormLayout {
         getfInfo().setDescription(mtxtDescription.getValue());
     }
 
-    public void CommitChangesToDomain() throws ContentAlreadyExistException, SQLException, IOException {
+    public void CommitChangesToDomain() throws SQLException, IOException {
+
         String tmpFilePath = mfile.getUploadedFile().toString();
         ContentStore.getInstance().storeFileToRepository(tmpFilePath, getfInfo());
     }

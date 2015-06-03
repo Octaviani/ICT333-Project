@@ -2,7 +2,6 @@ package com.hivesys.core;
 
 import com.hivesys.dashboard.domain.FileInfo;
 import com.google.common.io.Files;
-import com.hivesys.exception.ContentAlreadyExistException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -61,13 +60,12 @@ public class ContentStore {
         return fInfo;
     }
 
-    private void storeFileInfoToDatabase(FileInfo fInfo) throws SQLException, ContentAlreadyExistException {
+    private void storeFileInfoToDatabase(FileInfo fInfo) throws SQLException {
             FileInfoController.getInstance().storeFileInfo(fInfo);
   
     }
 
-    public int storeFileToRepository(String tmpFilepath, FileInfo fInfo) throws ContentAlreadyExistException, SQLException, IOException {
-
+    public int storeFileToRepository(String tmpFilepath, FileInfo fInfo) throws SQLException, IOException {
         // crc hash to remove duplicate content
         String newFilename = "[[" + fInfo.getCrcHash() + "]]" + fInfo.getRootFileName();
         fInfo.setFullFileName(newFilename);
@@ -75,7 +73,7 @@ public class ContentStore {
         File contentFile = new File(getContentdir() + File.separator + newFilename);
         // already exists
         if (contentFile.exists()) {
-            throw new ContentAlreadyExistException("File Already Exists!");
+            System.out.println(contentFile.getAbsoluteFile() + " Already Exist. Overwriting the file");
         }
 
         try {

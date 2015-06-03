@@ -6,17 +6,17 @@
 package com.hivesys.core;
 
 import com.box.view.BoxViewClient;
-import com.box.view.BoxViewException;
 import org.json.*;
 import com.hivesys.dashboard.domain.FileInfo;
 import com.hivesys.dashboard.domain.User;
 import com.hivesys.database.domain.QFileInfo;
 import com.hivesys.database.domain.QVersionInfo;
-import com.hivesys.exception.ContentAlreadyExistException;
 import com.mysema.query.sql.SQLQuery;
 import com.mysema.query.sql.SQLTemplates;
+import com.mysema.query.sql.dml.SQLDeleteClause;
 import com.mysema.query.sql.dml.SQLInsertClause;
 import com.vaadin.server.VaadinSession;
+import com.vaadin.ui.Notification;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -122,24 +122,50 @@ public class FileInfoController {
         }
     }
 
-    public void storeFileInfo(FileInfo fileinfo) throws SQLException, ContentAlreadyExistException {
+    public void storeFileInfo(FileInfo fileinfo) throws SQLException {
 
         // upload to box view in a thread
-        Runnable r = () -> {
-            UploadToBoxVIew(fileinfo);
+        Runnable r = new Runnable() {
+
+            public void run() {
+                UploadToBoxVIew(fileinfo);
+                try {
+                    storeFileInfoToDatabase(fileinfo);
+                } catch (SQLException ex) {
+                    Notification.show("Error Uploading document" + fileinfo.getRootFileName() +" to database");
+                }
+                
+                Notification.show("Finished Analyzing and Uploading Document " + fileinfo.getRootFileName() +"!");
+            }
         };
 
         new Thread(r).start();
-
-        storeFileInfoToDatabase(fileinfo);
+        
     }
 
-    public void storeFileInfoToDatabase(FileInfo fileinfo) throws SQLException, ContentAlreadyExistException {
+    public void storeFileInfoToDatabase(FileInfo fileinfo) throws SQLException {
         int fileid = getFileIDFromName(fileinfo.getRootFileName());
 
         if (fileid == -1) {
             createNewFileRecord(fileinfo);
         } else {
+
+            // overwrite if exist
+            int versionID = getVersionIDFromHash(fileinfo.getCrcHash());
+            
+            
+            
+            Connection conn = DBConnectionPool.getInstance().reserveConnection();
+            SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();
+
+            QVersionInfo qversioninfo = QVersionInfo.VersionInfo;
+
+            new SQLDeleteClause(conn, config, qversioninfo)
+                    .where(qversioninfo.id.eq(versionID))
+                    .execute();
+
+            DBConnectionPool.getInstance().releaseConnection(conn);
+
             createNewVersionRecord(fileinfo, fileid);
         }
 
@@ -274,7 +300,7 @@ public class FileInfoController {
         return result.get(0);
     }
 
-    public int createNewFileRecord(FileInfo fileinfo) throws SQLException, ContentAlreadyExistException {
+    public int createNewFileRecord(FileInfo fileinfo) throws SQLException {
         Connection conn = DBConnectionPool.getInstance().reserveConnection();
         SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();
 
@@ -294,11 +320,6 @@ public class FileInfoController {
         }
 
         int versionid = createNewVersionRecord(fileinfo, fileId);
-
-        if (versionid == -1) {
-            throw new ContentAlreadyExistException("Version already exist");
-        }
-
         return fileId;
     }
 

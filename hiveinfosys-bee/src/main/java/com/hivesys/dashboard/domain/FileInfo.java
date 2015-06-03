@@ -166,4 +166,18 @@ public class FileInfo {
         this.boxViewID = boxViewID;
     }
 
+    /**
+     * @return the versionID
+     */
+    public String getVersionID() {
+        return versionID;
+    }
+
+    /**
+     * @param versionID the versionID to set
+     */
+    public void setVersionID(String versionID) {
+        this.versionID = versionID;
+    }
+
 }

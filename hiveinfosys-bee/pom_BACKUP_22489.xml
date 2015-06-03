@@ -163,9 +163,22 @@
 
 
         <dependency>
+<<<<<<< HEAD
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.4.1</version>
+=======
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20141113</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.vaadin.addon</groupId>
+            <artifactId>visjs-addon</artifactId>
+            <version>1.0.0.5</version>
+>>>>>>> 11e677d60dec2327a4179b35c2b6fb66d1f6f601
         </dependency>
 
 

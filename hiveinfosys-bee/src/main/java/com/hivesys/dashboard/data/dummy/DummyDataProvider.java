@@ -67,34 +67,20 @@ public class DummyDataProvider implements DataProvider {
     @Override
     public User authenticate(String userName, String password) throws AccessControlException {
         if (userName.equals("")) {
-            User user = new User(999);
-            user.setFirstName("Swoorup");
-            user.setLastName("Joshi");
-            user.setRole("admin");
-            String email = user.getFirstName().toLowerCase() + "."
-                    + user.getLastName().toLowerCase() + "@"
-                    + "murdoch" + ".com";
-            user.setEmail(email.replaceAll(" ", ""));
-            user.setLocation("perth");
 
-            user.setBio("Quis aute iure reprehenderit in voluptate velit esse."
-                    + "Cras mattis iudicium purus sit amet fermentum.");
-            return user;
+            return authenticate("SJoshi", "moodle123");
         }
 
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
         }
         byte[] passwordDigest = md.digest(password.getBytes());
         StringBuilder passwordmd5hash = new StringBuilder();
         for (int i = 0; i < passwordDigest.length; ++i) {
             passwordmd5hash.append(Integer.toHexString((passwordDigest[i] & 0xFF) | 0x100).substring(1, 3));
         }
-        System.out.println(passwordmd5hash.toString());
 
         try {
             SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();

@@ -447,6 +447,7 @@
   <field name="dimension_pixelaspectratio" type="tdoubles"/>
   <field name="dimension_verticalpixeloffset" type="tlongs"/>
   <field name="dimension_verticalpixelsize" type="tdoubles"/>
+  <field name="edit_time" type="tlongs"/>
   <field name="extended_properties_application" type="strings"/>
   <field name="extended_properties_appversion" type="tdoubles"/>
   <field name="extended_properties_company" type="strings"/>
@@ -455,7 +456,7 @@
   <field name="generator" type="strings"/>
   <field name="graphiccontrolextension" type="strings"/>
   <field name="height" type="tlongs"/>
-  <field name="hive_uploaded_date" type="tdates" multiValued="false" indexed="true" required="true"/>
+  <field name="hive_uploaded_date" type="tdates" multiValued="false" indexed="true" required="false"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
   <field name="ihdr" type="strings"/>
   <field name="image_height" type="strings"/>
@@ -498,7 +499,7 @@
   <field name="size" type="strings"/>
   <field name="spdf" type="tdoubles"/>
   <field name="stream_content_type" type="strings"/>
-  <field name="stream_name" type="strings" multiValued="false" indexed="true" required="true"/>
+  <field name="stream_name" type="strings" multiValued="false" indexed="true" required="false"/>
   <field name="stream_size" type="tlongs"/>
   <field name="stream_source_info" type="strings"/>
   <field name="subject" type="strings"/>

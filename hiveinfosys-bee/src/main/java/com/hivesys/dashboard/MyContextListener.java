@@ -12,7 +12,6 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
-import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -38,7 +37,6 @@ public class MyContextListener implements ServletContextListener
 
         ElasticSearchContext es = ElasticSearchContext.getInstance();
         es.initClient("localhost", 9300);
-        
         Config.getInstance().loadConfig();
         // …
     }
