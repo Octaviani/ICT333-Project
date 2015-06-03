@@ -1,0 +1,842 @@
+[2015-06-02 19:23:13,353][INFO ][node                     ] [Spellbinder] version[1.5.2], pid[12399], build[62ff986/2015-04-27T09:21:06Z]
+[2015-06-02 19:23:13,353][INFO ][node                     ] [Spellbinder] initializing ...
+[2015-06-02 19:23:13,356][INFO ][plugins                  ] [Spellbinder] loaded [], sites []
+[2015-06-02 19:23:15,045][INFO ][node                     ] [Spellbinder] initialized
+[2015-06-02 19:23:15,046][INFO ][node                     ] [Spellbinder] starting ...
+[2015-06-02 19:23:15,180][INFO ][transport                ] [Spellbinder] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/10.1.1.4:9300]}
+[2015-06-02 19:23:15,198][INFO ][discovery                ] [Spellbinder] elasticsearch/9FjAU4FSTN6HdYLVSPetZg
+[2015-06-02 19:23:18,968][INFO ][cluster.service          ] [Spellbinder] new_master [Spellbinder][9FjAU4FSTN6HdYLVSPetZg][metabox][inet[/10.1.1.4:9300]], reason: zen-disco-join (elected_as_master)
+[2015-06-02 19:23:19,006][INFO ][http                     ] [Spellbinder] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/10.1.1.4:9200]}
+[2015-06-02 19:23:19,011][INFO ][node                     ] [Spellbinder] started
+[2015-06-02 19:23:19,143][INFO ][gateway                  ] [Spellbinder] recovered [0] indices into cluster_state
+[2015-06-02 19:46:36,677][INFO ][cluster.metadata         ] [Spellbinder] [blog] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings [user]
+[2015-06-02 19:46:37,611][INFO ][cluster.metadata         ] [Spellbinder] [blog] update_mapping [user] (dynamic)
+[2015-06-02 19:46:57,847][INFO ][cluster.metadata         ] [Spellbinder] [blog] update_mapping [post] (dynamic)
+[2015-06-02 20:26:23,434][INFO ][cluster.service          ] [Spellbinder] added {[Unthinnk][fpjSTNhsS5Ozg6jFkSoQVg][metabox][inet[/10.1.1.4:9301]],}, reason: zen-disco-receive(join from node[[Unthinnk][fpjSTNhsS5Ozg6jFkSoQVg][metabox][inet[/10.1.1.4:9301]]])
+[2015-06-02 20:26:23,683][INFO ][cluster.metadata         ] [Spellbinder] [_river] creating index, cause [auto(index api)], templates [], shards [1]/[1], mappings []
+[2015-06-02 20:26:24,356][INFO ][cluster.metadata         ] [Spellbinder] [_river] update_mapping [mytestriver] (dynamic)
+[2015-06-02 20:26:24,532][INFO ][cluster.metadata         ] [Spellbinder] [docs] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2015-06-02 20:26:26,281][INFO ][cluster.metadata         ] [Spellbinder] [docs] create_mapping [doc]
+[2015-06-02 20:26:26,418][INFO ][cluster.metadata         ] [Spellbinder] [_river] update_mapping [mytestriver] (dynamic)
+[2015-06-02 20:26:26,558][INFO ][cluster.metadata         ] [Spellbinder] [_river] update_mapping [mytestriver] (dynamic)
+[2015-06-02 20:26:29,668][INFO ][cluster.metadata         ] [Spellbinder] [[_river]] remove_mapping [[mytestriver]]
+[2015-06-02 20:26:30,626][INFO ][cluster.metadata         ] [Spellbinder] [_river] update_mapping [mytestriver] (dynamic)
+[2015-06-02 20:26:30,870][INFO ][cluster.metadata         ] [Spellbinder] [[_river]] remove_mapping [[mytestriver]]
+[2015-06-02 20:26:30,918][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_version] returning default doc values format
+[2015-06-02 20:26:30,919][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_all] returning default postings format
+[2015-06-02 20:26:30,920][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_field_names] returning default postings format
+[2015-06-02 20:26:30,920][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_type] returning default postings format
+[2015-06-02 20:26:30,920][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_uid] returning default postings format
+[2015-06-02 20:26:30,920][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [fs.status] returning default postings format
+[2015-06-02 20:26:30,922][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_version] returning default doc values format
+[2015-06-02 20:26:30,924][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_all] returning default postings format
+[2015-06-02 20:26:30,924][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_field_names] returning default postings format
+[2015-06-02 20:26:30,924][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_type] returning default postings format
+[2015-06-02 20:26:30,924][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [_uid] returning default postings format
+[2015-06-02 20:26:30,925][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [node.id] returning default postings format
+[2015-06-02 20:26:30,925][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [node.name] returning default postings format
+[2015-06-02 20:26:30,925][WARN ][index.codec              ] [Spellbinder] [_river] no index mapper found for field: [node.transport_address] returning default postings format
+[2015-06-02 20:26:31,141][INFO ][cluster.metadata         ] [Spellbinder] [_river] update_mapping [mytestriver] (dynamic)
+[2015-06-02 20:26:31,737][INFO ][cluster.metadata         ] [Spellbinder] [[_river]] remove_mapping [[mytestriver]]
+[2015-06-02 20:26:31,898][INFO ][cluster.metadata         ] [Spellbinder] [smdadmin] creating index, cause [auto(index api)], templates [], shards [5]/[1], mappings []
+[2015-06-02 20:26:32,955][INFO ][cluster.metadata         ] [Spellbinder] [smdadmin] update_mapping [rivers] (dynamic)
+[2015-06-02 20:26:33,577][INFO ][cluster.service          ] [Spellbinder] removed {[Unthinnk][fpjSTNhsS5Ozg6jFkSoQVg][metabox][inet[/10.1.1.4:9301]],}, reason: zen-disco-node_left([Unthinnk][fpjSTNhsS5Ozg6jFkSoQVg][metabox][inet[/10.1.1.4:9301]])
+[2015-06-02 21:32:44,590][INFO ][node                     ] [Spellbinder] stopping ...
+[2015-06-02 21:32:44,614][INFO ][node                     ] [Spellbinder] stopped
+[2015-06-02 21:32:44,614][INFO ][node                     ] [Spellbinder] closing ...
+[2015-06-02 21:32:44,618][INFO ][node                     ] [Spellbinder] closed
+[2015-06-02 21:32:46,083][INFO ][node                     ] [Araki] version[1.5.2], pid[8199], build[62ff986/2015-04-27T09:21:06Z]
+[2015-06-02 21:32:46,083][INFO ][node                     ] [Araki] initializing ...
+[2015-06-02 21:32:46,104][INFO ][plugins                  ] [Araki] loaded [mapper-attachments], sites [head]
+[2015-06-02 21:32:47,683][INFO ][node                     ] [Araki] initialized
+[2015-06-02 21:32:47,684][INFO ][node                     ] [Araki] starting ...
+[2015-06-02 21:32:47,770][INFO ][transport                ] [Araki] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/10.1.1.4:9300]}
+[2015-06-02 21:32:47,781][INFO ][discovery                ] [Araki] elasticsearch/QcePTZgyTs6jPxetbyh_nA
+[2015-06-02 21:32:51,546][INFO ][cluster.service          ] [Araki] new_master [Araki][QcePTZgyTs6jPxetbyh_nA][metabox][inet[/10.1.1.4:9300]], reason: zen-disco-join (elected_as_master)
+[2015-06-02 21:32:51,562][INFO ][http                     ] [Araki] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/10.1.1.4:9200]}
+[2015-06-02 21:32:51,562][INFO ][node                     ] [Araki] started
+[2015-06-02 21:32:52,110][INFO ][gateway                  ] [Araki] recovered [4] indices into cluster_state
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [docs][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,160][DEBUG][action.search.type       ] [Araki] [docs][2], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][2]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [blog][2], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4]
+org.elasticsearch.search.SearchParseException: [blog][2]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [smdadmin][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [smdadmin][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [smdadmin][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [smdadmin][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [blog][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [docs][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [blog][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [docs][1], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][1]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [blog][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [docs][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [smdadmin][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [smdadmin][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [blog][1], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][1]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,159][DEBUG][action.search.type       ] [Araki] [_river][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@562f9f4] lastShard [true]
+org.elasticsearch.search.SearchParseException: [_river][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:49,163][DEBUG][action.search.type       ] [Araki] All shards failed for phase: [query]
+org.elasticsearch.search.SearchParseException: [blog][2]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"indexing_date"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [indexing_date]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,018][DEBUG][action.search.type       ] [Araki] [_river][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [_river][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,018][DEBUG][action.search.type       ] [Araki] [blog][2], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][2]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,018][DEBUG][action.search.type       ] [Araki] [docs][2], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][2]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,018][DEBUG][action.search.type       ] [Araki] [docs][1], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][1]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,018][DEBUG][action.search.type       ] [Araki] [smdadmin][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [smdadmin][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,018][DEBUG][action.search.type       ] [Araki] [blog][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,018][DEBUG][action.search.type       ] [Araki] [blog][1], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][1]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,018][DEBUG][action.search.type       ] [Araki] [docs][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,019][DEBUG][action.search.type       ] [Araki] [docs][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00]
+org.elasticsearch.search.SearchParseException: [docs][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,019][DEBUG][action.search.type       ] [Araki] [smdadmin][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [smdadmin][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,019][DEBUG][action.search.type       ] [Araki] [smdadmin][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [smdadmin][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,019][DEBUG][action.search.type       ] [Araki] [blog][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,019][DEBUG][action.search.type       ] [Araki] [docs][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,019][DEBUG][action.search.type       ] [Araki] [blog][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@492f5e00] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:52,025][DEBUG][action.search.type       ] [Araki] All shards failed for phase: [query]
+org.elasticsearch.search.SearchParseException: [docs][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"last_modified"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [last_modified]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,202][DEBUG][action.search.type       ] [Araki] [_river][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [_river][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,202][DEBUG][action.search.type       ] [Araki] [smdadmin][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [smdadmin][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [docs][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,202][DEBUG][action.search.type       ] [Araki] [blog][1], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][1]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,202][DEBUG][action.search.type       ] [Araki] [blog][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,202][DEBUG][action.search.type       ] [Araki] [docs][0], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][0]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [smdadmin][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f]
+org.elasticsearch.search.SearchParseException: [smdadmin][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [docs][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [blog][4], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [smdadmin][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [smdadmin][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [blog][2], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][2]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [blog][3], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [blog][3]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [docs][2], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][2]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,203][DEBUG][action.search.type       ] [Araki] [docs][1], node[QcePTZgyTs6jPxetbyh_nA], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@286f480f] lastShard [true]
+org.elasticsearch.search.SearchParseException: [docs][1]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:39:55,204][DEBUG][action.search.type       ] [Araki] All shards failed for phase: [query]
+org.elasticsearch.search.SearchParseException: [smdadmin][4]: query[ConstantScore(*:*)],from[0],size[0]: Parse Failure [Failed to parse source [{"fields":["_parent","_source"],"query":{"bool":{"must":[],"must_not":[],"should":[{"match_all":{}}]}},"from":0,"size":0,"sort":[],"facets":{"f-1":{"statistical":{"field":"postDate"},"global":true}},"version":true}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:721)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:557)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:529)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:291)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:231)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$5.call(SearchServiceTransportAction.java:228)
+	at org.elasticsearch.search.action.SearchServiceTransportAction$23.run(SearchServiceTransportAction.java:559)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.elasticsearch.search.facet.FacetPhaseExecutionException: Facet [f-1]: No mapping found for field [postDate]
+	at org.elasticsearch.search.facet.statistical.StatisticalFacetParser.parse(StatisticalFacetParser.java:129)
+	at org.elasticsearch.search.facet.FacetParseElement.parse(FacetParseElement.java:93)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:705)
+	... 9 more
+[2015-06-02 21:40:16,851][INFO ][node                     ] [Araki] stopping ...
+[2015-06-02 21:40:16,888][INFO ][node                     ] [Araki] stopped
+[2015-06-02 21:40:16,889][INFO ][node                     ] [Araki] closing ...
+[2015-06-02 21:40:16,898][INFO ][node                     ] [Araki] closed
+[2015-06-02 21:43:47,286][INFO ][node                     ] [Forearm] version[1.5.2], pid[11313], build[62ff986/2015-04-27T09:21:06Z]
+[2015-06-02 21:43:47,287][INFO ][node                     ] [Forearm] initializing ...
+[2015-06-02 21:43:47,305][INFO ][plugins                  ] [Forearm] loaded [mapper-attachments], sites [head]
+[2015-06-02 21:43:49,007][INFO ][node                     ] [Forearm] initialized
+[2015-06-02 21:43:49,007][INFO ][node                     ] [Forearm] starting ...
+[2015-06-02 21:43:49,124][INFO ][transport                ] [Forearm] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/10.1.1.4:9300]}
+[2015-06-02 21:43:49,139][INFO ][discovery                ] [Forearm] elasticsearch/aOSYrbQER1GBnBbapj2hNg
+[2015-06-02 21:43:52,903][INFO ][cluster.service          ] [Forearm] new_master [Forearm][aOSYrbQER1GBnBbapj2hNg][metabox][inet[/10.1.1.4:9300]], reason: zen-disco-join (elected_as_master)
+[2015-06-02 21:43:52,923][INFO ][http                     ] [Forearm] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/10.1.1.4:9200]}
+[2015-06-02 21:43:52,923][INFO ][node                     ] [Forearm] started
+[2015-06-02 21:43:53,344][INFO ][gateway                  ] [Forearm] recovered [4] indices into cluster_state
+[2015-06-02 21:47:05,053][INFO ][cluster.metadata         ] [Forearm] [test] creating index, cause [api], templates [], shards [1]/[1], mappings [attachment]
+[2015-06-02 23:00:07,696][INFO ][cluster.metadata         ] [Forearm] [test] deleting index
+[2015-06-02 23:00:18,911][INFO ][cluster.metadata         ] [Forearm] [test] creating index, cause [api], templates [], shards [1]/[1], mappings [attachment]
+[2015-06-02 23:19:07,945][INFO ][cluster.metadata         ] [Forearm] [test] update_mapping [attachment] (dynamic)
