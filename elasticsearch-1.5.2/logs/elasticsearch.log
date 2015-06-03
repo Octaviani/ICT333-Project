@@ -444,3 +444,30 @@ org.elasticsearch.ElasticsearchIllegalArgumentException: can't change the number
 [2015-06-04 05:22:17,648][INFO ][cluster.metadata         ] [Dweller-in-Darkness] opening indices [[hivesystemcontents]]
 [2015-06-04 05:22:26,448][INFO ][cluster.metadata         ] [Dweller-in-Darkness] closing indices [[hivesystemcontents]]
 [2015-06-04 05:22:26,532][INFO ][cluster.metadata         ] [Dweller-in-Darkness] opening indices [[hivesystemcontents]]
+[2015-06-04 06:16:17,319][INFO ][node                     ] [Amiko Kobayashi] version[1.5.2], pid[12087], build[62ff986/2015-04-27T09:21:06Z]
+[2015-06-04 06:16:17,320][INFO ][node                     ] [Amiko Kobayashi] initializing ...
+[2015-06-04 06:16:17,351][INFO ][plugins                  ] [Amiko Kobayashi] loaded [mapper-attachments, clustering-carrot2], sites [head, carrot2]
+[2015-06-04 06:16:18,912][INFO ][node                     ] [Amiko Kobayashi] initialized
+[2015-06-04 06:16:18,913][INFO ][node                     ] [Amiko Kobayashi] starting ...
+[2015-06-04 06:16:18,916][INFO ][plugin.carrot2           ] [Amiko Kobayashi] Resources dir: /home/swoorup/KBLSys/elasticsearch-1.5.2/config/.
+[2015-06-04 06:16:19,318][INFO ][plugin.carrot2           ] [Amiko Kobayashi] Available clustering components: lingo, stc, kmeans, byurl
+[2015-06-04 06:16:19,318][INFO ][plugin.carrot2           ] [Amiko Kobayashi] Unavailable clustering components: lingo3g
+[2015-06-04 06:16:19,376][INFO ][transport                ] [Amiko Kobayashi] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/10.1.1.2:9300]}
+[2015-06-04 06:16:19,391][INFO ][discovery                ] [Amiko Kobayashi] elasticsearch/iT5Pi22XQA2hPblqx5iTZA
+[2015-06-04 06:16:23,158][INFO ][cluster.service          ] [Amiko Kobayashi] new_master [Amiko Kobayashi][iT5Pi22XQA2hPblqx5iTZA][metabox][inet[/10.1.1.2:9300]], reason: zen-disco-join (elected_as_master)
+[2015-06-04 06:16:23,180][INFO ][http                     ] [Amiko Kobayashi] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/10.1.1.2:9200]}
+[2015-06-04 06:16:23,180][INFO ][node                     ] [Amiko Kobayashi] started
+[2015-06-04 06:16:23,628][INFO ][gateway                  ] [Amiko Kobayashi] recovered [3] indices into cluster_state
+[2015-06-04 06:22:02,005][INFO ][cluster.metadata         ] [Amiko Kobayashi] closing indices [[hivesystemcontents]]
+[2015-06-04 06:22:02,186][INFO ][cluster.metadata         ] [Amiko Kobayashi] opening indices [[hivesystemcontents]]
+[2015-06-04 06:34:32,494][INFO ][cluster.metadata         ] [Amiko Kobayashi] closing indices [[hivesystemcontents]]
+[2015-06-04 06:34:32,593][INFO ][cluster.metadata         ] [Amiko Kobayashi] opening indices [[hivesystemcontents]]
+[2015-06-04 06:37:07,986][INFO ][cluster.metadata         ] [Amiko Kobayashi] closing indices [[hivesystemcontents]]
+[2015-06-04 06:37:08,101][INFO ][cluster.metadata         ] [Amiko Kobayashi] opening indices [[hivesystemcontents]]
+[2015-06-04 06:39:39,713][INFO ][cluster.metadata         ] [Amiko Kobayashi] closing indices [[hivesystemcontents]]
+[2015-06-04 06:39:39,864][INFO ][cluster.metadata         ] [Amiko Kobayashi] opening indices [[hivesystemcontents]]
+[2015-06-04 06:43:30,614][INFO ][org.apache.pdfbox.pdfparser.PDFParser] Document is encrypted
+[2015-06-04 06:43:31,877][INFO ][org.apache.pdfbox.pdfparser.PDFParser] Document is encrypted
+[2015-06-04 06:43:33,479][INFO ][org.apache.pdfbox.pdfparser.PDFParser] Document is encrypted
+[2015-06-04 06:43:33,630][WARN ][org.apache.pdfbox.pdfparser.BaseParser] Specified stream length 368 is wrong. Fall back to reading stream until 'endstream'.
+[2015-06-04 06:43:33,682][INFO ][org.apache.pdfbox.pdfparser.PDFParser] Document is encrypted

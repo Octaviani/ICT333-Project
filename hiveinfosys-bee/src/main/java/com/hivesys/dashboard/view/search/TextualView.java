@@ -71,11 +71,14 @@ public class TextualView extends Panel {
 
                 Button lblfileName = new Button(filename);
                 lblfileName.addClickListener((Button.ClickEvent event) -> {
-                    if (boxviewID != null || !"".equals(FileInfoController.getInstance().getViewURL(boxviewID))) {
+                  if (boxviewID != null) {
+                      String url = FileInfoController.getInstance().getViewURL(boxviewID);
+                      if (url != null || !url.equals(""))
+                      {
                         String url = FileInfoController.getInstance().getViewURL(boxviewID);
                         BrowserFrame bframe = new BrowserFrame(filename, new ExternalResource(url));
                         VerticalLayout vlayout = new VerticalLayout(bframe);
-                        
+
                         final Window w = new Window();
                         w.setSizeFull();
                         w.setModal(true);
@@ -85,13 +88,16 @@ public class TextualView extends Panel {
                         vlayout.setMargin(true);
                         w.setResizable(false);
                         w.setDraggable(false);
-                        
+
                         UI.getCurrent().addWindow(w);
                         bframe.setSizeFull();
+                        return;
+                      }
+                      Notification.show("Preview not available for this document!");
                     }
                 });
                 lblfileName.setPrimaryStyleName("filename");
-               
+
 
                 Label lblHighlight = new Label(highlight, ContentMode.HTML);
                 lblHighlight.setStyleName("highlight");

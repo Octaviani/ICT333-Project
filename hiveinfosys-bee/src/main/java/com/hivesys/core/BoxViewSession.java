@@ -31,6 +31,7 @@ public class BoxViewSession {
     }
 
     public String getViewURL(String docID) {
+      System.out.println("Getting session for box document: " + docID);
         Session session = map.get(docID);
         if (session == null || (new Date().after(session.getExpiresAt()))) {
             try {
@@ -46,8 +47,10 @@ public class BoxViewSession {
                 map.put(docID, session);
             } catch (BoxViewException | NullPointerException | ParseException ex) {
                 return "";
-            } 
+            }
         } // if expired
+
+        System.out.println("Session View: " + session.getViewUrl());
         return session.getViewUrl();
     }
 

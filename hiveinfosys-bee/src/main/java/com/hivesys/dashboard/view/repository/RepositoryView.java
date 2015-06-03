@@ -71,12 +71,13 @@ public final class RepositoryView extends Panel implements View {
                         if (boxviewID != null) {
                             Notification.show("Opening Preview!");
                             String url = FileInfoController.getInstance().getViewURL(boxviewID.toString());
-                            if (url.equals(""))
-                                Notification.show("Preview Site down for the document!");
-
+                            if (url.equals("")) {
+                                Notification.show("Preview site is down for the document!");
+                                return;
+                            }
                             Object objfilename = container.getContainerProperty(event.getItemId(), "File Name").getValue();
                             String filename = "";
-                            
+
                             if (objfilename != null) {
                                 filename = objfilename.toString();
                             }
@@ -110,18 +111,18 @@ public final class RepositoryView extends Panel implements View {
              grid.addColumn("index", Integer.class)
              .setRenderer(new NumberRenderer("%02d")).setHeaderCaption("##")
              .setExpandRatio(0);
-            
+
              grid.getColumn("index").setWidth(50);
-            
+
              grid.addColumn("name", String.class)
              .setRenderer(new BoldLastNameRenderer()).setExpandRatio(1);
-            
+
              grid.addColumn("progress", Double.class)
              .setRenderer(new ProgressBarRenderer()).setExpandRatio(2);
-            
+
              grid.addColumn("edit", String.class).setWidth(35)
              .setRenderer(new IconRender());
-            
+
              grid.addColumn("delete", String.class).setWidth(35)
              .setRenderer(new ButtonRenderer(new RendererClickListener() {
              @Override
@@ -129,9 +130,9 @@ public final class RepositoryView extends Panel implements View {
              Notification.show("Deleted item " + e.getItemId());
              }
              }));
-            
+
              grid.getDefaultHeaderRow().join("edit", "delete").setText("Tools");
-            
+
              Random r = new Random();
              for (int i = 0; i < 100; ++i) {
              String[] name = {"sasa", "sasa"};
