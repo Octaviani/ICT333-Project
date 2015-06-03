@@ -100,12 +100,6 @@ public final class DashboardMenu extends CustomComponent {
                 ProfilePreferencesWindow.open(user, false);
             }
         });
-        settingsItem.addItem("Preferences", new Command() {
-            @Override
-            public void menuSelected(final MenuItem selectedItem) {
-                ProfilePreferencesWindow.open(user, true);
-            }
-        });
         settingsItem.addSeparator();
         settingsItem.addItem("Sign Out", new Command() {
             @Override

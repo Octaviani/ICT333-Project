@@ -2,8 +2,11 @@ package com.hivesys.dashboard.view.repository;
 
 import com.hivesys.core.ContentStore;
 import com.hivesys.dashboard.domain.FileInfo;
+import com.hivesys.exception.ContentAlreadyExistException;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import java.io.IOException;
+import java.sql.SQLException;
 import pl.exsio.plupload.PluploadFile;
 
 /**
@@ -20,7 +23,7 @@ public class FileInfoPanel extends FormLayout {
     Label mPrevCopies;
 
     PluploadFile mfile;
-    FileInfo fInfo;
+    private FileInfo fInfo;
 
     FileInfoPanel(PluploadFile file) {
         initViewComponents();
@@ -56,32 +59,46 @@ public class FileInfoPanel extends FormLayout {
 
     private void initData(PluploadFile file) {
         mfile = file;
-        fInfo = new FileInfo();
+        setfInfo(new FileInfo());
 
         String tmpFilePath = mfile.getUploadedFile().toString();
-        fInfo.setRootFileName(mfile.getName());
-        fInfo = ContentStore.getInstance().parseFileInfoFromFile(tmpFilePath, fInfo);
+        getfInfo().setRootFileName(mfile.getName());
+        setfInfo(ContentStore.getInstance().parseFileInfoFromFile(tmpFilePath, getfInfo()));
         setDataFromDomain();
     }
 
     private void setDataFromDomain() {
         this.setCaption(mfile.getName());
 
-        mtxtTitle.setValue(fInfo.getTitle());
-        mtxtAuthor.setValue(fInfo.getAuthor());
-        mdateCreated.setValue(fInfo.getDateCreated());
+        mtxtTitle.setValue(getfInfo().getTitle());
+        mtxtAuthor.setValue(getfInfo().getAuthor());
+        mdateCreated.setValue(getfInfo().getDateCreated());
     }
 
     public void setDataToDomain() {
-        fInfo.setTitle(mtxtTitle.getValue());
-        fInfo.setAuthor(mtxtAuthor.getValue());
-        fInfo.setDateCreated(mdateCreated.getValue());
-        fInfo.setDescription(mtxtDescription.getValue());
+        getfInfo().setTitle(mtxtTitle.getValue());
+        getfInfo().setAuthor(mtxtAuthor.getValue());
+        getfInfo().setDateCreated(mdateCreated.getValue());
+        getfInfo().setDescription(mtxtDescription.getValue());
     }
 
-    public void CommitChangesToDomain() throws Exception {
+    public void CommitChangesToDomain() throws ContentAlreadyExistException, SQLException, IOException {
         String tmpFilePath = mfile.getUploadedFile().toString();
-        ContentStore.getInstance().storeFileToRepository(tmpFilePath, fInfo);
+        ContentStore.getInstance().storeFileToRepository(tmpFilePath, getfInfo());
+    }
+
+    /**
+     * @return the fInfo
+     */
+    public FileInfo getfInfo() {
+        return fInfo;
+    }
+
+    /**
+     * @param fInfo the fInfo to set
+     */
+    public void setfInfo(FileInfo fInfo) {
+        this.fInfo = fInfo;
     }
 
 }
