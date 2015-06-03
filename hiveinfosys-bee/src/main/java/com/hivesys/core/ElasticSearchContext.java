@@ -26,8 +26,8 @@ public class ElasticSearchContext {
     ElasticSearchContext() {
     }
 
-    public void initClient(String host, int port) {
-        try {
+    public void initClient(String host, int port) throws Exception {
+        
             mClient = new TransportClient()
                     .addTransportAddress(new InetSocketTransportAddress(host, port));
 
@@ -60,7 +60,6 @@ public class ElasticSearchContext {
             
             
             
-            
 
             if (mClient.admin().indices().prepareExists(idxName).execute().actionGet().isExists()) {
                 //TODO make sure old and the new are not same
@@ -88,9 +87,6 @@ public class ElasticSearchContext {
                         .execute()
                         .actionGet();
             }
-        } catch (IOException ex) {
-            System.out.println("Elastic search failed to start or create/update index");
-        }
     }
 
     public void indexFile(FileInfo fInfo) throws IOException {

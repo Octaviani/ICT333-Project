@@ -247,16 +247,11 @@ public class UploadView extends Panel implements View {
         });
         max.setStyleName("icon-only");
 
-        MenuItem close = tools.addItem("" + Icon.remove, new Command() {
-
-            @Override
-            public void menuSelected(final MenuItem selectedItem) {
-                dashboardPanels.removeComponent(slot);
-                filesToCommit.remove((FileInfoPanel) content);
-                if (filesToCommit.isEmpty()) {
-                    init();
-                }
-
+        MenuItem close = tools.addItem("" + Icon.remove, (final MenuItem selectedItem) -> {
+            dashboardPanels.removeComponent(slot);
+            filesToCommit.remove((FileInfoPanel) content);
+            if (filesToCommit.isEmpty()) {
+                init();
             }
         });
         close.setStyleName("icon-only");
