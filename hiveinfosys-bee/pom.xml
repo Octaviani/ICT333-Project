@@ -8,11 +8,11 @@
     <packaging>war</packaging>
 
     <properties>
-        <vaadin.version>7.4.6</vaadin.version>
+        <vaadin.version>7.4.7</vaadin.version>
         <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jetty.plugin.version>9.2.3.v20140905</jetty.plugin.version>
+        <jetty.plugin.version>9.2.9.v20150224</jetty.plugin.version>
         <project.source.version>1.8</project.source.version>
         <project.target.version>1.8</project.target.version>
 
@@ -83,49 +83,26 @@
             <version>2.0.4</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>18.0</version>
-        </dependency>
+        
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>1.6.4</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.solr</groupId>-->
+        <!--<artifactId>solr-core</artifactId>-->
+        <!--<version>5.1.0</version>-->
+        <!--</dependency>-->
 
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-core</artifactId>
-            <version>5.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-solrj</artifactId>
-            <version>5.1.0</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.solr</groupId>-->
+        <!--<artifactId>solr-solrj</artifactId>-->
+        <!--<version>5.1.0</version>-->
+        <!--</dependency>-->
 
         <!-- Some solr extractors needed -->
-        <dependency>
-            <groupId>org.apache.solr</groupId>
-            <artifactId>solr-cell</artifactId>
-            <version>5.1.0</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.solr</groupId>-->
+        <!--<artifactId>solr-cell</artifactId>-->
+        <!--<version>5.1.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
@@ -135,11 +112,11 @@
 
 
         <!-- Apache Mahout recommendation engine for solr -->
-        <dependency>
-            <groupId>org.apache.mahout</groupId>
-            <artifactId>mahout-core</artifactId>
-            <version>0.9</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.mahout</groupId>-->
+        <!--<artifactId>mahout-core</artifactId>-->
+        <!--<version>0.9</version>-->
+        <!--</dependency>-->
         
         <dependency>
             <groupId>com.mysema.querydsl</groupId>
@@ -148,10 +125,51 @@
         </dependency>
         
         <dependency>
-            <groupId>com.box</groupId>
-            <artifactId>box-java-sdk</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20141113</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.vaadin.addon</groupId>
+            <artifactId>visjs-addon</artifactId>
+            <version>1.0.0.5</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-mapper-attachments</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>
@@ -272,6 +290,19 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>default-war</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>war-exploded</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <webResources>

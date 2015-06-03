@@ -5,7 +5,6 @@
  */
 package com.hivesys.dashboard.domain;
 
-import java.io.File;
 import java.util.Date;
 
 /**
@@ -21,9 +20,11 @@ public class FileInfo {
     private String description;
     private String Author;
     private String crcHash;
+    private String boxViewID;
     
     private Date dateCreated;
     private Date dateUploaded;
+    private String versionID;
 
     /**
      * @return the contentFilepath
@@ -149,6 +150,20 @@ public class FileInfo {
      */
     public void setFullFileName(String fullFileName) {
         this.fullFileName = fullFileName;
+    }
+
+    /**
+     * @return the boxViewID
+     */
+    public String getBoxViewID() {
+        return boxViewID;
+    }
+
+    /**
+     * @param boxViewID the boxViewID to set
+     */
+    public void setBoxViewID(String boxViewID) {
+        this.boxViewID = boxViewID;
     }
 
 }

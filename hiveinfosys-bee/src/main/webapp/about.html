@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DataHive (Knowledge Base System)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="http://bootstraptaste.com" />
+<!-- css -->
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/fancybox/jquery.fancybox.css" rel="stylesheet">
+<link href="css/jcarousel.css" rel="stylesheet" />
+<link href="css/flexslider.css" rel="stylesheet" />
+<link href="css/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.0.0/animate.min.css">
+ <link rel="stylesheet" type="text/css" href="styles.css"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+  <link rel="stylesheet" href="./css/liquid-slider.css">
+
+
+
+<!-- Theme skin -->
+<link href="skins/default.css" rel="stylesheet" />
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+      body {
+        background-color:     -moz-linear-gradient( bottom,  #080811, #000 90%);
+        margin: 0px;
+        overflow: hidden;
+      }
+
+      a {
+        color:#0078ff;
+      }
+    </style>
+</head>
+
+
+<body>
+
+  <!-- start header -->
+  <header>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                  <span><a class="navbar-brand" href="index.html">
+                      <img src="img/logo_10.png" alt="Logo" ></span></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+            <li><a href="index.html">HOME</a></li>
+                        <li><a href="sign_in.html">LOGIN</a></li>
+                        <li><a href="features.html">FEATURES</a></li>
+                        <li class="active"><a href="about.html">ABOUT</a></li>
+                        <li><a href="help.html">HELP</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+  </header>
+  <div id="cont1" class="cont1" >
+
+  <br>
+  <body class="no-js">
+  <div id="main-slider" class="liquid-slider">
+    <div>
+      <h2 class="title">Visualisation of Data</h2>
+      <p>Data visualization is the presentation of data in a pictorial or graphical format; the <i>modern equivalent of visual communication</i>. By visualising the strength of relationships between artefacts, users would quickly view the information that will be the most relevant to their search</p>
+      <br>
+      <p>The concept of the data visualisation is derived of decomposed elements of <i>Force-Directed Graph</i>, it displays the occurence of keyterms that corresponds to the search query, mapping out the descended nodes. The size of each nodes corresponds to the frequency of word occurence.</p>
+      <br>
+      <p>Furthermore, this prototype aims to render this data visualisation into a 3D-form of interactive network of data, which enables the users to view and interact with the structure</p> 
+    </div>
+    <div>
+      <h2 class="title">Real-Time Search</h2>
+      <p>The search engine enables the user to browse other user generated data synchronously. The results are presented along with the details of the metadata. The search features full-text search, hit highlighting, real-time indexing and dynamic clustering of data. </p>
+      <br>
+      <p>The search feature had been constructed through the use of open source enterprise search platform; Apache Solr, in conjunction with Lucene Library. This allows it to be highly scalable and fault tolerant</p>
+      <br>
+      <p>The search platform is designed to process and analyse rich, structured files, particularly documents that supports text-based file extensions such as PDF, DOCX, TXT and others.</p> 
+    </div>          
+    <div>
+      <h2 class="title">Customised Prediction</h2>
+      
+      <p>This project aims to feature machine learning element into the prototype. The goal is to build an environment for scalable performance machine learning application by providing a customised recommendation of (potentially) relevant documents that fits individual users, based on their past activities</p>
+      <br>
+      <p>Potentially, this could be achieved through the integration of Apache Mahout and Apache Lucene/Solr. Which utilises the functionality called ItemRecommender and UserRecommender; using Solr for recommendation queries and Mahout to generate the similarity matrix model</p>
+
+    </div>
+    <div id="cont2" style="float:right">
+    <script src="js/three.min.js"></script>
+    <script src="js/Projector.js"></script>
+    <script src="js/CanvasRenderer.js"></script>
+    <script>
+
+      var mouseX = 0, mouseY = 0,
+
+      windowHalfX = window.innerWidth / 2,
+      windowHalfY = window.innerHeight / 2,
+
+      SEPARATION = 200,
+      AMOUNTX = 10,
+      AMOUNTY = 10,
+
+      camera, scene, renderer;
+
+      init();
+      animate();
+
+      function init() {
+
+        var container, separation = 600, amountX = 50, amountY = 50,
+        particles, particle;
+
+        container = document.createElement('div');
+        document.body.appendChild(container);
+
+        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 300, 10000 );
+        camera.position.z = 400;
+
+        scene = new THREE.Scene();
+
+        renderer = new THREE.CanvasRenderer();
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        container.appendChild( renderer.domElement );
+
+        // particles
+
+        var PI2 = Math.PI * 8;
+        var material = new THREE.SpriteCanvasMaterial( {
+
+          color: 0x003399,
+          program: function ( context ) {
+
+            context.beginPath();
+            context.arc( 0, 0, 0.5, 0, PI2, true );
+            context.fill();
+
+          }
+
+        } );
+
+        var geometry = new THREE.Geometry();
+
+        for ( var i = 0; i < 200; i ++ ) {
+
+          particle = new THREE.Sprite( material );
+          particle.position.x = Math.random() * 2 - 1;
+          particle.position.y = Math.random() * 2 - 1;
+          particle.position.z = Math.random() * 2 - 1;
+          particle.position.normalize();
+          particle.position.multiplyScalar( Math.random() * 10 + 450 );
+          particle.scale.x = particle.scale.y = 10;
+          scene.add( particle );
+
+          geometry.vertices.push( particle.position );
+
+        }
+
+        // lines
+
+        var line = new THREE.Line( geometry, new THREE.LineBasicMaterial( { color: 0x003366, opacity: 0.5 } ) );
+        scene.add( line );
+
+        document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+        document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+        document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+
+        //
+
+        window.addEventListener( 'resize', onWindowResize, true );
+
+      }
+
+      function onWindowResize() {
+
+        windowHalfX = window.innerWidth / 2;
+        windowHalfY = window.innerHeight / 2;
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+      }
+
+      //
+
+      function onDocumentMouseMove(event) {
+
+        mouseX = event.clientX - windowHalfX;
+        mouseY = event.clientY - windowHalfY;
+
+      }
+
+      function onDocumentTouchStart( event ) {
+
+        if ( event.touches.length > 1 ) {
+
+          event.preventDefault();
+
+          mouseX = event.touches[ 8 ].pageX - windowHalfX;
+          mouseY = event.touches[ 90 ].pageY - windowHalfY;
+
+        }
+
+      }
+
+      function onDocumentTouchMove( event ) {
+
+        if ( event.touches.length == 1 ) {
+
+          event.preventDefault();
+
+          mouseX = event.touches[ 90 ].pageX - windowHalfX;
+          mouseY = event.touches[ 90 ].pageY - windowHalfY;
+
+        }
+
+      }
+
+      //
+
+      function animate() {
+
+        requestAnimationFrame( animate );
+            
+        render();
+
+      }
+
+      function render() {
+
+        camera.position.x += ( mouseX - camera.position.x ) * .05;
+        camera.position.y += ( - mouseY + 320 - camera.position.y ) * .04;
+        camera.lookAt( scene.position );
+
+        renderer.render( scene, camera );
+
+      }
+
+    </script>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+</body>
+
+<!-- javascript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
+  <script src="./js/jquery.liquid-slider.min.js"></script>  
+  <script>
+      $('#main-slider').liquidSlider();
+  </script>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.fancybox.pack.js"></script>
+<script src="js/jquery.fancybox-media.js"></script>
+<script src="js/google-code-prettify/prettify.js"></script>
+<script src="js/portfolio/jquery.quicksand.js"></script>
+<script src="js/portfolio/setting.js"></script>
+<script src="js/jquery.flexslider.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>

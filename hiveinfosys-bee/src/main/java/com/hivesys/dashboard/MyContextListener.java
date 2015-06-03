@@ -5,10 +5,14 @@
  */
 package com.hivesys.dashboard;
 
-import com.hivesys.core.Configuration;
-import com.hivesys.core.DatabaseSource;
-import com.hivesys.core.SolrConnection;
+import com.hivesys.config.Config;
+import com.hivesys.core.DBConnectionPool;
+import com.hivesys.core.ElasticSearchContext;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -30,10 +34,12 @@ public class MyContextListener implements ServletContextListener
         ServletContext context = contextEvent.getServletContext();
         System.out.println("Context Initialized!");
         
-        DatabaseSource dbconn = DatabaseSource.getInstance();
-        SolrConnection solr = SolrConnection.getInstance();
-        solr.connect("http://localhost:8983/solr/hive-solr-schema/");
-        Configuration.getInstance().loadConfig();
+        DBConnectionPool dbconn = DBConnectionPool.getInstance();
+
+        ElasticSearchContext es = ElasticSearchContext.getInstance();
+        es.initClient("localhost", 9300);
+        
+        Config.getInstance().loadConfig();
         // …
     }
 
@@ -42,7 +48,16 @@ public class MyContextListener implements ServletContextListener
     public void contextDestroyed ( ServletContextEvent contextEvent )
     {
         ServletContext context = contextEvent.getServletContext();
-        System.out.println("Destroyed");
+        
+        Enumeration<Driver> drivers = DriverManager.getDrivers();
+        while (drivers.hasMoreElements()) {
+            Driver driver = drivers.nextElement();
+            try {
+                DriverManager.deregisterDriver(driver);
+            } catch (SQLException e) {
+            }
+
+        }
     }
 
 }

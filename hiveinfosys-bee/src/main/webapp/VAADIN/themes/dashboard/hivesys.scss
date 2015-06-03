@@ -1,0 +1,52 @@
+.search-area {
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+
+    padding: 40px;
+    border: 4px dashed #a4a4a2;
+    color: #919083;
+    //        font-weight: bold;
+    font-size: 6px;
+}
+
+.search-area .v-label {
+    color: #919083;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.search-textual-view {
+    padding: 35px;
+}
+
+.search-result {
+    background-color: #DDDDDD;
+    padding: 10px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12pt;
+    color: #888888;
+    text-align: left;
+    width: 100%;
+    
+    //content: url("http://www.oloughlins.com.au/images/icons/pdf_icon_16.gif"); 
+}
+
+.search-result .filename {
+    color: #336699;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.search-result .highlight {
+    color: #191919;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.search-result .highlight em{
+    font-weight: bolder;
+    
+}

@@ -1,9 +1,14 @@
 package com.hivesys.dashboard.component;
 
+import com.hivesys.core.ContentStore;
+import com.hivesys.core.DBConnectionPool;
 import com.hivesys.dashboard.domain.User;
 import com.hivesys.dashboard.event.DashboardEventBus;
 import com.hivesys.dashboard.event.DashboardEvent.CloseOpenWindowsEvent;
 import com.hivesys.dashboard.event.DashboardEvent.ProfileUpdatedEvent;
+import com.hivesys.database.domain.QUser;
+import com.mysema.query.sql.SQLTemplates;
+import com.mysema.query.sql.dml.SQLUpdateClause;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup.CommitException;
 import com.vaadin.data.fieldgroup.PropertyId;
@@ -35,6 +40,10 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 import com.vaadin.ui.themes.ValoTheme;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
 public class ProfilePreferencesWindow extends Window {
@@ -63,8 +72,6 @@ public class ProfilePreferencesWindow extends Window {
     private TextField locationField;
     @PropertyId("phone")
     private TextField phoneField;
-    @PropertyId("newsletterSubscription")
-    private OptionalSelect<Integer> newsletterField;
     @PropertyId("website")
     private TextField websiteField;
     @PropertyId("bio")
@@ -91,12 +98,11 @@ public class ProfilePreferencesWindow extends Window {
         detailsWrapper.setSizeFull();
         detailsWrapper.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         detailsWrapper.addStyleName(ValoTheme.TABSHEET_ICONS_ON_TOP);
-        detailsWrapper.addStyleName(ValoTheme.TABSHEET_CENTERED_TABS);
+        detailsWrapper.addStyleName(ValoTheme.TABSHEET_COMPACT_TABBAR);
         content.addComponent(detailsWrapper);
         content.setExpandRatio(detailsWrapper, 1f);
 
         detailsWrapper.addComponent(buildProfileTab());
-        detailsWrapper.addComponent(buildPreferencesTab());
 
         if (preferencesTabOpen) {
             detailsWrapper.setSelectedTab(1);
@@ -104,26 +110,9 @@ public class ProfilePreferencesWindow extends Window {
 
         content.addComponent(buildFooter());
 
-        fieldGroup = new BeanFieldGroup<User>(User.class);
+        fieldGroup = new BeanFieldGroup<>(User.class);
         fieldGroup.bindMemberFields(this);
         fieldGroup.setItemDataSource(user);
-    }
-
-    private Component buildPreferencesTab() {
-        VerticalLayout root = new VerticalLayout();
-        root.setCaption("Preferences");
-        root.setIcon(FontAwesome.COGS);
-        root.setSpacing(true);
-        root.setMargin(true);
-        root.setSizeFull();
-
-        Label message = new Label("Give me some time");
-        message.setSizeUndefined();
-        message.addStyleName(ValoTheme.LABEL_LIGHT);
-        root.addComponent(message);
-        root.setComponentAlignment(message, Alignment.MIDDLE_CENTER);
-
-        return root;
     }
 
     private Component buildProfileTab() {
@@ -146,7 +135,7 @@ public class ProfilePreferencesWindow extends Window {
         Button upload = new Button("Change…", new ClickListener() {
             @Override
             public void buttonClick(ClickEvent event) {
-                Notification.show("Give me some time");
+                Notification.show("Not Implemented!");
             }
         });
         upload.addStyleName(ValoTheme.BUTTON_TINY);
@@ -203,12 +192,6 @@ public class ProfilePreferencesWindow extends Window {
         phoneField.setNullRepresentation("");
         details.addComponent(phoneField);
 
-        newsletterField = new OptionalSelect<Integer>();
-        newsletterField.addOption(0, "Daily");
-        newsletterField.addOption(1, "Weekly");
-        newsletterField.addOption(2, "Monthly");
-        details.addComponent(newsletterField);
-
         section = new Label("Additional Info");
         section.addStyleName(ValoTheme.LABEL_H4);
         section.addStyleName(ValoTheme.LABEL_COLORED);
@@ -241,8 +224,34 @@ public class ProfilePreferencesWindow extends Window {
             public void buttonClick(ClickEvent event) {
                 try {
                     fieldGroup.commit();
-                    // Updated user should also be persisted to database. But
-                    // not in this demo.
+                    User usr = fieldGroup.getItemDataSource().getBean();
+
+                    try {
+                        Connection conn = DBConnectionPool.getInstance().reserveConnection();
+                        SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();
+
+                        QUser dbUser = QUser.User;
+
+                        
+                        new SQLUpdateClause(conn, config, dbUser)
+                                .where(dbUser.id.eq(usr.getId()))
+                                .set(dbUser.firstName, usr.getFirstName())
+                                .set(dbUser.lastName, usr.getLastName())
+                                .set(dbUser.email, usr.getEmail())
+                                .set(dbUser.gender, usr.isMale())
+                                .set(dbUser.title, usr.getTitle())
+                                .set(dbUser.location, usr.getLocation())
+                                .set(dbUser.role, usr.getRole())
+                                .set(dbUser.telephone, usr.getPhone())
+                                .set(dbUser.website, usr.getWebsite())
+                                .set(dbUser.bio, usr.getBio())
+                                .execute();
+
+                        // always close the connection (performance optimization)
+                        conn.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProfilePreferencesWindow.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
                     Notification success = new Notification(
                             "Profile updated successfully");

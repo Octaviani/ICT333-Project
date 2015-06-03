@@ -1,14 +1,11 @@
 package com.hivesys.dashboard;
 
 import java.security.AccessControlException;
-import java.sql.SQLException;
 import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-import com.hivesys.core.DatabaseSource;
-import com.hivesys.core.SolrConnection;
 import com.hivesys.dashboard.data.DataProvider;
 import com.hivesys.dashboard.data.dummy.DummyDataProvider;
 import com.hivesys.dashboard.domain.User;
@@ -20,6 +17,7 @@ import com.hivesys.dashboard.event.DashboardEvent.UserLoginRequestedEvent;
 import com.hivesys.dashboard.view.LoginView;
 import com.hivesys.dashboard.view.MainView;
 import com.google.common.eventbus.Subscribe;
+import com.porotype.iconfont.FontAwesome;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -32,6 +30,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.Position;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -68,6 +67,9 @@ public final class DashboardUI extends UI {
     @Override
     protected void init(final VaadinRequest request) {
         setLocale(Locale.US);
+        
+        // initialize the fonts for the plugin
+        FontAwesome.load();
 
         DashboardEventBus.register(this);
         Responsive.makeResponsive(this);
@@ -85,6 +87,12 @@ public final class DashboardUI extends UI {
                                 DashboardEventBus.post(new BrowserResizeEvent());
                             }
                 });
+        
+        final Window window = new Window("Window");
+        window.setWidth(300.0f, Unit.PIXELS);
+        
+        window.setContent(new Label("dsnjkcnsjdncjsndcjsndckjsndckjsd"));
+        this.getUI().addWindow(window);
     }
 
     /**
@@ -95,7 +103,7 @@ public final class DashboardUI extends UI {
     private void updateContent() {
         User user = (User) VaadinSession.getCurrent().getAttribute(
                 User.class.getName());
-        if (user != null && "admin".equals(user.getRole())) {
+        if (user != null) {
             // Authenticated user
             setContent(new MainView());
             removeStyleName("loginview");
@@ -103,7 +111,7 @@ public final class DashboardUI extends UI {
         } else {
             setContent(new LoginView());
             addStyleName("loginview");
-        }
+       }
     }
 
     @Subscribe
