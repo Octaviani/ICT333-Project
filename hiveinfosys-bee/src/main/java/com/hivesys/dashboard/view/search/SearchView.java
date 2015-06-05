@@ -1,6 +1,5 @@
 package com.hivesys.dashboard.view.search;
 
-import static com.hivesys.dashboard.view.repository.UploadView.TITLE_ID;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.View;
@@ -65,8 +64,7 @@ public class SearchView extends Panel implements View {
         tabs.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         tabs.setImmediate(true);
 
-        Component graph2d = buildGraph();
-        graph2d.setId("graph2dbuggy");
+        
 
         this.graphview = new GraphView();
         this.textualview = new TextualView();
@@ -76,7 +74,7 @@ public class SearchView extends Panel implements View {
                     @Override
                     public void handleAction(Object sender, Object target) {
                         textualview.UpdateSearchPane(mSearchBox.getValue());
-                        graphview.RebuildGraph(mSearchBox.getValue());
+                        graphview.UpdateRootSearch(mSearchBox.getValue());
                     }
                 };
 
@@ -85,10 +83,13 @@ public class SearchView extends Panel implements View {
         Component graphcameron = build2dGraph();
         graphcameron.setId("cameron-graph");
 
+        Component graph2d = buildGraph();
+        graph2d.setId("graph2dbuggy");
+        
         tabs.addTab(this.textualview, "Search");
-        tabs.addTab(graph2d, "2D Visualization");
-        tabs.addTab(this.graphview, "Actual Visualization");
-        tabs.addTab(graphcameron, "Cameron's Visualization");
+        tabs.addTab(this.graphview, "Visualize");
+        tabs.addTab(graph2d, "Experimental Static Immersive");
+        tabs.addTab(graphcameron, "Experimental Dynamic Graph");
 
         tabs.addSelectedTabChangeListener((TabSheet.SelectedTabChangeEvent event) -> {
             Component selected = tabs.getSelectedTab();
@@ -97,7 +98,7 @@ public class SearchView extends Panel implements View {
             
             if (selected == this.graphview)
             {
-                this.graphview.RebuildGraph(this.mSearchBox.getValue());
+                this.graphview.BuildGraph();
             }
 
             if (selected == null || selected.getId() == null) {
@@ -230,7 +231,7 @@ public class SearchView extends Panel implements View {
             public void onFired(ClickEvent event) {
                 List<String> nodeid = event.getNodeIds();
                 for (int i = 0; i < nodeid.size(); i++) {
-                    Notification.show(nodeid.get(i));
+//                    /Notification.show(nodeid.get(i));
                 }
             }
         });

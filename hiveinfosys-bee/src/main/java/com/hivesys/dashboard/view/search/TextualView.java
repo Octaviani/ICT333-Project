@@ -75,7 +75,7 @@ public class TextualView extends Panel {
                       String url = FileInfoController.getInstance().getViewURL(boxviewID);
                       if (url != null || !url.equals(""))
                       {
-                        String url = FileInfoController.getInstance().getViewURL(boxviewID);
+                        url = FileInfoController.getInstance().getViewURL(boxviewID);
                         BrowserFrame bframe = new BrowserFrame(filename, new ExternalResource(url));
                         VerticalLayout vlayout = new VerticalLayout(bframe);
 
