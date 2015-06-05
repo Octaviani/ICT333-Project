@@ -30,6 +30,7 @@ public class Edge {
     private String label;
     private String title;
     private int width;
+    private int length;
     private Color color;
 
     private Edge.Style style = Style.line;
@@ -89,47 +90,47 @@ public class Edge {
         this.width = width;
     }
 
-    @Deprecated
+    
     public Edge(int from, int to) {
         this.from = Integer.toString(from);
         this.to = Integer.toString(to);
     }
 
-    @Deprecated
+    
     public Edge(String from, String to) {
         this.from = from;
         this.to = to;
     }
 
-    @Deprecated
+    
     public Edge(int from, int to, int width) {
         this.from = Integer.toString(from);
         this.to = Integer.toString(to);
         this.width = width;
     }
 
-    @Deprecated
+    
     public Edge(String from, String to, int width) {
         this.from = from;
         this.to = to;
         this.width = width;
     }
 
-    @Deprecated
+    
     public Edge(int from, int to, Color color) {
         this.from = Integer.toString(from);
         this.to = Integer.toString(to);
         this.color = color;
     }
 
-    @Deprecated
+    
     public Edge(String from, String to, Color color) {
         this.from = from;
         this.to = to;
         this.color = color;
     }
 
-    @Deprecated
+    
     public Edge(int from, int to, Color color, int width) {
         this.from = Integer.toString(from);
         this.to = Integer.toString(to);
@@ -137,7 +138,7 @@ public class Edge {
         this.width = width;
     }
 
-    @Deprecated
+    
     public Edge(String from, String to, Color color, int width) {
         this.from = from;
         this.to = to;
@@ -145,7 +146,7 @@ public class Edge {
         this.width = width;
     }
 
-    @Deprecated
+    
     public Edge(int from, int to, Edge.Style style) {
         this.from = Integer.toString(from);
         this.to = Integer.toString(to);
@@ -153,7 +154,7 @@ public class Edge {
 
     }
 
-    @Deprecated
+    
     public Edge(String from, String to, Edge.Style style) {
         this.from = from;
         this.to = to;
@@ -161,7 +162,7 @@ public class Edge {
 
     }
 
-    @Deprecated
+    
     public Edge(int from, int to, Edge.Style style, int width) {
         this.from = Integer.toString(from);
         this.to = Integer.toString(to);
@@ -169,7 +170,7 @@ public class Edge {
         this.width = width;
     }
 
-    @Deprecated
+    
     public Edge(String from, String to, Edge.Style style, int width) {
         this.from = from;
         this.to = to;
@@ -178,7 +179,7 @@ public class Edge {
 
     }
 
-    @Deprecated
+    
     public Edge(int from, int to, Edge.Style style, Color color) {
         this.from = Integer.toString(from);
         this.to = Integer.toString(to);
@@ -186,7 +187,7 @@ public class Edge {
         this.color = color;
     }
 
-    @Deprecated
+    
     public Edge(String from, String to, Edge.Style style, Color color) {
         this.from = from;
         this.to = to;
@@ -194,7 +195,7 @@ public class Edge {
         this.color = color;
     }
 
-    @Deprecated
+    
     public Edge(int from, int to, Edge.Style style, Color color, int width) {
         this.from = Integer.toString(from);
         this.to = Integer.toString(to);
@@ -203,7 +204,7 @@ public class Edge {
         this.width = width;
     }
 
-    @Deprecated
+    
     public Edge(String from, String to, Edge.Style style, Color color, int width) {
         this.from = from;
         this.to = to;
@@ -394,6 +395,20 @@ public class Edge {
 
     public void setStyle(Style style) {
         this.style = style;
+    }
+
+    /**
+     * @return the length
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /**
+     * @param length the length to set
+     */
+    public void setLength(int length) {
+        this.length = length;
     }
 
     public static enum Style {

@@ -8,7 +8,6 @@ package com.hivesys.dashboard.view.search;
 import com.hivesys.core.ElasticSearchContext;
 import com.hivesys.core.FileInfoController;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Notification;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.elasticsearch.action.search.SearchResponse;
@@ -19,7 +18,7 @@ import org.vaadin.visjs.networkDiagram.Edge;
 import org.vaadin.visjs.networkDiagram.NetworkDiagram;
 import org.vaadin.visjs.networkDiagram.Node;
 import org.vaadin.visjs.networkDiagram.options.Options;
-import org.vaadin.visjs.networkDiagram.options.physics.Physics;
+import org.vaadin.visjs.networkDiagram.options.edges.Edges;
 
 /**
  *
@@ -82,8 +81,11 @@ public class GraphView extends CssLayout {
 
     public void UpdateRootSearch(String rootSearch) {
         // upload to box view in a thread
-        Runnable r = new MyThread(this, rootSearch);
-        new Thread(r).start();
+        
+        FillNodeWithResults(rootSearch);
+        BuildGraph();
+//        Runnable r = new MyThread(this, rootSearch);
+//        new Thread(r).start();
 
     }
 
@@ -114,6 +116,7 @@ public class GraphView extends CssLayout {
                 Edge edge = new Edge(rootNode.getId(), child.getId(), Edge.Style.arrowCenter, new Color("white", "yellow", "blue"));
                 edge.setWidth(Math.round(hit.getScore() * 4));
                 edge.setValue(1000);
+                edge.setLength(200);
 
                 this.mNodelist.add(child);
                 this.mEdgelist.add(edge);
@@ -130,6 +133,9 @@ public class GraphView extends CssLayout {
     public void BuildGraph() {
         this.removeAllComponents();
         Options option = new Options();
+        Edges edgesOption = new Edges();
+        edgesOption.setLength(2000);
+        option.setEdges(edgesOption);
         //option.setPhysics(new Physics().);
         NetworkDiagram networkDiagram = new NetworkDiagram(option);
         networkDiagram.setSizeUndefined();

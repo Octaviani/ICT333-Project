@@ -12,40 +12,34 @@ import com.vaadin.ui.AbstractJavaScriptComponent;
 import com.vaadin.ui.JavaScriptFunction;
 import elemental.json.JsonArray;
 import elemental.json.JsonException;
-import elemental.json.JsonObject;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 
 /**
  * Created by roshans on 10/10/14.
  */
-
 @JavaScript({"js/vis.min.js", "js/networkDiagram-connector.js"})
-@StyleSheet({"css/vis.css", "css/networkDiagram.css"})
+@StyleSheet({"css/vis.min.css", "css/networkDiagram.css"})
 public class NetworkDiagram extends AbstractJavaScriptComponent {
-    
+
     // Workaround for ConcurrentModificationException when adding item but at the same time iterations are being done
     /*
-    private List<Node.NodeSelectListener> nodeSelectListeners = new ArrayList<>();
-    private List<Node.NodeClickListener> nodeClickListeners = new ArrayList<>();
-    private List<Node.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
-    private List<Node.NodeHoverListener> nodeHoverListeners = new ArrayList<>();
-    private List<Node.NodeBlurListener> nodeBlurListeners = new ArrayList<>();
-    private List<Node.NodeDragStartListener> nodeDragStartListeners = new ArrayList<>();
-    private List<Node.NodeDragEndListener> nodeDragEndListeners = new ArrayList<>();
-    */
-    private final List<Node.NodeSelectListener> nodeSelectListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeClickListener> nodeClickListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeHoverListener> nodeHoverListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeBlurListener> nodeBlurListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeDragStartListener> nodeDragStartListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeDragEndListener> nodeDragEndListeners = new CopyOnWriteArrayList<>();
-    
-    
+     private List<Node.NodeSelectListener> nodeSelectListeners = new ArrayList<>();
+     private List<Node.NodeClickListener> nodeClickListeners = new ArrayList<>();
+     private List<Node.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
+     private List<Node.NodeHoverListener> nodeHoverListeners = new ArrayList<>();
+     private List<Node.NodeBlurListener> nodeBlurListeners = new ArrayList<>();
+     private List<Node.NodeDragStartListener> nodeDragStartListeners = new ArrayList<>();
+     private List<Node.NodeDragEndListener> nodeDragEndListeners = new ArrayList<>();
+     */
+    private final List<SelectListener> selectListeners = new CopyOnWriteArrayList<>();
+    private final List<ClickListener> clickListeners = new CopyOnWriteArrayList<>();
+    private final List<DoubleClickListener> doubleClickListeners = new CopyOnWriteArrayList<>();
+    private final List<HoverListener> hoverListeners = new CopyOnWriteArrayList<>();
+    private final List<BlurListener> blurListeners = new CopyOnWriteArrayList<>();
+    private final List<DragStartListener> dragStartListeners = new CopyOnWriteArrayList<>();
+    private final List<DragEndListener> dragEndListeners = new CopyOnWriteArrayList<>();
+
     private ResizeListener resizeListener;
     private StabilizationStartListener stabilizationStartListener;
     private StabilizedListener stabilizedListener;
@@ -59,49 +53,49 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
             @Override
             public void call(final JsonArray properties) throws JsonException {
                 SelectEvent event = EventGenerator.getNodeSelectEvent(properties);
-                fireNodeSelectEvent(event);
+                fireSelectEvent(event);
             }
         });
         addFunction(Constants.ON_CLICK, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
                 ClickEvent event = EventGenerator.getNodeClickEvent(properties);
-                fireNodeClickEvent(event);
+                fireClickEvent(event);
             }
         });
         addFunction(Constants.ON_DOUBLE_CLICK, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
                 DoubleClickEvent event = EventGenerator.getNodeDoubleClickEvent(properties);
-                fireNodeDoubleClickEvent(event);
+                fireDoubleClickEvent(event);
             }
         });
         addFunction(Constants.ON_HOVER_NODE, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
                 HoverEvent event = EventGenerator.getNodeHoverEvent(properties);
-                fireNodeHoverEvent(event);
+                fireHoverEvent(event);
             }
         });
         addFunction(Constants.ON_BLUR_NODE, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
                 BlurEvent event = EventGenerator.getNodeBlurEvent(properties);
-                fireNodeBlurEvent(event);
+                fireBlurEvent(event);
             }
         });
         addFunction(Constants.ON_DRAG_START, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
                 DragStartEvent event = EventGenerator.getNodeDragStartEvent(properties);
-                fireNodeDragStartEvent(event);
+                fireDragStartEvent(event);
             }
         });
         addFunction(Constants.ON_DRAG_END, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
                 DragEndEvent event = EventGenerator.getNodeDragEndEvent(properties);
-                fireNodeDragEndEvent(event);
+                fireDragEndEvent(event);
             }
         });
         addFunction(Constants.ON_START_STABILIZATION, new JavaScriptFunction() {
@@ -140,14 +134,13 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
             }
         });
 
+        System.out.println("Vis options: " + gson.toJson(options));
         callFunction("init", gson.toJson(options));
     }
-
 
     public NetworkDiagramState getState() {
         return (NetworkDiagramState) super.getState();
     }
-
 
     public void updateOptions(Options options) {
         getState().updates++;
@@ -233,64 +226,63 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
         callFunction("drawConnections");
     }
 
-    public void addNodeSelectListener(Node.NodeSelectListener listener) {
-        nodeSelectListeners.add(listener);
+    public void addSelectListener(SelectListener listener) {
+        selectListeners.add(listener);
     }
 
-    public void removeNodeSelectListener(Node.NodeSelectListener listener) {
-        nodeSelectListeners.remove(listener);
+    public void removeSelectListener(SelectListener listener) {
+        selectListeners.remove(listener);
     }
 
-    public void removeNodeClickListeners(Node.NodeClickListener listener) {
-        nodeClickListeners.remove(listener);
+    public void removeClickListeners(ClickListener listener) {
+        clickListeners.remove(listener);
     }
 
-    public void addNodeClickListener(Node.NodeClickListener nodeClickListener) {
-        this.nodeClickListeners.add(nodeClickListener);
+    public void addClickListener(ClickListener nodeClickListener) {
+        this.clickListeners.add(nodeClickListener);
     }
 
-    public void removeNodeDoubleClickListener(Node.NodeDoubleClickListener listener) {
-        nodeDoubleClickListeners.remove(listener);
+    public void removeoubleClickListener(DoubleClickListener listener) {
+        doubleClickListeners.remove(listener);
     }
 
-    public void addNodeDoubleClickListener(Node.NodeDoubleClickListener listener) {
-        nodeDoubleClickListeners.add(listener);
+    public void addDoubleClickListener(DoubleClickListener listener) {
+        doubleClickListeners.add(listener);
     }
 
-    public void removeNodeHoverListener(Node.NodeHoverListener listener) {
-        nodeHoverListeners.remove(listener);
+    public void removeHoverListener(HoverListener listener) {
+        hoverListeners.remove(listener);
     }
 
-    public void addNodeHoverListener(Node.NodeHoverListener listener) {
-        this.nodeHoverListeners.add(listener);
+    public void addHoverListener(HoverListener listener) {
+        this.hoverListeners.add(listener);
     }
 
-    public void removeNodeBlurListener(Node.NodeBlurListener listener) {
-        nodeBlurListeners.remove(listener);
+    public void removeBlurListener(BlurListener listener) {
+        blurListeners.remove(listener);
     }
 
-    public void addNodeBlurListener(Node.NodeBlurListener listener) {
-        this.nodeBlurListeners.add(listener);
+    public void addBlurListener(BlurListener listener) {
+        this.blurListeners.add(listener);
     }
 
-    public void removeNodeDragStartListener(Node.NodeDragStartListener listener) {
-        nodeDragStartListeners.remove(listener);
+    public void removeDragStartListener(DragStartListener listener) {
+        dragStartListeners.remove(listener);
     }
 
-    public void addNodeDragStartListener(Node.NodeDragStartListener listener) {
-        this.nodeDragStartListeners.add(listener);
+    public void addDragStartListener(DragStartListener listener) {
+        this.dragStartListeners.add(listener);
     }
 
-    public void removeNodeDragEndListener(Node.NodeDragEndListener listener) {
-        nodeDragEndListeners.remove(listener);
+    public void removeDragEndListener(DragEndListener listener) {
+        dragEndListeners.remove(listener);
     }
 
-    public void addNodeDragEndListener(Node.NodeDragEndListener listener) {
-        this.nodeDragEndListeners.add(listener);
+    public void addDragEndListener(DragEndListener listener) {
+        this.dragEndListeners.add(listener);
     }
 
     //adding and removing graph listeners
-
     public void addResizeListener(ResizeListener resizeListener) {
         this.resizeListener = resizeListener;
     }
@@ -332,6 +324,40 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     }
 
     //listeners for entire graph
+    public static abstract class SelectListener {
+
+        public abstract void onFired(SelectEvent event);
+    }
+
+    public static abstract class ClickListener {
+
+        public abstract void onFired(ClickEvent event);
+    }
+
+    public static abstract class DoubleClickListener {
+
+        public abstract void onFired(DoubleClickEvent event);
+    }
+
+    public static abstract class HoverListener {
+
+        public abstract void onFired(HoverEvent event);
+    }
+
+    public static abstract class BlurListener {
+
+        public abstract void onFired(BlurEvent event);
+    }
+
+    public static abstract class DragStartListener {
+
+        public abstract void onFired(DragStartEvent event);
+    }
+
+    public static abstract class DragEndListener {
+
+        public abstract void onFired(DragEndEvent event);
+    }
 
     public static abstract class ResizeListener extends GraphListener {
     }
@@ -378,73 +404,61 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
         }
     }
 
-    public void fireNodeSelectEvent(SelectEvent event) {
+    public void fireSelectEvent(SelectEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeSelectListener listener : nodeSelectListeners) {
-                if (listener.getNode().getId().equals(nodeID)) {
-                    listener.onFired(event);
-                }
+            for (SelectListener listener : selectListeners) {
+                listener.onFired(event);
             }
         }
     }
 
-    public void fireNodeClickEvent(ClickEvent event) {
+    public void fireClickEvent(ClickEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeClickListener listener : nodeClickListeners) {
-                if (listener.getNode().getId().equals(nodeID)) {
-                    listener.onFired(event);
-                }
+            for (ClickListener listener : clickListeners) {
+                listener.onFired(event);
             }
         }
     }
 
-    public void fireNodeDoubleClickEvent(DoubleClickEvent event) {
+    public void fireDoubleClickEvent(DoubleClickEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeDoubleClickListener listener : nodeDoubleClickListeners) {
-                if (listener.getNode().getId().equals(nodeID)) {
-                    listener.onFired(event);
-                }
+            for (DoubleClickListener listener : doubleClickListeners) {
+                listener.onFired(event);
             }
         }
     }
 
-    public void fireNodeHoverEvent(HoverEvent event) {
+    public void fireHoverEvent(HoverEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeHoverListener listener : nodeHoverListeners) {
-                if (listener.getNode().getId().equals(nodeID)) {
-                    listener.onFired(event);
-                }
+            for (HoverListener listener : hoverListeners) {
+                listener.onFired(event);
             }
         }
 
     }
 
-    public void fireNodeBlurEvent(BlurEvent event) {
+    public void fireBlurEvent(BlurEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeBlurListener listener : nodeBlurListeners) {
-                if (listener.getNode().getId().equals(nodeID)) {
-                    listener.onFired(event);
-                }
+            for (BlurListener listener : blurListeners) {
+                listener.onFired(event);
             }
         }
     }
 
-    public void fireNodeDragStartEvent(DragStartEvent event) {
+    public void fireDragStartEvent(DragStartEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeDragStartListener listener : nodeDragStartListeners) {
-                if (listener.getNode().getId().equals(nodeID)) {
-                    listener.onFired(event);
-                }
+            for (DragStartListener listener : dragStartListeners) {
+                listener.onFired(event);
+
             }
         }
     }
 
-    public void fireNodeDragEndEvent(DragEndEvent event) {
+    public void fireDragEndEvent(DragEndEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeDragEndListener listener : nodeDragEndListeners) {
-                if (listener.getNode().getId().equals(nodeID)) {
-                    listener.onFired(event);
-                }
+            for (DragEndListener listener : dragEndListeners) {
+
+                listener.onFired(event);
             }
         }
     }

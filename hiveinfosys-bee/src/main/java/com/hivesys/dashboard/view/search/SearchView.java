@@ -27,10 +27,9 @@ public class SearchView extends Panel implements View {
     public static int swi = 0;
 
     TextField mSearchBox;
-    
+
     TextualView textualview;
     GraphView graphview;
-    
 
     public SearchView() {
         final VerticalLayout root = new VerticalLayout();
@@ -64,11 +63,9 @@ public class SearchView extends Panel implements View {
         tabs.addStyleName(ValoTheme.TABSHEET_PADDED_TABBAR);
         tabs.setImmediate(true);
 
-        
-
         this.graphview = new GraphView();
         this.textualview = new TextualView();
-        
+
         ShortcutListener shortcut = new ShortcutListener("Enter",
                 ShortcutAction.KeyCode.ENTER, null) {
                     @Override
@@ -85,7 +82,7 @@ public class SearchView extends Panel implements View {
 
         Component graph2d = buildGraph();
         graph2d.setId("graph2dbuggy");
-        
+
         tabs.addTab(this.textualview, "Search");
         tabs.addTab(this.graphview, "Visualize");
         tabs.addTab(graph2d, "Experimental Static Immersive");
@@ -95,9 +92,8 @@ public class SearchView extends Panel implements View {
             Component selected = tabs.getSelectedTab();
             Tab cur = tabs.getTab(selected);
             // vaadin tabsheet bugs on refresh
-            
-            if (selected == this.graphview)
-            {
+
+            if (selected == this.graphview) {
                 this.graphview.BuildGraph();
             }
 
@@ -105,7 +101,6 @@ public class SearchView extends Panel implements View {
                 return;
             }
 
-            
             switch (selected.getId()) {
                 case "graph2dbuggy": {
                     if (swi == 1) {
@@ -118,7 +113,7 @@ public class SearchView extends Panel implements View {
                     }
                     break;
                 }
-       
+
                 case "cameron-graph": {
                     if (swi == 1) {
                         swi = 0;
@@ -131,7 +126,6 @@ public class SearchView extends Panel implements View {
                     break;
                 }
             }
-                    
 
         });
 
@@ -144,36 +138,6 @@ public class SearchView extends Panel implements View {
         return vLayout;
     }
 
-    class MyNodeDoubleClickListener extends Node.NodeDoubleClickListener {
-
-        NetworkDiagram networkDiagram;
-
-        public MyNodeDoubleClickListener(Node node, NetworkDiagram nd) {
-            super(node);
-            networkDiagram = nd;
-        }
-
-        public void setNode(Node node) {
-
-        }
-
-        @Override
-        public void onFired(DoubleClickEvent event) {
-            List<String> nodeid = event.getNodeIds();
-            for (int i = 0; i < nodeid.size(); i++) {
-                Notification.show(nodeid.get(i));
-            }
-
-            Node node2 = new Node("jksdjksd");
-            Edge edge1 = new Edge(nodeid.get(0), node2.getId());
-            networkDiagram.addNode(node2);
-            networkDiagram.addEdge(edge1);
-
-            //networkDiagram.addNodeDoubleClickListener(new MyNodeDoubleClickListener(node2, networkDiagram));
-        }
-
-    }
-
     Component build2dGraph() {
         NetworkDiagram networkDiagram = new NetworkDiagram(new Options());
         networkDiagram.setSizeUndefined();
@@ -181,7 +145,18 @@ public class SearchView extends Panel implements View {
 
         Node node1 = new Node("dncjsdcs");
         networkDiagram.addNode(node1);
-        networkDiagram.addNodeDoubleClickListener(new MyNodeDoubleClickListener(node1, networkDiagram));
+        networkDiagram.addDoubleClickListener(new NetworkDiagram.DoubleClickListener() {
+
+            @Override
+            public void onFired(DoubleClickEvent event) {
+                if (event.getNodeIds().size() > 0) {
+                    Node node2 = new Node("Hello");
+                    Edge edge1 = new Edge(event.getNodeIds().get(0), node2.getId());
+                    networkDiagram.addNode(node2);
+                    networkDiagram.addEdge(edge1);
+                }
+            }
+        });
 
         return networkDiagram;
     }
@@ -191,50 +166,33 @@ public class SearchView extends Panel implements View {
         networkDiagram.setSizeUndefined();
         networkDiagram.setSizeFull();
 
-        Node node1 = new Node(1, "circle", Node.Shape.circle, "group_x");
-        Node node2 = new Node(2, "ellipse", Node.Shape.ellipse, "group_x");
-        Node node3 = new Node(3, "database", Node.Shape.database, "group_x");
-        Node node4 = new Node(4, "box", Node.Shape.box, "group_x");
-        Node node5 = new Node(5, "shapes\nand\nsizes", Node.Shape.box, "group_main");
+        Node node1 = new Node("circle", Node.Shape.circle, "group_x");
+        Node node2 = new Node("ellipse", Node.Shape.ellipse, "group_x");
+        Node node3 = new Node("database", Node.Shape.database, "group_x");
+        Node node4 = new Node("box", Node.Shape.box, "group_x");
+        Node node5 = new Node("shapes\nand\nsizes", Node.Shape.box, "group_main");
 
-        Edge edge1 = new Edge(3, 1, Edge.Style.arrow);
-        Edge edge2 = new Edge(1, 4, Edge.Style.dashLine);
-        Edge edge3 = new Edge(1, 2, Edge.Style.arrowCenter);
+        Edge edge1 = new Edge(node3, node1, Edge.Style.arrow);
+        Edge edge2 = new Edge(node1, node4, Edge.Style.dashLine);
+        Edge edge3 = new Edge(node1, node2, Edge.Style.arrowCenter);
 
         networkDiagram.addNode(node1, node2, node3, node4, node5);
         networkDiagram.addEdge(edge1, edge2, edge3);
 
-        int id = 6;
-        int mainId = 5;
-
         for (int size = 1; size < 4; size++) {
-            int groupId = id;
-            Node node = new Node(id, "size " + size, Node.Shape.box, "group" + size);
+            Node node = new Node("size " + size, Node.Shape.box, "group" + size);
             node.setMass(size);
             networkDiagram.addNode(node);
-            networkDiagram.addEdge(new Edge(mainId, id, new Color("gray"), size));
-            id++;
+            networkDiagram.addEdge(new Edge(node5, node, new Color("gray"), size));
 
             for (Node.Shape shape : Node.Shape.values()) {
                 if (shape != Node.Shape.image) {
-                    node = new Node(id, shape.toString(), shape, "group" + size);
-                    networkDiagram.addNode(node);
-                    networkDiagram.addEdge(new Edge(groupId, id, new Color("red"), size));
-                    id++;
+                    Node childnode = new Node(shape.toString(), shape, "group" + size);
+                    networkDiagram.addNode(childnode);
+                    networkDiagram.addEdge(new Edge(node, childnode, new Color("red"), size));
                 }
             }
         }
-
-        networkDiagram.addNodeClickListener(new Node.NodeClickListener(node5) {
-
-            @Override
-            public void onFired(ClickEvent event) {
-                List<String> nodeid = event.getNodeIds();
-                for (int i = 0; i < nodeid.size(); i++) {
-//                    /Notification.show(nodeid.get(i));
-                }
-            }
-        });
 
         return networkDiagram;
     }

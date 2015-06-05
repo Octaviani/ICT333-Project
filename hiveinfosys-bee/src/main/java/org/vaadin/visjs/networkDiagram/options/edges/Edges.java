@@ -16,6 +16,7 @@ public class Edges {
     private int widthSelectionMultiplier = 2;
     private int widthMin =1;
     private int widthMax = 15;
+    private int length;
 
     private String fontColor = "#343434";
     private String fontFace = "arial";
@@ -24,6 +25,7 @@ public class Edges {
     private boolean inheritColor = false;
 
     private Edge.Style style= Edge.Style.arrow;
+    
     private Color color = new Color("#848484","#848484");
     private Dash dash;
 
@@ -137,5 +139,19 @@ public class Edges {
 
     public void setDash(Dash dash) {
         this.dash = dash;
+    }
+
+    /**
+     * @return the length
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /**
+     * @param length the length to set
+     */
+    public void setLength(int length) {
+        this.length = length;
     }
 }
