@@ -1,5 +1,6 @@
 package org.vaadin.visjs.networkDiagram;
 
+import org.vaadin.visjs.networkDiagram.entity.NodeEntity;
 import org.vaadin.visjs.networkDiagram.event.NetworkEvent;
 import org.vaadin.visjs.networkDiagram.event.node.*;
 import org.vaadin.visjs.networkDiagram.listener.GraphListener;
@@ -12,40 +13,38 @@ import com.vaadin.ui.AbstractJavaScriptComponent;
 import com.vaadin.ui.JavaScriptFunction;
 import elemental.json.JsonArray;
 import elemental.json.JsonException;
-import elemental.json.JsonObject;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
+import org.vaadin.visjs.networkDiagram.entity.EdgeEntity;
 
 /**
  * Created by roshans on 10/10/14.
  */
-
 @JavaScript({"js/vis.min.js", "js/networkDiagram-connector.js"})
 @StyleSheet({"css/vis.css", "css/networkDiagram.css"})
 public class NetworkDiagram extends AbstractJavaScriptComponent {
-    
+
     // Workaround for ConcurrentModificationException when adding item but at the same time iterations are being done
     /*
-    private List<Node.NodeSelectListener> nodeSelectListeners = new ArrayList<>();
-    private List<Node.NodeClickListener> nodeClickListeners = new ArrayList<>();
-    private List<Node.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
-    private List<Node.NodeHoverListener> nodeHoverListeners = new ArrayList<>();
-    private List<Node.NodeBlurListener> nodeBlurListeners = new ArrayList<>();
-    private List<Node.NodeDragStartListener> nodeDragStartListeners = new ArrayList<>();
-    private List<Node.NodeDragEndListener> nodeDragEndListeners = new ArrayList<>();
-    */
-    private final List<Node.NodeSelectListener> nodeSelectListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeClickListener> nodeClickListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeHoverListener> nodeHoverListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeBlurListener> nodeBlurListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeDragStartListener> nodeDragStartListeners = new CopyOnWriteArrayList<>();
-    private final List<Node.NodeDragEndListener> nodeDragEndListeners = new CopyOnWriteArrayList<>();
-    
-    
+     private List<Node.NodeSelectListener> nodeSelectListeners = new ArrayList<>();
+     private List<Node.NodeClickListener> nodeClickListeners = new ArrayList<>();
+     private List<Node.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
+     private List<Node.NodeHoverListener> nodeHoverListeners = new ArrayList<>();
+     private List<Node.NodeBlurListener> nodeBlurListeners = new ArrayList<>();
+     private List<Node.NodeDragStartListener> nodeDragStartListeners = new ArrayList<>();
+     private List<Node.NodeDragEndListener> nodeDragEndListeners = new ArrayList<>();
+     */
+    private final List<NodeEntity.NodeSelectListener> nodeSelectListeners = new CopyOnWriteArrayList<>();
+    private final List<NodeEntity.NodeClickListener> nodeClickListeners = new CopyOnWriteArrayList<>();
+    private final List<NodeEntity.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
+    private final List<NodeEntity.NodeHoverListener> nodeHoverListeners = new CopyOnWriteArrayList<>();
+    private final List<NodeEntity.NodeBlurListener> nodeBlurListeners = new CopyOnWriteArrayList<>();
+    private final List<NodeEntity.NodeDragStartListener> nodeDragStartListeners = new CopyOnWriteArrayList<>();
+    private final List<NodeEntity.NodeDragEndListener> nodeDragEndListeners = new CopyOnWriteArrayList<>();
+
+    private final List<Node> mNodes = new CopyOnWriteArrayList<>();
+    private final List<Edge> mEdges = new CopyOnWriteArrayList<>();
+
     private ResizeListener resizeListener;
     private StabilizationStartListener stabilizationStartListener;
     private StabilizedListener stabilizedListener;
@@ -143,55 +142,111 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
         callFunction("init", gson.toJson(options));
     }
 
-
     public NetworkDiagramState getState() {
         return (NetworkDiagramState) super.getState();
     }
-
 
     public void updateOptions(Options options) {
         getState().updates++;
         callFunction("updateOptions", gson.toJson(options));
     }
 
-    public void addNode(Node... node) {
+    public void addNode(Node... nodes) {
+
+        String json = "[";
+        for (Node n : nodes) {
+            this.mNodes.add(n);
+            json += gson.toJson(n, NodeEntity.class) + ",";
+        }
+        
+        json = json.substring(0,json.length()-1) + "]";
+
+        System.out.println(json);
         getState().updates++;
-        callFunction("addNodes", gson.toJson(node));
+        callFunction("addNodes", json);
     }
 
     public void addNodes(List<Node> nodes) {
+        String json = "[";
+        for (Node n : nodes) {
+            this.mNodes.add(n);
+            json += gson.toJson(n, NodeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
+
+        System.out.println(json);
         getState().updates++;
-        callFunction("addNodes", gson.toJson(nodes));
+        callFunction("addNodes", json);
     }
 
     public void addEdges(List<Edge> edges) {
+        String json = "[";
+        for (Edge e : edges) {
+            this.mEdges.add(e);
+            json += gson.toJson(e, EdgeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
+
         getState().updates++;
-        callFunction("addEdges", gson.toJson(edges));
+        callFunction("addEdges", json);
     }
 
     public void addEdge(Edge... edges) {
+        String json = "[";
+        for (Edge e : edges) {
+            this.mEdges.add(e);
+            json += gson.toJson(e, EdgeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
+
         getState().updates++;
-        callFunction("addEdges", gson.toJson(edges));
+        callFunction("addEdges", json);
     }
 
-    public void removeNode(Node... node) {
+    public void removeNode(Node... nodes) {
+        String json = "[";
+        for (Node n : nodes) {
+            this.mNodes.remove(n);
+            json += gson.toJson(n, NodeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
+
         getState().updates++;
-        callFunction("removeNode", gson.toJson(node));
+        callFunction("removeNode", json);
     }
 
     public void removeEdge(Edge... edges) {
+        String json = "[";
+        for (Edge e : edges) {
+            this.mEdges.remove(e);
+            json += gson.toJson(e, EdgeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
+
         getState().updates++;
-        callFunction("removeEdge", gson.toJson(edges));
+        callFunction("removeEdge", json);
     }
 
-    public void updateNode(Node... node) {
+    public void updateNode(Node... nodes) {
+        String json = "[";
+        for (Node n : nodes) {
+            json += gson.toJson(n, NodeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
+
         getState().updates++;
-        callFunction("updateNode", gson.toJson(node));
+        callFunction("updateNode", json);
     }
 
     public void updateEdge(Edge... edges) {
+
+        String json = "[";
+        for (Edge e : edges) {
+            json += gson.toJson(e, EdgeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
         getState().updates++;
-        callFunction("updateEdge", gson.toJson(edges));
+        callFunction("updateEdge", json);
     }
 
     @Deprecated
@@ -200,7 +255,13 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     }
 
     public void updateEdges(List<Edge> edges) {
-        callFunction("updateEdge", gson.toJson(edges));
+        String json = "[";
+        for (Edge e : edges) {
+            json += gson.toJson(e, EdgeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
+        getState().updates++;
+        callFunction("updateEdge", json);
     }
 
     @Deprecated
@@ -209,18 +270,30 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     }
 
     public void updateNodes(List<Node> nodes) {
-        callFunction("updateNode", gson.toJson(nodes));
+        String json = "[";
+        for (Node n : nodes) {
+            json += gson.toJson(n, NodeEntity.class) + ",";
+        }
+        json = json.substring(0,json.length()-1) + "]";
+
+        getState().updates++;
+        callFunction("updateNode", json);
     }
 
     public void clearNodes() {
+        this.mNodes.clear();
         callFunction("clearNodes");
     }
 
     public void clearEdges() {
+        this.mEdges.clear();
         callFunction("clearEdges");
     }
 
     public void destroyNetwork() {
+        this.mNodes.clear();
+        this.mEdges.clear();
+
         callFunction("destroyNetwork");
     }
 
@@ -233,106 +306,129 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
         callFunction("drawConnections");
     }
 
-    public void addNodeSelectListener(Node.NodeSelectListener listener) {
+    @Deprecated
+    public void addNodeSelectListener(NodeEntity.NodeSelectListener listener) {
         nodeSelectListeners.add(listener);
     }
 
-    public void removeNodeSelectListener(Node.NodeSelectListener listener) {
+    @Deprecated
+    public void removeNodeSelectListener(NodeEntity.NodeSelectListener listener) {
         nodeSelectListeners.remove(listener);
     }
 
-    public void removeNodeClickListeners(Node.NodeClickListener listener) {
+    @Deprecated
+    public void removeNodeClickListeners(NodeEntity.NodeClickListener listener) {
         nodeClickListeners.remove(listener);
     }
 
-    public void addNodeClickListener(Node.NodeClickListener nodeClickListener) {
+    @Deprecated
+    public void addNodeClickListener(NodeEntity.NodeClickListener nodeClickListener) {
         this.nodeClickListeners.add(nodeClickListener);
     }
 
-    public void removeNodeDoubleClickListener(Node.NodeDoubleClickListener listener) {
+    @Deprecated
+    public void removeNodeDoubleClickListener(NodeEntity.NodeDoubleClickListener listener) {
         nodeDoubleClickListeners.remove(listener);
     }
 
-    public void addNodeDoubleClickListener(Node.NodeDoubleClickListener listener) {
+    @Deprecated
+    public void addNodeDoubleClickListener(NodeEntity.NodeDoubleClickListener listener) {
         nodeDoubleClickListeners.add(listener);
     }
 
-    public void removeNodeHoverListener(Node.NodeHoverListener listener) {
+    @Deprecated
+    public void removeNodeHoverListener(NodeEntity.NodeHoverListener listener) {
         nodeHoverListeners.remove(listener);
     }
 
-    public void addNodeHoverListener(Node.NodeHoverListener listener) {
+    @Deprecated
+    public void addNodeHoverListener(NodeEntity.NodeHoverListener listener) {
         this.nodeHoverListeners.add(listener);
     }
 
-    public void removeNodeBlurListener(Node.NodeBlurListener listener) {
+    @Deprecated
+    public void removeNodeBlurListener(NodeEntity.NodeBlurListener listener) {
         nodeBlurListeners.remove(listener);
     }
 
-    public void addNodeBlurListener(Node.NodeBlurListener listener) {
+    @Deprecated
+    public void addNodeBlurListener(NodeEntity.NodeBlurListener listener) {
         this.nodeBlurListeners.add(listener);
     }
 
-    public void removeNodeDragStartListener(Node.NodeDragStartListener listener) {
+    @Deprecated
+    public void removeNodeDragStartListener(NodeEntity.NodeDragStartListener listener) {
         nodeDragStartListeners.remove(listener);
     }
 
-    public void addNodeDragStartListener(Node.NodeDragStartListener listener) {
+    @Deprecated
+    public void addNodeDragStartListener(NodeEntity.NodeDragStartListener listener) {
         this.nodeDragStartListeners.add(listener);
     }
 
-    public void removeNodeDragEndListener(Node.NodeDragEndListener listener) {
+    @Deprecated
+    public void removeNodeDragEndListener(NodeEntity.NodeDragEndListener listener) {
         nodeDragEndListeners.remove(listener);
     }
 
-    public void addNodeDragEndListener(Node.NodeDragEndListener listener) {
+    @Deprecated
+    public void addNodeDragEndListener(NodeEntity.NodeDragEndListener listener) {
         this.nodeDragEndListeners.add(listener);
     }
 
     //adding and removing graph listeners
+    @Deprecated
 
     public void addResizeListener(ResizeListener resizeListener) {
         this.resizeListener = resizeListener;
     }
 
+    @Deprecated
     public void addStabilizationStartListener(StabilizationStartListener stabilizationStartListener) {
         this.stabilizationStartListener = stabilizationStartListener;
     }
 
+    @Deprecated
     public void addStabilizedListener(StabilizedListener stabilizedListener) {
         this.stabilizedListener = stabilizedListener;
     }
 
+    @Deprecated
     public void addViewChangedListener(ViewChangedListener viewChangedListener) {
         this.viewChangedListener = viewChangedListener;
     }
 
+    @Deprecated
     public void addZoomListener(ZoomListener zoomListener) {
         this.zoomListener = zoomListener;
     }
 
+    @Deprecated
     public void removeResizeListener() {
         this.resizeListener = null;
     }
 
+    @Deprecated
     public void removeStabilizationStartListener() {
         this.stabilizationStartListener = null;
     }
 
+    @Deprecated
     public void removeStabilizedListener() {
         this.stabilizedListener = null;
     }
 
+    @Deprecated
     public void removeViewChangedListener() {
         this.viewChangedListener = null;
     }
 
+    @Deprecated
     public void removeZoomListener() {
         this.zoomListener = null;
     }
 
     //listeners for entire graph
-
     public static abstract class ResizeListener extends GraphListener {
     }
 
@@ -380,17 +476,34 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
 
     public void fireNodeSelectEvent(SelectEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeSelectListener listener : nodeSelectListeners) {
+            for (Node n : this.mNodes) {
+                if (n.getId().equals(nodeID)) {
+                    for (Node.NodeSelectListener l : n.nodeSelectListeners) {
+                        l.onFired(event);
+                    }
+                }
+            }
+
+            for (NodeEntity.NodeSelectListener listener : nodeSelectListeners) {
                 if (listener.getNode().getId().equals(nodeID)) {
                     listener.onFired(event);
                 }
             }
+
         }
     }
 
     public void fireNodeClickEvent(ClickEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeClickListener listener : nodeClickListeners) {
+            for (Node n : this.mNodes) {
+                if (n.getId().equals(nodeID)) {
+                    for (Node.NodeClickListener l : n.nodeClickListeners) {
+                        l.onFired(event);
+                    }
+                }
+            }
+
+            for (NodeEntity.NodeClickListener listener : nodeClickListeners) {
                 if (listener.getNode().getId().equals(nodeID)) {
                     listener.onFired(event);
                 }
@@ -400,7 +513,15 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
 
     public void fireNodeDoubleClickEvent(DoubleClickEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeDoubleClickListener listener : nodeDoubleClickListeners) {
+            for (Node n : this.mNodes) {
+                if (n.getId().equals(nodeID)) {
+                    for (Node.NodeDoubleClickListener l : n.nodeDoubleClickListeners) {
+                        l.onFired(event);
+                    }
+                }
+            }
+
+            for (NodeEntity.NodeDoubleClickListener listener : nodeDoubleClickListeners) {
                 if (listener.getNode().getId().equals(nodeID)) {
                     listener.onFired(event);
                 }
@@ -410,7 +531,15 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
 
     public void fireNodeHoverEvent(HoverEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeHoverListener listener : nodeHoverListeners) {
+            for (Node n : this.mNodes) {
+                if (n.getId().equals(nodeID)) {
+                    for (Node.NodeHoverListener l : n.nodeHoverListeners) {
+                        l.onFired(event);
+                    }
+                }
+            }
+
+            for (NodeEntity.NodeHoverListener listener : nodeHoverListeners) {
                 if (listener.getNode().getId().equals(nodeID)) {
                     listener.onFired(event);
                 }
@@ -421,7 +550,15 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
 
     public void fireNodeBlurEvent(BlurEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeBlurListener listener : nodeBlurListeners) {
+            for (Node n : this.mNodes) {
+                if (n.getId().equals(nodeID)) {
+                    for (Node.NodeBlurListener l : n.nodeBlurListeners) {
+                        l.onFired(event);
+                    }
+                }
+            }
+
+            for (NodeEntity.NodeBlurListener listener : nodeBlurListeners) {
                 if (listener.getNode().getId().equals(nodeID)) {
                     listener.onFired(event);
                 }
@@ -431,7 +568,15 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
 
     public void fireNodeDragStartEvent(DragStartEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeDragStartListener listener : nodeDragStartListeners) {
+            for (Node n : this.mNodes) {
+                if (n.getId().equals(nodeID)) {
+                    for (Node.NodeDragStartListener l : n.nodeDragStartListeners) {
+                        l.onFired(event);
+                    }
+                }
+            }
+
+            for (NodeEntity.NodeDragStartListener listener : nodeDragStartListeners) {
                 if (listener.getNode().getId().equals(nodeID)) {
                     listener.onFired(event);
                 }
@@ -441,7 +586,15 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
 
     public void fireNodeDragEndEvent(DragEndEvent event) {
         for (String nodeID : event.getNodeIds()) {
-            for (Node.NodeDragEndListener listener : nodeDragEndListeners) {
+            for (Node n : this.mNodes) {
+                if (n.getId().equals(nodeID)) {
+                    for (Node.NodeDragEndListener l : n.nodeDragEndListeners) {
+                        l.onFired(event);
+                    }
+                }
+            }
+
+            for (NodeEntity.NodeDragEndListener listener : nodeDragEndListeners) {
                 if (listener.getNode().getId().equals(nodeID)) {
                     listener.onFired(event);
                 }

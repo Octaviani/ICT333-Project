@@ -1,7 +1,7 @@
 package org.vaadin.visjs.networkDiagram.event;
 
-import org.vaadin.visjs.networkDiagram.Edge;
-import org.vaadin.visjs.networkDiagram.Node;
+import org.vaadin.visjs.networkDiagram.entity.EdgeEntity;
+import org.vaadin.visjs.networkDiagram.entity.NodeEntity;
 
 /**
  * Created by roshans on 11/24/14.
@@ -9,8 +9,8 @@ import org.vaadin.visjs.networkDiagram.Node;
 public class NetworkEvent {
 
     int nodeID;
-    Node node;
-    Edge edge;
+    NodeEntity node;
+    EdgeEntity edge;
     int DOMx = 0;
     int DOMy = 0;
     int canvasX = 0;
@@ -24,31 +24,31 @@ public class NetworkEvent {
         this.nodeID = nodeID;
     }
 
-    public void setNode(Node node) {
+    public void setNode(NodeEntity node) {
         this.node = node;
     }
 
-    public Edge getEdge() {
+    public EdgeEntity getEdge() {
         return edge;
     }
 
-    public void setEdge(Edge edge) {
+    public void setEdge(EdgeEntity edge) {
         this.edge = edge;
     }
 
-    public NetworkEvent(Node node){
+    public NetworkEvent(NodeEntity node){
         this.node = node;
     }
 
-    public NetworkEvent(Edge edge){
+    public NetworkEvent(EdgeEntity edge){
         this.edge = edge;
     }
 
-    public Node getNode(){
+    public NodeEntity getNode(){
        return node;
     }
 
-    public Edge edge(){
+    public EdgeEntity edge(){
         return edge;
     }
 

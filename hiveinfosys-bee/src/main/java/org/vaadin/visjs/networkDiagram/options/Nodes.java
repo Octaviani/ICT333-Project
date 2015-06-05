@@ -1,7 +1,7 @@
 package org.vaadin.visjs.networkDiagram.options;
 
 import org.vaadin.visjs.networkDiagram.Color;
-import org.vaadin.visjs.networkDiagram.Node;
+import org.vaadin.visjs.networkDiagram.entity.NodeEntity;
 
 /**
  * Created by roshans on 10/29/14.
@@ -15,7 +15,7 @@ public class Nodes {
     String fontFace  = "verdana";
     int fontSize = 14;
     String fontFill;
-    Node.Shape shape = Node.Shape.ellipse;
+    NodeEntity.Shape shape = NodeEntity.Shape.ellipse;
     String image;
     String brokenImage;
     int mass = 1;
@@ -89,11 +89,11 @@ public class Nodes {
         this.fontFill = fontFill;
     }
 
-    public Node.Shape getShape() {
+    public NodeEntity.Shape getShape() {
         return shape;
     }
 
-    public void setShape(Node.Shape shape) {
+    public void setShape(NodeEntity.Shape shape) {
         this.shape = shape;
     }
 

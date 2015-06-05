@@ -1,7 +1,7 @@
 package org.vaadin.visjs.networkDiagram.options.edges;
 
 import org.vaadin.visjs.networkDiagram.Color;
-import org.vaadin.visjs.networkDiagram.Edge;
+import org.vaadin.visjs.networkDiagram.entity.EdgeEntity;
 
 /**
  * Created by roshans on 10/29/14.
@@ -23,7 +23,7 @@ public class Edges {
 
     private boolean inheritColor = false;
 
-    private Edge.Style style= Edge.Style.arrow;
+    private EdgeEntity.Style style= EdgeEntity.Style.arrow;
     private Color color = new Color("#848484","#848484");
     private Dash dash;
 
@@ -115,11 +115,11 @@ public class Edges {
         this.inheritColor = inheritColor;
     }
 
-    public Edge.Style getStyle() {
+    public EdgeEntity.Style getStyle() {
         return style;
     }
 
-    public void setStyle(Edge.Style style) {
+    public void setStyle(EdgeEntity.Style style) {
         this.style = style;
     }
 

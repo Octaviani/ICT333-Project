@@ -1,6 +1,6 @@
 package org.vaadin.visjs.networkDiagram.event.node;
 
-import org.vaadin.visjs.networkDiagram.Node;
+import org.vaadin.visjs.networkDiagram.entity.NodeEntity;
 import org.vaadin.visjs.networkDiagram.api.Event;
 import elemental.json.JsonArray;
 import elemental.json.JsonException;

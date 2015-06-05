@@ -1,18 +1,18 @@
 package org.vaadin.visjs.networkDiagram.listener;
 
-import org.vaadin.visjs.networkDiagram.Node;
+import org.vaadin.visjs.networkDiagram.entity.NodeEntity;
 
 /**
  * Created by roshans on 11/24/14.
  */
 public abstract class NodeListener {
-    Node node;
+    NodeEntity node;
 
-    public NodeListener(Node node){
+    public NodeListener(NodeEntity node){
         this.node = node;
     }
 
-    public Node getNode(){
+    public NodeEntity getNode(){
         return node;
     }
 }

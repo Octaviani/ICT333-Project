@@ -13,6 +13,7 @@ import org.vaadin.visjs.networkDiagram.Color;
 import org.vaadin.visjs.networkDiagram.Edge;
 import org.vaadin.visjs.networkDiagram.NetworkDiagram;
 import org.vaadin.visjs.networkDiagram.Node;
+import org.vaadin.visjs.networkDiagram.entity.NodeEntity;
 import org.vaadin.visjs.networkDiagram.event.node.ClickEvent;
 import org.vaadin.visjs.networkDiagram.event.node.DoubleClickEvent;
 import org.vaadin.visjs.networkDiagram.options.Options;
@@ -144,7 +145,7 @@ public class SearchView extends Panel implements View {
         return vLayout;
     }
 
-    class MyNodeDoubleClickListener extends Node.NodeDoubleClickListener {
+    class MyNodeDoubleClickListener extends NodeEntity.NodeDoubleClickListener {
 
         NetworkDiagram networkDiagram;
 
@@ -179,9 +180,19 @@ public class SearchView extends Panel implements View {
         networkDiagram.setSizeUndefined();
         networkDiagram.setSizeFull();
 
-        Node node1 = new Node("dncjsdcs");
-        networkDiagram.addNode(node1);
-        networkDiagram.addNodeDoubleClickListener(new MyNodeDoubleClickListener(node1, networkDiagram));
+        Node root = new Node("dncjsdcs");
+        root.addClickListener(new Node.NodeClickListener() {
+
+            @Override
+            public void onFired(ClickEvent event) {
+                Node child = new Node("Hello");
+                Edge edge = new Edge(root, child);
+                
+                networkDiagram.addNode(child);
+                networkDiagram.addEdge(edge);
+            }
+        });
+        networkDiagram.addNode(root);
 
         return networkDiagram;
     }
@@ -225,7 +236,7 @@ public class SearchView extends Panel implements View {
             }
         }
 
-        networkDiagram.addNodeClickListener(new Node.NodeClickListener(node5) {
+        networkDiagram.addNodeClickListener(new NodeEntity.NodeClickListener(node5) {
 
             @Override
             public void onFired(ClickEvent event) {

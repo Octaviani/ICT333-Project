@@ -8,7 +8,6 @@ package com.hivesys.dashboard.view.search;
 import com.hivesys.core.ElasticSearchContext;
 import com.hivesys.core.FileInfoController;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Notification;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.elasticsearch.action.search.SearchResponse;
@@ -19,7 +18,6 @@ import org.vaadin.visjs.networkDiagram.Edge;
 import org.vaadin.visjs.networkDiagram.NetworkDiagram;
 import org.vaadin.visjs.networkDiagram.Node;
 import org.vaadin.visjs.networkDiagram.options.Options;
-import org.vaadin.visjs.networkDiagram.options.physics.Physics;
 
 /**
  *
