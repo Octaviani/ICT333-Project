@@ -1,3 +1,10 @@
-#! /usr/bin/bash
+#!/bin/sh
 
-./elasticsearch-1.5.2/bin/elasticsearch
+if [ $# -ne 1 ];
+	then 
+	echo "[x] Run elasticsearch!"
+	echo "Usage: $0 <elasticsearch path>"
+	exit
+fi
+
+$1/bin/elasticsearch
