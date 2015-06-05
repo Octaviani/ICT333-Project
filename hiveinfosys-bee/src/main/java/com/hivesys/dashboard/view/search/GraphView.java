@@ -73,6 +73,7 @@ public class GraphView extends CssLayout {
             mSearch = search;
         }
 
+        @Override
         public void run() {
             pView.FillNodeWithResults(this.mSearch);
             pView.BuildGraph();

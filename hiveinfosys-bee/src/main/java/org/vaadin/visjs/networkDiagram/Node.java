@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by roshans on 10/10/14.
@@ -45,25 +46,46 @@ public class Node {
     private transient List<Edge> edgeList = new ArrayList<>();;
     private transient Map<String, Edge> edgeMap = new HashMap<>();;
     
-    // my additions
-    public static int autoID = 0;
+    private static AtomicLong counter = new AtomicLong(0);
 
     // my additions
     public Node(String label) {
-        this.id = Integer.toString(autoID++);
+        this.id= Long.toString(counter.getAndIncrement()); 
         this.label = label;
     }
+
+
+    public Node(String label,String image) {
+        this.id= Long.toString(counter.getAndIncrement());
+        this.label = label;
+        this.image = image;
+        this.shape = Shape.image;
+    }
+
+
+    public Node(String label, Node.Shape shape,String group){
+        this.id= Long.toString(counter.getAndIncrement());
+        this.label = label;
+        this.shape = shape;
+        this.group = group;
+    }
+
+    public Node(String label, Node.Shape shape,String group,String image){
+        this.id = Long.toString(counter.getAndIncrement());
+        this.label = label;
+        this.shape = shape;
+        this.group = group;
+        this.image = image;
+        this.shape = Shape.image;
+    }
     
+    @Deprecated
     public Node(int id, String label) {
         this.id = Integer.toString(id);
         this.label = label;
     }
 
-    public Node(String id, String label) {
-        this.id = id;
-        this.label = label;
-    }
-
+    @Deprecated
     public Node(int id, String label,String image) {
         this.id = Integer.toString(id);
         this.label = label;
@@ -71,6 +93,7 @@ public class Node {
         this.shape = Shape.image;
     }
 
+    @Deprecated
     public Node(String id, String label,String image) {
         this.id = id;
         this.label = label;
@@ -78,6 +101,7 @@ public class Node {
         this.shape = Shape.image;
     }
 
+    @Deprecated
     public Node(int id, String label, Node.Shape shape,String group){
         this.id = Integer.toString(id);;
         this.label = label;
@@ -85,6 +109,7 @@ public class Node {
         this.group = group;
     }
 
+    @Deprecated
     public Node(String id, String label, Node.Shape shape,String group){
         this.id = id;
         this.label = label;
@@ -92,6 +117,7 @@ public class Node {
         this.group = group;
     }
 
+    @Deprecated
     public Node(int id, String label, Node.Shape shape,String group,String image){
         this.id = Integer.toString(id);;
         this.label = label;
@@ -101,6 +127,7 @@ public class Node {
         this.shape = Shape.image;
     }
 
+    @Deprecated
     public Node(String id, String label, Node.Shape shape,String group,String image){
         this.id = id;
         this.label = label;
@@ -114,6 +141,7 @@ public class Node {
         return id;
     }
 
+    @Deprecated
     public void setId(String id) {
         this.id = id;
     }

@@ -169,7 +169,7 @@ public class SearchView extends Panel implements View {
             networkDiagram.addNode(node2);
             networkDiagram.addEdge(edge1);
 
-            networkDiagram.addNodeDoubleClickListener(new MyNodeDoubleClickListener(node2, networkDiagram));
+            //networkDiagram.addNodeDoubleClickListener(new MyNodeDoubleClickListener(node2, networkDiagram));
         }
 
     }

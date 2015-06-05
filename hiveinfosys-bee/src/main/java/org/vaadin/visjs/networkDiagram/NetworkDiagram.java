@@ -26,6 +26,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @JavaScript({"js/vis.min.js", "js/networkDiagram-connector.js"})
 @StyleSheet({"css/vis.css", "css/networkDiagram.css"})
 public class NetworkDiagram extends AbstractJavaScriptComponent {
+    
+    // Workaround for ConcurrentModificationException when adding item but at the same time iterations are being done
+    /*
     private List<Node.NodeSelectListener> nodeSelectListeners = new ArrayList<>();
     private List<Node.NodeClickListener> nodeClickListeners = new ArrayList<>();
     private List<Node.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
@@ -33,12 +36,22 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     private List<Node.NodeBlurListener> nodeBlurListeners = new ArrayList<>();
     private List<Node.NodeDragStartListener> nodeDragStartListeners = new ArrayList<>();
     private List<Node.NodeDragEndListener> nodeDragEndListeners = new ArrayList<>();
+    */
+    private final List<Node.NodeSelectListener> nodeSelectListeners = new CopyOnWriteArrayList<>();
+    private final List<Node.NodeClickListener> nodeClickListeners = new CopyOnWriteArrayList<>();
+    private final List<Node.NodeDoubleClickListener> nodeDoubleClickListeners = new CopyOnWriteArrayList<>();
+    private final List<Node.NodeHoverListener> nodeHoverListeners = new CopyOnWriteArrayList<>();
+    private final List<Node.NodeBlurListener> nodeBlurListeners = new CopyOnWriteArrayList<>();
+    private final List<Node.NodeDragStartListener> nodeDragStartListeners = new CopyOnWriteArrayList<>();
+    private final List<Node.NodeDragEndListener> nodeDragEndListeners = new CopyOnWriteArrayList<>();
+    
+    
     private ResizeListener resizeListener;
     private StabilizationStartListener stabilizationStartListener;
     private StabilizedListener stabilizedListener;
     private ViewChangedListener viewChangedListener;
     private ZoomListener zoomListener;
-    private Gson gson = new Gson();
+    private final Gson gson = new Gson();
 
     public NetworkDiagram(Options options) {
         super();
