@@ -1,7 +1,5 @@
 package org.vaadin.visjs.networkDiagram;
 
-import com.google.gson.JsonObject;
-import com.vaadin.ui.Component;
 import org.vaadin.visjs.networkDiagram.options.edges.Dash;
 import com.google.gson.annotations.SerializedName;
 
@@ -21,7 +19,7 @@ public class Edge {
     private boolean configurePhysics = false;
     private boolean freezeForStabilization = false;
     private boolean hover = false;
-    private boolean dragNetwork = true ;
+    private boolean dragNetwork = true;
     private boolean dragNodes = true;
     private boolean hideNodesOnDrag = false;
     private boolean hideEdgesOnDrag = false;
@@ -34,7 +32,7 @@ public class Edge {
     private int width;
     private Color color;
 
-    private Edge.Style style= Style.line;
+    private Edge.Style style = Style.line;
     private Dash dash;
 
     // my additions
@@ -42,109 +40,176 @@ public class Edge {
         this.from = from.getId();
         this.to = to.getId();
     }
-    
+
+    public Edge(Node from, Node to, int width) {
+        this.from = from.getId();
+        this.to = to.getId();
+        this.width = width;
+    }
+
+    public Edge(Node from, Node to, Color color) {
+        this.from = from.getId();
+        this.to = to.getId();
+        this.color = color;
+    }
+
+    public Edge(Node from, Node to, Color color, int width) {
+        this.from = from.getId();
+        this.to = to.getId();
+        this.color = color;
+        this.width = width;
+    }
+
+    public Edge(Node from, Node to, Edge.Style style) {
+        this.from = from.getId();
+        this.to = to.getId();
+        this.style = style;
+
+    }
+
+    public Edge(Node from, Node to, Edge.Style style, int width) {
+        this.from = from.getId();
+        this.to = to.getId();
+        this.style = style;
+        this.width = width;
+    }
+
+    public Edge(Node from, Node to, Edge.Style style, Color color) {
+        this.from = from.getId();
+        this.to = to.getId();
+        this.style = style;
+        this.color = color;
+    }
+
+    public Edge(Node from, Node to, Edge.Style style, Color color, int width) {
+        this.from = from.getId();
+        this.to = to.getId();
+        this.style = style;
+        this.color = color;
+        this.width = width;
+    }
+
+    @Deprecated
     public Edge(int from, int to) {
         this.from = Integer.toString(from);
-        this.to =Integer.toString(to) ;
+        this.to = Integer.toString(to);
     }
+
+    @Deprecated
     public Edge(String from, String to) {
-        this.from =  from;
-        this.to = to ;
+        this.from = from;
+        this.to = to;
     }
 
-    public Edge(int from, int to , int width) {
+    @Deprecated
+    public Edge(int from, int to, int width) {
         this.from = Integer.toString(from);
-        this.to =Integer.toString(to) ;
+        this.to = Integer.toString(to);
         this.width = width;
     }
 
-    public Edge(String from, String to , int width) {
-        this.from =  from;
-        this.to = to ;
+    @Deprecated
+    public Edge(String from, String to, int width) {
+        this.from = from;
+        this.to = to;
         this.width = width;
     }
 
-    public Edge(int from,int to,Color color){
+    @Deprecated
+    public Edge(int from, int to, Color color) {
         this.from = Integer.toString(from);
-        this.to =Integer.toString(to) ;
+        this.to = Integer.toString(to);
         this.color = color;
     }
 
-    public Edge(String from, String to,Color color){
-        this.from =  from;
-        this.to = to ;
+    @Deprecated
+    public Edge(String from, String to, Color color) {
+        this.from = from;
+        this.to = to;
         this.color = color;
     }
 
-    public Edge(int from,int to,Color color,int width ){
+    @Deprecated
+    public Edge(int from, int to, Color color, int width) {
         this.from = Integer.toString(from);
-        this.to =Integer.toString(to) ;
-        this.color = color;
-        this.width = width;
-    }
-    public Edge(String from, String to,Color color,int width ){
-        this.from =  from;
-        this.to = to ;
+        this.to = Integer.toString(to);
         this.color = color;
         this.width = width;
     }
 
-    public Edge(int from,int to,Edge.Style style){
+    @Deprecated
+    public Edge(String from, String to, Color color, int width) {
+        this.from = from;
+        this.to = to;
+        this.color = color;
+        this.width = width;
+    }
+
+    @Deprecated
+    public Edge(int from, int to, Edge.Style style) {
         this.from = Integer.toString(from);
-        this.to =Integer.toString(to) ;
+        this.to = Integer.toString(to);
         this.style = style;
 
     }
 
-    public Edge(String from, String to,Edge.Style style){
-        this.from =  from;
-        this.to = to ;
+    @Deprecated
+    public Edge(String from, String to, Edge.Style style) {
+        this.from = from;
+        this.to = to;
         this.style = style;
 
     }
 
-    public Edge(int from,int to,Edge.Style style, int width){
+    @Deprecated
+    public Edge(int from, int to, Edge.Style style, int width) {
         this.from = Integer.toString(from);
-        this.to =Integer.toString(to) ;
+        this.to = Integer.toString(to);
         this.style = style;
         this.width = width;
     }
-    public Edge(String from, String to,Edge.Style style, int width){
-        this.from =  from;
-        this.to = to ;
+
+    @Deprecated
+    public Edge(String from, String to, Edge.Style style, int width) {
+        this.from = from;
+        this.to = to;
         this.style = style;
         this.width = width;
 
     }
 
-    public Edge(int from,int to,Edge.Style style,Color color){
+    @Deprecated
+    public Edge(int from, int to, Edge.Style style, Color color) {
         this.from = Integer.toString(from);
-        this.to =Integer.toString(to) ;
+        this.to = Integer.toString(to);
         this.style = style;
         this.color = color;
     }
 
-    public Edge(String from, String to,Edge.Style style,Color color){
-        this.from =  from;
-        this.to = to ;
+    @Deprecated
+    public Edge(String from, String to, Edge.Style style, Color color) {
+        this.from = from;
+        this.to = to;
         this.style = style;
         this.color = color;
     }
 
-    public Edge(int from,int to,Edge.Style style,Color color, int width ){
+    @Deprecated
+    public Edge(int from, int to, Edge.Style style, Color color, int width) {
         this.from = Integer.toString(from);
-        this.to =Integer.toString(to) ;
+        this.to = Integer.toString(to);
         this.style = style;
         this.color = color;
-        this.width= width;
+        this.width = width;
     }
 
-    public Edge(String from, String to,Edge.Style style,Color color, int width ){
-        this.from =  from;
-        this.to = to ;
+    @Deprecated
+    public Edge(String from, String to, Edge.Style style, Color color, int width) {
+        this.from = from;
+        this.to = to;
         this.style = style;
         this.color = color;
-        this.width= width;
+        this.width = width;
     }
 
     public String getFrom() {
@@ -332,6 +397,7 @@ public class Edge {
     }
 
     public static enum Style {
+
         @SerializedName("line")
         line,
         @SerializedName("arrow")
