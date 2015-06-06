@@ -4,6 +4,7 @@ import org.vaadin.visjs.networkDiagram.api.Event;
 import elemental.json.JsonArray;
 import elemental.json.JsonException;
 import elemental.json.JsonObject;
+import org.vaadin.visjs.networkDiagram.NetworkDiagram;
 
 /**
  * Created by roshans on 11/30/14.
@@ -15,7 +16,7 @@ public class ClickEvent extends Event {
     private int canvasX = 0;
     private int canvasY = 0;
 
-    public ClickEvent(JsonArray properties) throws JsonException {
+    public ClickEvent(JsonArray properties, NetworkDiagram nd) throws JsonException {
         super();
         JsonArray edges = properties.getObject(0).getArray("edges");
         JsonArray nodes = properties.getObject(0).getArray("nodes");
@@ -35,12 +36,17 @@ public class ClickEvent extends Event {
         canvasY = (int) canvas.getNumber("y");
 
         for (int i = 0; i < nodes.length(); i++) {
-            getNodeIds().add(nodes.getString(i));
+            String nodeID = nodes.getString(i);
+            
+            getNodes().add(nd.mNodes.get(nodeID));
+            getNodeIds().add(nodeID);
         }
 
         for (int i = 0; i < edges.length(); i++) {
             getEdgeIds().add(edges.getString(i));
         }
+        
+        
     }
 
     public int getDOMx() {

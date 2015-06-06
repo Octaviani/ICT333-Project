@@ -9,72 +9,71 @@ import elemental.json.JsonException;
  */
 public class EventGenerator {
 
-
-    public static SelectEvent getNodeSelectEvent(JsonArray properties) {
+    public static SelectEvent getNodeSelectEvent(JsonArray properties, NetworkDiagram nd) {
         SelectEvent selectEvent = null;
         try {
-            selectEvent = new SelectEvent(properties);
+            selectEvent = new SelectEvent(properties, nd);
+
         } catch (JsonException e) {
             e.printStackTrace();
         }
         return selectEvent;
     }
 
-    public static ClickEvent getNodeClickEvent(JsonArray properties){
+    public static ClickEvent getNodeClickEvent(JsonArray properties, NetworkDiagram nd) {
         ClickEvent clickEvent = null;
         try {
-            clickEvent = new ClickEvent(properties);
+            clickEvent = new ClickEvent(properties, nd);
         } catch (JsonException e) {
             e.printStackTrace();
         }
         return clickEvent;
     }
 
-    public static DoubleClickEvent getNodeDoubleClickEvent(JsonArray properties){
+    public static DoubleClickEvent getNodeDoubleClickEvent(JsonArray properties, NetworkDiagram nd) {
         DoubleClickEvent doubleClickEvent = null;
         try {
-            doubleClickEvent = new DoubleClickEvent(properties);
+            doubleClickEvent = new DoubleClickEvent(properties, nd);
         } catch (JsonException e) {
             e.printStackTrace();
         }
         return doubleClickEvent;
     }
 
-    public static HoverEvent getNodeHoverEvent(JsonArray properties){
+    public static HoverEvent getNodeHoverEvent(JsonArray properties, NetworkDiagram nd) {
         HoverEvent hoverEvent = null;
         try {
-            hoverEvent = new HoverEvent(properties);
+            hoverEvent = new HoverEvent(properties, nd);
         } catch (JsonException e) {
             e.printStackTrace();
         }
         return hoverEvent;
     }
 
-
-    public static BlurEvent getNodeBlurEvent(JsonArray properties) {
+    public static BlurEvent getNodeBlurEvent(JsonArray properties, NetworkDiagram nd) {
         BlurEvent blurEvent = null;
         try {
-            blurEvent = new BlurEvent(properties);
+            blurEvent = new BlurEvent(properties, nd);
         } catch (JsonException e) {
             e.printStackTrace();
         }
         return blurEvent;
     }
 
-    public static DragStartEvent getNodeDragStartEvent(JsonArray properties) {
+    public static DragStartEvent getNodeDragStartEvent(JsonArray properties, NetworkDiagram nd) {
         DragStartEvent dragStartEvent = null;
         try {
-            dragStartEvent = new DragStartEvent(properties);
+            dragStartEvent = new DragStartEvent(properties, nd);
         } catch (JsonException e) {
             e.printStackTrace();
         }
         return dragStartEvent;
     }
 
-    public static DragEndEvent getNodeDragEndEvent(JsonArray properties) {
+    public static DragEndEvent getNodeDragEndEvent(JsonArray properties, NetworkDiagram nd) {
         DragEndEvent dragEndEvent = null;
         try {
-            dragEndEvent = new DragEndEvent(properties);
+            dragEndEvent = new DragEndEvent(properties, nd);
         } catch (JsonException e) {
             e.printStackTrace();
         }

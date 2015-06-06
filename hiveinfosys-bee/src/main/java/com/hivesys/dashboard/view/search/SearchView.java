@@ -151,7 +151,7 @@ public class SearchView extends Panel implements View {
             public void onFired(DoubleClickEvent event) {
                 if (event.getNodeIds().size() > 0) {
                     Node node2 = new Node("Hello");
-                    Edge edge1 = new Edge(event.getNodeIds().get(0), node2.getId());
+                    Edge edge1 = new Edge(event.getNodes().get(0), node2);
                     networkDiagram.addNode(node2);
                     networkDiagram.addEdge(edge1);
                 }

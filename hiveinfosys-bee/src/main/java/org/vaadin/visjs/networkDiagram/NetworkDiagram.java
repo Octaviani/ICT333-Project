@@ -12,7 +12,9 @@ import com.vaadin.ui.AbstractJavaScriptComponent;
 import com.vaadin.ui.JavaScriptFunction;
 import elemental.json.JsonArray;
 import elemental.json.JsonException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -46,55 +48,57 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     private ViewChangedListener viewChangedListener;
     private ZoomListener zoomListener;
     private final Gson gson = new Gson();
+    
+    public ConcurrentHashMap<String, Node> mNodes = new ConcurrentHashMap<>();
 
     public NetworkDiagram(Options options) {
         super();
         addFunction(Constants.ON_SELECT, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
-                SelectEvent event = EventGenerator.getNodeSelectEvent(properties);
+                SelectEvent event = EventGenerator.getNodeSelectEvent(properties, NetworkDiagram.this);
                 fireSelectEvent(event);
             }
         });
         addFunction(Constants.ON_CLICK, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
-                ClickEvent event = EventGenerator.getNodeClickEvent(properties);
+                ClickEvent event = EventGenerator.getNodeClickEvent(properties, NetworkDiagram.this);
                 fireClickEvent(event);
             }
         });
         addFunction(Constants.ON_DOUBLE_CLICK, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
-                DoubleClickEvent event = EventGenerator.getNodeDoubleClickEvent(properties);
+                DoubleClickEvent event = EventGenerator.getNodeDoubleClickEvent(properties, NetworkDiagram.this);
                 fireDoubleClickEvent(event);
             }
         });
         addFunction(Constants.ON_HOVER_NODE, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
-                HoverEvent event = EventGenerator.getNodeHoverEvent(properties);
+                HoverEvent event = EventGenerator.getNodeHoverEvent(properties, NetworkDiagram.this);
                 fireHoverEvent(event);
             }
         });
         addFunction(Constants.ON_BLUR_NODE, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
-                BlurEvent event = EventGenerator.getNodeBlurEvent(properties);
+                BlurEvent event = EventGenerator.getNodeBlurEvent(properties, NetworkDiagram.this);
                 fireBlurEvent(event);
             }
         });
         addFunction(Constants.ON_DRAG_START, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
-                DragStartEvent event = EventGenerator.getNodeDragStartEvent(properties);
+                DragStartEvent event = EventGenerator.getNodeDragStartEvent(properties, NetworkDiagram.this);
                 fireDragStartEvent(event);
             }
         });
         addFunction(Constants.ON_DRAG_END, new JavaScriptFunction() {
             @Override
             public void call(final JsonArray properties) throws JsonException {
-                DragEndEvent event = EventGenerator.getNodeDragEndEvent(properties);
+                DragEndEvent event = EventGenerator.getNodeDragEndEvent(properties, NetworkDiagram.this);
                 fireDragEndEvent(event);
             }
         });
@@ -148,11 +152,19 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     }
 
     public void addNode(Node... node) {
+        for (Node n: node) {
+            this.mNodes.put(n.getId(), n);
+        }
+        
         getState().updates++;
         callFunction("addNodes", gson.toJson(node));
     }
 
     public void addNodes(List<Node> nodes) {
+        for (Node n: nodes) {
+            this.mNodes.put(n.getId(), n);
+        }
+        
         getState().updates++;
         callFunction("addNodes", gson.toJson(nodes));
     }
@@ -168,6 +180,10 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     }
 
     public void removeNode(Node... node) {
+        for (Node n: node) {
+            this.mNodes.remove(n.getId());
+        }
+        
         getState().updates++;
         callFunction("removeNode", gson.toJson(node));
     }
@@ -206,6 +222,8 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     }
 
     public void clearNodes() {
+        this.mNodes.clear();
+        
         callFunction("clearNodes");
     }
 
@@ -214,6 +232,7 @@ public class NetworkDiagram extends AbstractJavaScriptComponent {
     }
 
     public void destroyNetwork() {
+        
         callFunction("destroyNetwork");
     }
 
