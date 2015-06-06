@@ -7,7 +7,6 @@ package com.hivesys.core;
 
 import com.box.view.BoxViewClient;
 import org.json.*;
-import com.hivesys.dashboard.domain.FileInfo;
 import com.hivesys.dashboard.domain.User;
 import com.hivesys.database.domain.QFileInfo;
 import com.hivesys.database.domain.QVersionInfo;
@@ -26,8 +25,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -78,7 +75,7 @@ public class FileInfoController {
         return BoxViewSession.getInstance().getViewURL(boxViewID);
     }
 
-    public void UploadToBoxVIew(FileInfo fileinfo) {
+    public void UploadToBoxVIew(Document fileinfo) {
         CloseableHttpClient httpclient = HttpClientBuilder.create().build();
         try {
             HttpPost httppost = new HttpPost("https://upload.view-api.box.com/1/documents");
@@ -122,7 +119,7 @@ public class FileInfoController {
         }
     }
 
-    public void storeFileInfo(FileInfo fileinfo) throws SQLException {
+    public void storeFileInfo(Document fileinfo) throws SQLException {
 
         // upload to box view in a thread
         Runnable r = new Runnable() {
@@ -143,7 +140,7 @@ public class FileInfoController {
         
     }
 
-    public void storeFileInfoToDatabase(FileInfo fileinfo) throws SQLException {
+    public void storeFileInfoToDatabase(Document fileinfo) throws SQLException {
         int fileid = getFileIDFromName(fileinfo.getRootFileName());
 
         if (fileid == -1) {
@@ -300,7 +297,7 @@ public class FileInfoController {
         return result.get(0);
     }
 
-    public int createNewFileRecord(FileInfo fileinfo) throws SQLException {
+    public int createNewFileRecord(Document fileinfo) throws SQLException {
         Connection conn = DBConnectionPool.getInstance().reserveConnection();
         SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();
 
@@ -323,7 +320,7 @@ public class FileInfoController {
         return fileId;
     }
 
-    public int createNewVersionRecord(FileInfo fileinfo, int fileid) throws SQLException {
+    public int createNewVersionRecord(Document fileinfo, int fileid) throws SQLException {
         Connection conn = DBConnectionPool.getInstance().reserveConnection();
         SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();
 

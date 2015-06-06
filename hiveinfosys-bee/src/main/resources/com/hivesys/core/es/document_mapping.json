@@ -1,0 +1,35 @@
+{
+    "document": {
+        "properties": {
+            "file": {
+                "type": "attachment",
+                "fields": {
+                    "file": {
+                        "type": "string",
+                        "term_vector": "with_positions_offsets",
+                        "store": true
+                    },
+                    "title": {
+                        "store": "yes"
+                    },
+                    "date": {
+                        "store": "yes"
+                    },
+                    
+                    "keywords": {
+                        "store": "yes"
+                    },
+                    "content_type": {
+                        "store": "yes"
+                    },
+                    "content_length": {
+                        "store": "yes"
+                    },
+                    "language": {
+                        "store": "yes"
+                    }
+                }
+            }
+        }
+    }
+}

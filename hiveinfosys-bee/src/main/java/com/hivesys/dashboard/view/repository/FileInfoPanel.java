@@ -1,7 +1,7 @@
 package com.hivesys.dashboard.view.repository;
 
 import com.hivesys.core.ContentStore;
-import com.hivesys.dashboard.domain.FileInfo;
+import com.hivesys.core.Document;
 import com.hivesys.exception.ContentAlreadyExistException;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
@@ -24,7 +24,7 @@ public class FileInfoPanel extends FormLayout {
     Label mPrevCopies;
 
     PluploadFile mfile;
-    private FileInfo fInfo;
+    private Document fInfo;
 
     FileInfoPanel(PluploadFile file) {
         initViewComponents();
@@ -60,7 +60,7 @@ public class FileInfoPanel extends FormLayout {
 
     private void initData(PluploadFile file) {
         mfile = file;
-        setfInfo(new FileInfo());
+        setfInfo(new Document());
 
         String tmpFilePath = mfile.getUploadedFile().toString();
         getfInfo().setRootFileName(mfile.getName());
@@ -92,14 +92,14 @@ public class FileInfoPanel extends FormLayout {
     /**
      * @return the fInfo
      */
-    public FileInfo getfInfo() {
+    public Document getfInfo() {
         return fInfo;
     }
 
     /**
      * @param fInfo the fInfo to set
      */
-    public void setfInfo(FileInfo fInfo) {
+    public void setfInfo(Document fInfo) {
         this.fInfo = fInfo;
     }
 

@@ -1,6 +1,6 @@
 package com.hivesys.core;
 
-import com.hivesys.dashboard.domain.FileInfo;
+import com.hivesys.core.es.ElasticSearchContext;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +34,7 @@ public class ContentStore {
     public ContentStore() {
     }
 
-    public FileInfo parseFileInfoFromFile(String tmpfile, FileInfo fInfo) {
+    public Document parseFileInfoFromFile(String tmpfile, Document fInfo) {
         try {
             Metadata md = new Metadata();
 
@@ -42,7 +42,7 @@ public class ContentStore {
             _autoParser.parse(inFile, textHandler, md, context);
             inFile.close();
 
-            //_dumpMetadata(tmpfile, md);
+            _dumpMetadata(tmpfile, md);
             fInfo.setAuthor(md.get("Author"));
             fInfo.setTitle(md.get("title"));
 
@@ -60,12 +60,12 @@ public class ContentStore {
         return fInfo;
     }
 
-    private void storeFileInfoToDatabase(FileInfo fInfo) throws SQLException {
+    private void storeFileInfoToDatabase(Document fInfo) throws SQLException {
             FileInfoController.getInstance().storeFileInfo(fInfo);
   
     }
 
-    public int storeFileToRepository(String tmpFilepath, FileInfo fInfo) throws SQLException, IOException {
+    public int storeFileToRepository(String tmpFilepath, Document fInfo) throws SQLException, IOException {
         // crc hash to remove duplicate content
         String newFilename = "[[" + fInfo.getCrcHash() + "]]" + fInfo.getRootFileName();
         fInfo.setFullFileName(newFilename);

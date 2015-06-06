@@ -5,7 +5,7 @@
  */
 package com.hivesys.dashboard.view.search;
 
-import com.hivesys.core.ElasticSearchContext;
+import com.hivesys.core.es.ElasticSearchContext;
 import com.hivesys.core.FileInfoController;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.label.ContentMode;

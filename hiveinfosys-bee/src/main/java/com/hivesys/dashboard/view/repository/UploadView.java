@@ -1,6 +1,5 @@
 package com.hivesys.dashboard.view.repository;
 
-import com.hivesys.exception.ContentAlreadyExistException;
 import pl.exsio.plupload.*;
 import pl.exsio.plupload.manager.PluploadManager;
 
@@ -21,8 +20,6 @@ import java.io.IOException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
 public class UploadView extends Panel implements View {

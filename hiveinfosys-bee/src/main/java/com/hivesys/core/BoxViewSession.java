@@ -13,8 +13,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -38,7 +36,7 @@ public class BoxViewSession {
 
                 Map<String, Object> params = new HashMap<>();
                 Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.HOUR, 10);
+                cal.add(Calendar.HOUR, 1);
                 params.put("expiresAt", cal.getTime());
                 params.put("isDownloadable", true);
                 params.put("isTextSelectable", true);

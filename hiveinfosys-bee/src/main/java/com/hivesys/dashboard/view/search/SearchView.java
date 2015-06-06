@@ -8,12 +8,10 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.themes.ValoTheme;
-import java.util.List;
 import org.vaadin.visjs.networkDiagram.Color;
 import org.vaadin.visjs.networkDiagram.Edge;
 import org.vaadin.visjs.networkDiagram.NetworkDiagram;
 import org.vaadin.visjs.networkDiagram.Node;
-import org.vaadin.visjs.networkDiagram.event.node.ClickEvent;
 import org.vaadin.visjs.networkDiagram.event.node.DoubleClickEvent;
 import org.vaadin.visjs.networkDiagram.options.Options;
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hivesys.dashboard.domain;
+package com.hivesys.core;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author swoorup
  */
-public class FileInfo {
+public class Document {
     private String contentFilepath;
     
     private String rootFileName;

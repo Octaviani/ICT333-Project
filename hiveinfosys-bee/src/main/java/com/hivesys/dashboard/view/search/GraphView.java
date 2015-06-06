@@ -5,7 +5,7 @@
  */
 package com.hivesys.dashboard.view.search;
 
-import com.hivesys.core.ElasticSearchContext;
+import com.hivesys.core.es.ElasticSearchContext;
 import com.hivesys.core.FileInfoController;
 import com.vaadin.ui.CssLayout;
 import java.sql.SQLException;
@@ -84,9 +84,6 @@ public class GraphView extends CssLayout {
         
         FillNodeWithResults(rootSearch);
         BuildGraph();
-//        Runnable r = new MyThread(this, rootSearch);
-//        new Thread(r).start();
-
     }
 
     void FillNodeWithResults(String rootSearch) {

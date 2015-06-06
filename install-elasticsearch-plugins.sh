@@ -8,3 +8,9 @@ if [ $# -ne 1 ];
 fi
 
 $1/bin/plugin install elasticsearch/elasticsearch-mapper-attachments/2.5.0
+$1/bin/plugin --install org.carrot2/elasticsearch-carrot2/1.8.0
+
+# site plugins
+$1/bin/plugin -install lukas-vlcek/bigdesk/2.4.0
+$1/bin/plugin -install polyfractal/elasticsearch-inquisitor
+$1/bin/plugin --install lmenezes/elasticsearch-kopf
