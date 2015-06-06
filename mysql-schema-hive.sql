@@ -19,6 +19,9 @@
 -- Table structure for table `Annotation`
 --
 
+
+CREATE DATABASE IF NOT EXISTS Hive;
+USE Hive;
 DROP TABLE IF EXISTS `Annotation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
