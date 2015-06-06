@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class DocumentManager {
     Queue<Document> documentQueue = new ConcurrentLinkedQueue<>();
+    UploaderThread vdfvdfvdfvdfvd
 
     public DocumentManager() {
     }
