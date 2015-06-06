@@ -2,7 +2,7 @@ package com.hivesys.config;
 
 import com.hivesys.core.ContentStore;
 import com.hivesys.core.db.DBConnectionPool;
-import com.hivesys.core.FileInfoController;
+import com.hivesys.core.BoxViewDocuments;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -134,7 +134,7 @@ public class Config {
             DBConnectionPool.getInstance().initializeConnectionPool();
             
             ContentStore.getInstance().setContentdir(contentStore);
-            FileInfoController.getInstance().initializeBoxViewClient(boxviewpikey);
+            BoxViewDocuments.getInstance().initializeBoxViewClient(boxviewpikey);
 
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             System.out.println("Error reading configuration file: " + xmlconfigfile);

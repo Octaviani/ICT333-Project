@@ -149,7 +149,7 @@ public class DocumentDB {
         DBConnectionPool.getInstance().releaseConnection(conn);
 
         if (result.isEmpty()) {
-            return null;
+            return "";
         }
 
         return result.get(0);

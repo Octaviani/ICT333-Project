@@ -6,7 +6,7 @@
 package com.hivesys.dashboard.view.search;
 
 import com.hivesys.core.es.ElasticSearchContext;
-import com.hivesys.core.FileInfoController;
+import com.hivesys.core.BoxViewDocuments;
 import com.hivesys.core.db.DocumentDB;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -73,10 +73,10 @@ public class TextualView extends Panel {
                 Button lblfileName = new Button(filename);
                 lblfileName.addClickListener((Button.ClickEvent event) -> {
                   if (boxviewID != null) {
-                      String url = FileInfoController.getInstance().getViewURL(boxviewID);
+                      String url = BoxViewDocuments.getInstance().getViewURL(boxviewID);
                       if (url != null || !url.equals(""))
                       {
-                        url = FileInfoController.getInstance().getViewURL(boxviewID);
+                        url = BoxViewDocuments.getInstance().getViewURL(boxviewID);
                         BrowserFrame bframe = new BrowserFrame(filename, new ExternalResource(url));
                         VerticalLayout vlayout = new VerticalLayout(bframe);
 

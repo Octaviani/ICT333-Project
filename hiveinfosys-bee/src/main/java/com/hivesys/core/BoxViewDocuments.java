@@ -28,9 +28,9 @@ import org.apache.http.util.EntityUtils;
  *
  * @author swoorup
  */
-public class FileInfoController {
+public class BoxViewDocuments {
 
-    private static final FileInfoController singleton = new FileInfoController();
+    private static final BoxViewDocuments singleton = new BoxViewDocuments();
     private String boxviewapi;
     private BoxViewClient boxView;
 
@@ -115,7 +115,7 @@ public class FileInfoController {
         UploadToBoxVIew(fileinfo);
     }
 
-    public static FileInfoController getInstance() {
+    public static BoxViewDocuments getInstance() {
         return singleton;
     }
 }

@@ -3,7 +3,7 @@ package com.hivesys.dashboard.view.repository;
 import com.box.view.BoxViewException;
 import com.box.view.Document;
 import com.hivesys.core.db.DBConnectionPool;
-import com.hivesys.core.FileInfoController;
+import com.hivesys.core.BoxViewDocuments;
 import com.vaadin.data.Property;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -69,7 +69,7 @@ public final class RepositoryView extends Panel implements View {
                         Object boxviewID = container.getContainerProperty(event.getItemId(), "BoxViewID").getValue();
                         if (boxviewID != null) {
                             Notification.show("Opening Preview!");
-                            String url = FileInfoController.getInstance().getViewURL(boxviewID.toString());
+                            String url = BoxViewDocuments.getInstance().getViewURL(boxviewID.toString());
                             if (url.equals("")) {
                                 Notification.show("Preview site is down for the document!");
                                 return;

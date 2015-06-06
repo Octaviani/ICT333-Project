@@ -6,7 +6,7 @@
 package com.hivesys.dashboard.view.search;
 
 import com.hivesys.core.es.ElasticSearchContext;
-import com.hivesys.core.FileInfoController;
+import com.hivesys.core.BoxViewDocuments;
 import com.hivesys.core.db.DocumentDB;
 import com.vaadin.ui.CssLayout;
 import java.sql.SQLException;

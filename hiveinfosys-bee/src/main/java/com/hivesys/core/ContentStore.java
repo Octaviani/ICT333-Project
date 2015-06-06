@@ -3,6 +3,7 @@ package com.hivesys.core;
 import com.box.view.BoxViewException;
 import com.hivesys.core.es.ElasticSearchContext;
 import com.google.common.io.Files;
+import com.hivesys.core.db.DocumentDB;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -86,7 +87,7 @@ public class ContentStore {
             doc.setDateCreated(dateCreated);
             doc.setDateUploaded(new Date());
 
-            doc.setHash(Utilities.getCrcHash(tmpfile));
+            doc.setHash(Utilities.getSHAHash(tmpfile));
 
         } catch (IOException | SAXException | TikaException | ParseException ex) {
             Logger.getLogger(ContentStore.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,16 +95,12 @@ public class ContentStore {
         return doc;
     }
 
-    private void storeFileInfoToDatabase(Document doc) throws SQLException, BoxViewException {
-        FileInfoController.getInstance().storeFileInfo(doc);
-
-    }
 
     public int storeFileToRepository(Document doc) throws SQLException, IOException, BoxViewException {
         String tmpFilepath = doc.getContentFilepath();
 
         // crc hash to remove duplicate content
-        String newFilename = "[[" + doc.getHash() + "]]" + doc.getRootFileName();
+        String newFilename = "" + doc.getHash() + "" + doc.getRootFileName();
 
         File contentFile = new File(getContentdir() + File.separator + newFilename);
         // already exists
@@ -123,8 +120,8 @@ public class ContentStore {
 
         // send files to solr and database
         ElasticSearchContext.getInstance().indexFile(doc);
-        storeFileInfoToDatabase(doc);
-
+        DocumentDB.getInstance().storeDocumentToDatabase(doc);
+        BoxViewDocuments.getInstance().storeFileInfo(doc);
         return 0;
     }
 
