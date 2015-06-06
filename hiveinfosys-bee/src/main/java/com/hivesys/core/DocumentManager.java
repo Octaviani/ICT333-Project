@@ -22,7 +22,6 @@ public class DocumentManager {
         if (documentQueue.size() == 0) {
             // instantiate a thread
             
-            
         }
     }
     
