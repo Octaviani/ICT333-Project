@@ -4,13 +4,13 @@ import pl.exsio.plupload.*;
 import pl.exsio.plupload.manager.PluploadManager;
 
 import com.porotype.iconfont.FontAwesome.Icon;
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
-import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -20,6 +20,8 @@ import java.io.IOException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @SuppressWarnings("serial")
 public class UploadView extends Panel implements View {
@@ -91,7 +93,6 @@ public class UploadView extends Panel implements View {
         dashboardPanels = new CssLayout();
         dashboardPanels.addStyleName("dashboard-panels");
 
-        
         PluploadManager manager = new PluploadManager();
         manager.setCaption("Please select files to analyse");
         manager.getUploader().setMaxFileSize("100mb");
@@ -227,25 +228,8 @@ public class UploadView extends Panel implements View {
         tools.setHtmlContentAllowed(true);
         tools.addStyleName(ValoTheme.MENUBAR_BORDERLESS);
 
-        MenuItem max = tools.addItem(Icon.resize_full.toString(), new Command() {
-
-            @Override
-            public void menuSelected(final MenuItem selectedItem) {
-                if (!slot.getStyleName().contains("max")) {
-                    selectedItem.setText(Icon.resize_small.toString());
-                    toggleMaximized(slot, true);
-                } else {
-                    slot.removeStyleName("max");
-                    selectedItem.setText(Icon.resize_full.toString());
-                    toggleMaximized(slot, false);
-                }
-            }
-
-        });
-        max.setStyleName("icon-only");
-
         MenuItem close = tools.addItem("" + Icon.remove, (final MenuItem selectedItem) -> {
-            dashboardPanels.removeComponent(slot);
+            analyzedFilePanelContainer.removeComponent(slot);
             filesToCommit.remove((FileInfoPanel) content);
             if (filesToCommit.isEmpty()) {
                 init();
@@ -261,27 +245,8 @@ public class UploadView extends Panel implements View {
         return slot;
     }
 
-    private void toggleMaximized(final Component panel, final boolean maximized) {
-        for (Component component : root) {
-            component.setVisible(!maximized);
-        }
-        dashboardPanels.setVisible(true);
-
-        for (Component c : dashboardPanels) {
-            c.setVisible(!maximized);
-        }
-
-        if (maximized) {
-            panel.setVisible(true);
-            panel.addStyleName("max");
-        } else {
-            panel.removeStyleName("max");
-        }
-    }
-
     private void commitFiles() {
-        this.filesToCommit.stream().forEach((FileInfoPanel f) -> {
-            f.setDataToDomain();
+        for (FileInfoPanel f : this.filesToCommit) {
             try {
 
                 f.CommitChangesToDomain();
@@ -292,8 +257,11 @@ public class UploadView extends Panel implements View {
             } catch (SQLException ex) {
                 Notification.show("Cannot upload: " + f.mfile.getUploadedFile().toString() + "\nPossible SQL Engine Search Error",
                         Notification.Type.ERROR_MESSAGE);
+            } catch (FieldGroup.CommitException ex) {
+                Notification.show("Some fields in the form are not valid. Please check them!");
+                return;
             }
-        });
+        }
 
         Notification notification = new Notification("Uploading Info!");
         notification.setDelayMsec(50000);

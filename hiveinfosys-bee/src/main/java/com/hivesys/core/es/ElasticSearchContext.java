@@ -1,7 +1,9 @@
 package com.hivesys.core.es;
 
 import com.hivesys.core.Document;
+import java.io.File;
 import java.io.IOException;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
@@ -58,11 +60,21 @@ public class ElasticSearchContext {
 
     public void indexFile(Document fInfo) throws IOException {
         String data64 = org.elasticsearch.common.Base64.encodeFromFile(fInfo.getContentFilepath());
+        
+        File file = new File(fInfo.getContentFilepath()); 
+        double bytes = file.length();
+        
         XContentBuilder source = jsonBuilder().startObject()
                 .field("file", data64)
+                .field("filename", fInfo.getRootFileName())
+                .field("title", fInfo.getTitle())
+                .field("author", fInfo.getAuthor())
+                .field("created_date", fInfo.getDateCreated())
+                .field("content_type", FilenameUtils.getExtension(fInfo.getRootFileName()))
+                .field("content_length", bytes)
                 .endObject();
 
-        IndexResponse idxResp = mClient.prepareIndex().setIndex(idxName).setType(idxType).setId(fInfo.getCrcHash())
+        IndexResponse idxResp = mClient.prepareIndex().setIndex(idxName).setType(idxType).setId(fInfo.getHash())
                 .setSource(source).setRefresh(true).execute().actionGet();
     }
 

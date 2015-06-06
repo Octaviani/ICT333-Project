@@ -58,13 +58,7 @@ public class QUser extends com.mysema.query.sql.RelationalPathBase<QUser> {
 
     public final com.mysema.query.sql.PrimaryKey<QUser> userPK = createPrimaryKey(id);
 
-    public final com.mysema.query.sql.ForeignKey<QHistory> _userFk = createInvForeignKey(id, "UserId");
-
-    public final com.mysema.query.sql.ForeignKey<QViewHistory> _userViewFK = createInvForeignKey(id, "UserId");
-
-    public final com.mysema.query.sql.ForeignKey<QAnnotation> _userAnnoFk = createInvForeignKey(id, "UserId");
-
-    public final com.mysema.query.sql.ForeignKey<QVersionInfo> _userFileFK = createInvForeignKey(id, "UserId");
+    public final com.mysema.query.sql.ForeignKey<QDocument> _document1Fk = createInvForeignKey(id, "UserId");
 
     public QUser(String variable) {
         super(QUser.class, forVariable(variable), "null", "User");

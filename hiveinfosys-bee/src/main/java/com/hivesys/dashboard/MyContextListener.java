@@ -6,7 +6,7 @@
 package com.hivesys.dashboard;
 
 import com.hivesys.config.Config;
-import com.hivesys.core.DBConnectionPool;
+import com.hivesys.core.db.DBConnectionPool;
 import com.hivesys.core.es.ElasticSearchContext;
 import java.sql.Driver;
 import java.sql.DriverManager;

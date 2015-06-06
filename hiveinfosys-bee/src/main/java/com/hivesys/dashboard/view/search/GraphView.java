@@ -7,6 +7,7 @@ package com.hivesys.dashboard.view.search;
 
 import com.hivesys.core.es.ElasticSearchContext;
 import com.hivesys.core.FileInfoController;
+import com.hivesys.core.db.DocumentDB;
 import com.vaadin.ui.CssLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class GraphView extends CssLayout {
         for (SearchHit hit : results) {
             try {
 
-                String filename = splitter(FileInfoController.getInstance().getFileNameFromHash(hit.getId()));
+                String filename = splitter(DocumentDB.getInstance().getDocumentNameFromHash(hit.getId()));
                 Node child = new Node(GraphView.IDs++, filename, "/NetworkGraph/VAADIN/Company.png");
                 child.setShape(Node.Shape.circle);
 

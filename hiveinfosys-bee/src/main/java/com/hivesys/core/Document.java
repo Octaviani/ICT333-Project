@@ -5,26 +5,46 @@
  */
 package com.hivesys.core;
 
+import com.drew.lang.annotations.NotNull;
+import java.io.Serializable;
 import java.util.Date;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
  * @author swoorup
  */
-public class Document {
+public class Document implements Serializable{
     private String contentFilepath;
     
     private String rootFileName;
-    private String fullFileName;
+    
+    @NotNull @Size(min=2, max=350) @NotEmpty
     private String title;
+    
     private String description;
+    
+    @NotNull @Size(min=2, max=350) @NotEmpty
     private String Author;
-    private String crcHash;
+    
+    private String hash;
     private String boxViewID;
     
+    
+    @Past @NotNull
     private Date dateCreated;
+    
+    @Past @NotNull 
     private Date dateUploaded;
+    
     private String versionID;
+    
+    private int progress;
+    private boolean isErrorOccured;
+    
+    private static final long serialVersionUID = 1L;
 
     /**
      * @return the contentFilepath
@@ -85,15 +105,15 @@ public class Document {
     /**
      * @return the crcHash
      */
-    public String getCrcHash() {
-        return crcHash;
+    public String getHash() {
+        return hash;
     }
 
     /**
      * @param crcHash the crcHash to set
      */
-    public void setCrcHash(String crcHash) {
-        this.crcHash = crcHash;
+    public void setHash(String crcHash) {
+        this.hash = crcHash;
     }
 
     /**
@@ -139,20 +159,6 @@ public class Document {
     }
 
     /**
-     * @return the fullFileName
-     */
-    public String getFullFileName() {
-        return fullFileName;
-    }
-
-    /**
-     * @param fullFileName the fullFileName to set
-     */
-    public void setFullFileName(String fullFileName) {
-        this.fullFileName = fullFileName;
-    }
-
-    /**
      * @return the boxViewID
      */
     public String getBoxViewID() {
@@ -178,6 +184,34 @@ public class Document {
      */
     public void setVersionID(String versionID) {
         this.versionID = versionID;
+    }
+
+    /**
+     * @return the progress
+     */
+    public int getProgress() {
+        return progress;
+    }
+
+    /**
+     * @param progress the progress to set
+     */
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    /**
+     * @return the isErrorOccured
+     */
+    public boolean isIsErrorOccured() {
+        return isErrorOccured;
+    }
+
+    /**
+     * @param isErrorOccured the isErrorOccured to set
+     */
+    public void setIsErrorOccured(boolean isErrorOccured) {
+        this.isErrorOccured = isErrorOccured;
     }
 
 }

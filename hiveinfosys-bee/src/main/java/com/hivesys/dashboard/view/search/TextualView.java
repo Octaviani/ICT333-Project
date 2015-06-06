@@ -7,6 +7,7 @@ package com.hivesys.dashboard.view.search;
 
 import com.hivesys.core.es.ElasticSearchContext;
 import com.hivesys.core.FileInfoController;
+import com.hivesys.core.db.DocumentDB;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.window.WindowMode;
@@ -58,8 +59,8 @@ public class TextualView extends Panel {
             cssResult.setStyleName("search-result");
 
             try {
-                String filename = FileInfoController.getInstance().getFileNameFromHash(hit.getId());
-                String boxviewID = FileInfoController.getInstance().getBoxViewIDFromHash(hit.getId());
+                String filename = DocumentDB.getInstance().getDocumentNameFromHash(hit.getId());
+                String boxviewID = DocumentDB.getInstance().getBoxViewIDFromHash(hit.getId());
 
                 String highlight = "";
                 HighlightField objhighlight = hit.highlightFields().get("file");

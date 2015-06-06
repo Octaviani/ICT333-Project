@@ -1,6 +1,6 @@
 package com.hivesys.dashboard.data.dummy;
 
-import com.hivesys.core.DBConnectionPool;
+import com.hivesys.core.db.DBConnectionPool;
 import java.security.AccessControlException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

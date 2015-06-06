@@ -1,7 +1,7 @@
 package com.hivesys.dashboard.component;
 
 import com.hivesys.core.ContentStore;
-import com.hivesys.core.DBConnectionPool;
+import com.hivesys.core.db.DBConnectionPool;
 import com.hivesys.dashboard.domain.User;
 import com.hivesys.dashboard.event.DashboardEventBus;
 import com.hivesys.dashboard.event.DashboardEvent.CloseOpenWindowsEvent;

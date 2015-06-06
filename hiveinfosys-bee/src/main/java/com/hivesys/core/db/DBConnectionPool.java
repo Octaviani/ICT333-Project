@@ -1,4 +1,4 @@
-package com.hivesys.core;
+package com.hivesys.core.db;
 
 import com.mysema.query.sql.MySQLTemplates;
 import com.mysema.query.sql.SQLTemplates;

@@ -1,7 +1,7 @@
 package com.hivesys.config;
 
 import com.hivesys.core.ContentStore;
-import com.hivesys.core.DBConnectionPool;
+import com.hivesys.core.db.DBConnectionPool;
 import com.hivesys.core.FileInfoController;
 import java.io.File;
 import java.io.FileWriter;
@@ -26,7 +26,7 @@ public class Config {
     public static String CONFIG_FILE = "hivesystemconfig.xml";
     public static String CONTENT_FOLDER = "hivesystemcontent";
     
-    
+    private String boxViewApiKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
 
     public void loadConfig() {
@@ -126,6 +126,8 @@ public class Config {
             System.out.println(
             "Box View API key: " + boxviewpikey);
             
+            this.setBoxViewApiKey(boxviewpikey);
+            
             DBConnectionPool.getInstance().setUrl(dbURL);
             DBConnectionPool.getInstance().setUser(dbUser);
             DBConnectionPool.getInstance().setPassword(dbPassword);
@@ -145,6 +147,20 @@ public class Config {
 
     public static Config getInstance() {
         return singleton;
+    }
+
+    /**
+     * @return the boxViewApiKey
+     */
+    public String getBoxViewApiKey() {
+        return boxViewApiKey;
+    }
+
+    /**
+     * @param boxViewApiKey the boxViewApiKey to set
+     */
+    public void setBoxViewApiKey(String boxViewApiKey) {
+        this.boxViewApiKey = boxViewApiKey;
     }
 
 }

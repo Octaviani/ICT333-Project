@@ -9,24 +9,30 @@
                         "term_vector": "with_positions_offsets",
                         "store": true
                     },
-                    "title": {
-                        "store": "yes"
+                    "filename": {
+                        "store": true
                     },
-                    "date": {
-                        "store": "yes"
+                    "title": {
+                        "store": true
+                    },
+                    "author": {
+                        "store": true
+                    },
+                    "created_date": {
+                        "store": true
                     },
                     
                     "keywords": {
-                        "store": "yes"
+                        "store": true
                     },
                     "content_type": {
-                        "store": "yes"
+                        "store": true
                     },
                     "content_length": {
-                        "store": "yes"
+                        "store": true
                     },
                     "language": {
-                        "store": "yes"
+                        "store": true
                     }
                 }
             }

@@ -15,26 +15,28 @@ import java.sql.Types;
 
 
 /**
- * QVersionInfo is a Querydsl query type for QVersionInfo
+ * QDocument is a Querydsl query type for QDocument
  */
 @Generated("com.mysema.query.sql.codegen.MetaDataSerializer")
-public class QVersionInfo extends com.mysema.query.sql.RelationalPathBase<QVersionInfo> {
+public class QDocument extends com.mysema.query.sql.RelationalPathBase<QDocument> {
 
-    private static final long serialVersionUID = 1212067786;
+    private static final long serialVersionUID = -1546764937;
 
-    public static final QVersionInfo VersionInfo = new QVersionInfo("VersionInfo");
+    public static final QDocument Document = new QDocument("Document");
 
     public final StringPath author = createString("author");
 
     public final StringPath boxViewID = createString("boxViewID");
 
-    public final StringPath crcHash = createString("crcHash");
-
     public final DateTimePath<java.sql.Timestamp> createdDate = createDateTime("createdDate", java.sql.Timestamp.class);
 
     public final StringPath description = createString("description");
 
-    public final NumberPath<Integer> fileInfoId = createNumber("fileInfoId", Integer.class);
+    public final StringPath fileName = createString("fileName");
+
+    public final StringPath filePath = createString("filePath");
+
+    public final StringPath hash = createString("hash");
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
@@ -42,43 +44,38 @@ public class QVersionInfo extends com.mysema.query.sql.RelationalPathBase<QVersi
 
     public final NumberPath<Integer> userId = createNumber("userId", Integer.class);
 
-    public final com.mysema.query.sql.PrimaryKey<QVersionInfo> versionInfoPK = createPrimaryKey(id);
+    public final com.mysema.query.sql.PrimaryKey<QDocument> documentPK = createPrimaryKey(id);
 
-    public final com.mysema.query.sql.ForeignKey<QUser> userFileFK = createForeignKey(userId, "ID");
+    public final com.mysema.query.sql.ForeignKey<QUser> document1Fk = createForeignKey(userId, "ID");
 
-    public final com.mysema.query.sql.ForeignKey<QFileInfo> versionInfoIbfk1 = createForeignKey(fileInfoId, "ID");
-
-    public final com.mysema.query.sql.ForeignKey<QViewHistory> _fileViewFk = createInvForeignKey(id, "FileId");
-
-    public final com.mysema.query.sql.ForeignKey<QAnnotation> _fileAnnoFk = createInvForeignKey(id, "FileId");
-
-    public QVersionInfo(String variable) {
-        super(QVersionInfo.class, forVariable(variable), "null", "VersionInfo");
+    public QDocument(String variable) {
+        super(QDocument.class, forVariable(variable), "null", "Document");
         addMetadata();
     }
 
-    public QVersionInfo(String variable, String schema, String table) {
-        super(QVersionInfo.class, forVariable(variable), schema, table);
+    public QDocument(String variable, String schema, String table) {
+        super(QDocument.class, forVariable(variable), schema, table);
         addMetadata();
     }
 
-    public QVersionInfo(Path<? extends QVersionInfo> path) {
-        super(path.getType(), path.getMetadata(), "null", "VersionInfo");
+    public QDocument(Path<? extends QDocument> path) {
+        super(path.getType(), path.getMetadata(), "null", "Document");
         addMetadata();
     }
 
-    public QVersionInfo(PathMetadata<?> metadata) {
-        super(QVersionInfo.class, metadata, "null", "VersionInfo");
+    public QDocument(PathMetadata<?> metadata) {
+        super(QDocument.class, metadata, "null", "Document");
         addMetadata();
     }
 
     public void addMetadata() {
         addMetadata(author, ColumnMetadata.named("Author").withIndex(6).ofType(Types.VARCHAR).withSize(1024));
         addMetadata(boxViewID, ColumnMetadata.named("BoxViewID").withIndex(9).ofType(Types.VARCHAR).withSize(1024));
-        addMetadata(crcHash, ColumnMetadata.named("CrcHash").withIndex(4).ofType(Types.VARCHAR).withSize(767));
         addMetadata(createdDate, ColumnMetadata.named("CreatedDate").withIndex(3).ofType(Types.TIMESTAMP).withSize(19));
         addMetadata(description, ColumnMetadata.named("Description").withIndex(5).ofType(Types.LONGVARCHAR).withSize(2147483647));
-        addMetadata(fileInfoId, ColumnMetadata.named("FileInfoId").withIndex(8).ofType(Types.INTEGER).withSize(10));
+        addMetadata(fileName, ColumnMetadata.named("FileName").withIndex(8).ofType(Types.VARCHAR).withSize(1024));
+        addMetadata(filePath, ColumnMetadata.named("FilePath").withIndex(10).ofType(Types.VARCHAR).withSize(2048));
+        addMetadata(hash, ColumnMetadata.named("hash").withIndex(4).ofType(Types.VARCHAR).withSize(767));
         addMetadata(id, ColumnMetadata.named("ID").withIndex(1).ofType(Types.INTEGER).withSize(10).notNull());
         addMetadata(uploadDate, ColumnMetadata.named("UploadDate").withIndex(2).ofType(Types.TIMESTAMP).withSize(19).notNull());
         addMetadata(userId, ColumnMetadata.named("UserId").withIndex(7).ofType(Types.INTEGER).withSize(10).notNull());

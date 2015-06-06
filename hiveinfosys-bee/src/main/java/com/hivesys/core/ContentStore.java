@@ -1,5 +1,6 @@
 package com.hivesys.core;
 
+import com.box.view.BoxViewException;
 import com.hivesys.core.es.ElasticSearchContext;
 import com.google.common.io.Files;
 import java.io.File;
@@ -34,7 +35,7 @@ public class ContentStore {
     public ContentStore() {
     }
 
-    public Document parseFileInfoFromFile(String tmpfile, Document fInfo) {
+    public Document parseFileInfoFromFile(String tmpfile, Document doc) {
         try {
             Metadata md = new Metadata();
 
@@ -43,32 +44,66 @@ public class ContentStore {
             inFile.close();
 
             _dumpMetadata(tmpfile, md);
-            fInfo.setAuthor(md.get("Author"));
-            fInfo.setTitle(md.get("title"));
+            String author = "";
+            try {
+                author = md.get("Author").trim();
+            } catch (NullPointerException e) {
+
+            }
+
+            String title = "";
+
+            try {
+                title = md.get("title").trim();
+            } catch (NullPointerException e) {
+
+            }
+
+            if (author.equalsIgnoreCase("null")) {
+                author = "";
+            }
+
+            if (title.equalsIgnoreCase("null")) {
+                title = "";
+            }
+
+            doc.setAuthor(author);
+            doc.setTitle(title);
+            doc.setDescription("");
 
             SimpleDateFormat dateFormatUTC = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             dateFormatUTC.setTimeZone(TimeZone.getTimeZone("UTC"));
+            
+            Date dateCreated = new Date();
+            
+            try {
+                dateFormatUTC.parse(md.get("Last-Modified"));
+            } catch (NullPointerException e)
+            {
+                
+            }
 
-            fInfo.setDateCreated(dateFormatUTC.parse(md.get("Last-Modified")));
-            fInfo.setDateUploaded(new Date());
+            doc.setDateCreated(dateCreated);
+            doc.setDateUploaded(new Date());
 
-            fInfo.setCrcHash(Utilities.getCrcHash(tmpfile));
+            doc.setHash(Utilities.getCrcHash(tmpfile));
 
         } catch (IOException | SAXException | TikaException | ParseException ex) {
             Logger.getLogger(ContentStore.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return fInfo;
+        return doc;
     }
 
-    private void storeFileInfoToDatabase(Document fInfo) throws SQLException {
-            FileInfoController.getInstance().storeFileInfo(fInfo);
-  
+    private void storeFileInfoToDatabase(Document doc) throws SQLException, BoxViewException {
+        FileInfoController.getInstance().storeFileInfo(doc);
+
     }
 
-    public int storeFileToRepository(String tmpFilepath, Document fInfo) throws SQLException, IOException {
+    public int storeFileToRepository(Document doc) throws SQLException, IOException, BoxViewException {
+        String tmpFilepath = doc.getContentFilepath();
+
         // crc hash to remove duplicate content
-        String newFilename = "[[" + fInfo.getCrcHash() + "]]" + fInfo.getRootFileName();
-        fInfo.setFullFileName(newFilename);
+        String newFilename = "[[" + doc.getHash() + "]]" + doc.getRootFileName();
 
         File contentFile = new File(getContentdir() + File.separator + newFilename);
         // already exists
@@ -77,18 +112,18 @@ public class ContentStore {
         }
 
         try {
-            // copy from the temporary directory to the content folder
-            Files.copy(new File(tmpFilepath), contentFile);
+            // move from the temporary directory to the content folder
+            Files.move(new File(tmpFilepath), contentFile);
         } catch (IOException ex) {
             Logger.getLogger(ContentStore.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // rewrite the fileinfo
-        fInfo.setContentFilepath(contentFile.getAbsolutePath());
+        doc.setContentFilepath(contentFile.getAbsolutePath());
 
         // send files to solr and database
-        ElasticSearchContext.getInstance().indexFile(fInfo);
-        storeFileInfoToDatabase(fInfo);
+        ElasticSearchContext.getInstance().indexFile(doc);
+        storeFileInfoToDatabase(doc);
 
         return 0;
     }

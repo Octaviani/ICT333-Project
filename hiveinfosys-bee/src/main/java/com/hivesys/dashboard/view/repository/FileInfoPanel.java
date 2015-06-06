@@ -2,7 +2,11 @@ package com.hivesys.dashboard.view.repository;
 
 import com.hivesys.core.ContentStore;
 import com.hivesys.core.Document;
-import com.hivesys.exception.ContentAlreadyExistException;
+import com.hivesys.core.DocumentUploadQueueManager;
+import com.vaadin.data.fieldgroup.BeanFieldGroup;
+import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.data.fieldgroup.PropertyId;
+import com.vaadin.data.validator.BeanValidator;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import java.io.IOException;
@@ -16,20 +20,40 @@ import pl.exsio.plupload.PluploadFile;
  */
 public class FileInfoPanel extends FormLayout {
 
+    private final BeanFieldGroup<Document> fieldGroup;
+    /*
+     * Fields for editing the User object are defined here as class members.
+     * They are later bound to a FieldGroup by calling
+     * fieldGroup.bindMemberFields(this). The Fields' values don't need to be
+     * explicitly set, calling fieldGroup.setItemDataSource(user) synchronizes
+     * the fields with the user object.
+     */
+
+    @PropertyId("title")
     TextField mtxtTitle;
+
+    @PropertyId("author")
     TextField mtxtAuthor;
+
+    @PropertyId("dateCreated")
     DateField mdateCreated;
+
+    @PropertyId("dateUploaded")
     DateField mdateUploaded;
+
+    @PropertyId("description")
     TextArea mtxtDescription;
-    Label mPrevCopies;
 
     PluploadFile mfile;
-    private Document fInfo;
+    private Document mDocument;
 
     FileInfoPanel(PluploadFile file) {
         initViewComponents();
         initData(file);
 
+        fieldGroup = new BeanFieldGroup<>(Document.class);
+        fieldGroup.bindMemberFields(this);
+        fieldGroup.setItemDataSource(mDocument);
     }
 
     private void initViewComponents() {
@@ -37,21 +61,24 @@ public class FileInfoPanel extends FormLayout {
         mtxtAuthor = new TextField("Author");
         mdateCreated = new DateField("Date Created");
         mdateUploaded = new DateField("Date Uploaded");
-        mPrevCopies = new Label("Previous Copies");
         mtxtDescription = new TextArea("Brief Description");
-        
+
+        mtxtTitle.addValidator(new BeanValidator(Document.class, "title"));
+        mtxtAuthor.addValidator(new BeanValidator(Document.class, "Author"));
+        mdateCreated.addValidator(new BeanValidator(Document.class, "dateCreated"));
+        mdateUploaded.addValidator(new BeanValidator(Document.class, "dateUploaded"));
+        //mtxtDescription.addValidator(new BeanValidator(Document.class, "description"));
 
         this.addComponent(mtxtTitle);
         this.addComponent(mtxtAuthor);
         this.addComponent(mdateCreated);
         this.addComponent(mdateUploaded);
         this.addComponent(mtxtDescription);
-        this.addComponent(mPrevCopies);
+
         this.setComponentAlignment(mtxtTitle, Alignment.TOP_CENTER);
         this.setComponentAlignment(mtxtAuthor, Alignment.TOP_CENTER);
         this.setComponentAlignment(mdateCreated, Alignment.TOP_CENTER);
         this.setComponentAlignment(mdateUploaded, Alignment.TOP_CENTER);
-        this.setComponentAlignment(mPrevCopies, Alignment.TOP_CENTER);
         this.setComponentAlignment(mtxtDescription, Alignment.TOP_CENTER);
 
         this.addStyleName(ValoTheme.FORMLAYOUT_LIGHT);
@@ -60,47 +87,34 @@ public class FileInfoPanel extends FormLayout {
 
     private void initData(PluploadFile file) {
         mfile = file;
-        setfInfo(new Document());
+        setDocument(new Document());
 
         String tmpFilePath = mfile.getUploadedFile().toString();
-        getfInfo().setRootFileName(mfile.getName());
-        setfInfo(ContentStore.getInstance().parseFileInfoFromFile(tmpFilePath, getfInfo()));
-        setDataFromDomain();
-    }
-
-    private void setDataFromDomain() {
+        getDocument().setRootFileName(mfile.getName());
+        setDocument(ContentStore.getInstance().parseFileInfoFromFile(tmpFilePath, getDocument()));
         this.setCaption(mfile.getName());
-
-        mtxtTitle.setValue(getfInfo().getTitle());
-        mtxtAuthor.setValue(getfInfo().getAuthor());
-        mdateCreated.setValue(getfInfo().getDateCreated());
     }
 
-    public void setDataToDomain() {
-        getfInfo().setTitle(mtxtTitle.getValue());
-        getfInfo().setAuthor(mtxtAuthor.getValue());
-        getfInfo().setDateCreated(mdateCreated.getValue());
-        getfInfo().setDescription(mtxtDescription.getValue());
-    }
+    public void CommitChangesToDomain() throws SQLException, IOException, FieldGroup.CommitException {
 
-    public void CommitChangesToDomain() throws SQLException, IOException {
-
+        this.fieldGroup.commit();
         String tmpFilePath = mfile.getUploadedFile().toString();
-        ContentStore.getInstance().storeFileToRepository(tmpFilePath, getfInfo());
+        getDocument().setContentFilepath(tmpFilePath);
+        DocumentUploadQueueManager.getInstance().placeInUploadQueue(mDocument);
     }
 
     /**
      * @return the fInfo
      */
-    public Document getfInfo() {
-        return fInfo;
+    public Document getDocument() {
+        return mDocument;
     }
 
     /**
-     * @param fInfo the fInfo to set
+     * @param document the fInfo to set
      */
-    public void setfInfo(Document fInfo) {
-        this.fInfo = fInfo;
+    public void setDocument(Document document) {
+        this.mDocument = document;
     }
 
 }

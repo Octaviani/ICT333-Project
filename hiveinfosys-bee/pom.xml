@@ -169,6 +169,12 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.1.3.Final</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -306,14 +312,14 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <!--<webResources>-->
-                        <!--<webResource>-->
-                            <!--<directory>${basedir}/src/main/webapp/WEB-INF</directory>-->
-                            <!--<includes>-->
-                                <!--<include>*.xml</include>-->
-                            <!--</includes>-->
-                            <!--<targetPath>WEB-INF</targetPath>-->
-                            <!--<filtering>true</filtering>-->
-                        <!--</webResource>-->
+                    <!--<webResource>-->
+                    <!--<directory>${basedir}/src/main/webapp/WEB-INF</directory>-->
+                    <!--<includes>-->
+                    <!--<include>*.xml</include>-->
+                    <!--</includes>-->
+                    <!--<targetPath>WEB-INF</targetPath>-->
+                    <!--<filtering>true</filtering>-->
+                    <!--</webResource>-->
                     <!--</webResources>-->
                 </configuration>
             </plugin>

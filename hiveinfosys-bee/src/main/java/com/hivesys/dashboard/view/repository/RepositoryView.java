@@ -2,7 +2,7 @@ package com.hivesys.dashboard.view.repository;
 
 import com.box.view.BoxViewException;
 import com.box.view.Document;
-import com.hivesys.core.DBConnectionPool;
+import com.hivesys.core.db.DBConnectionPool;
 import com.hivesys.core.FileInfoController;
 import com.vaadin.data.Property;
 import com.vaadin.navigator.View;
@@ -47,14 +47,13 @@ public final class RepositoryView extends Panel implements View {
 
             // Create a grid
             SQLContainer container = new SQLContainer(new FreeformQuery(
-                    "SELECT VersionInfo.ID as ID, concat(User.FirstName, ' ', User.LastName) as 'Uploaded By' , \n"
-                    + "VersionInfo.BoxViewID, \n"
-                    + "FileInfo.filename as 'File Name', VersionInfo.UploadDate as 'Uploaded Date', \n"
-                    + "VersionInfo.Author, \n"
-                    + "VersionInfo.CreatedDate as 'Created Date', \n"
-                    + "VersionInfo.Description FROM VersionInfo \n"
-                    + "LEFT JOIN FileInfo ON VersionInfo.FileInfoId = FileInfo.ID \n"
-                    + "LEFT JOIN User ON VersionInfo.UserId = User.ID;", DBConnectionPool.getInstance().getConnectionPool()));
+                    "SELECT Document.ID as ID, concat(User.FirstName, ' ', User.LastName) as 'Uploaded By' , \n"
+                    + "Document.BoxViewID, \n"
+                    + "Document.filename as 'File Name', Document.UploadDate as 'Uploaded Date', \n"
+                    + "Document.Author, \n"
+                    + "Document.CreatedDate as 'Created Date', \n"
+                    + "Document.Description FROM Document \n"
+                    + "LEFT JOIN User ON Document.UserId = User.ID;", DBConnectionPool.getInstance().getConnectionPool()));
 
             Grid grid = new Grid(container);
             grid.removeColumn("ID");
