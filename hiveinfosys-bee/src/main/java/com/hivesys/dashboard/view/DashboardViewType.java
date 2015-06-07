@@ -1,6 +1,9 @@
 package com.hivesys.dashboard.view;
 
 import com.hivesys.dashboard.view.dashboard.DashboardView;
+import com.hivesys.dashboard.view.history.HistoryView;
+import com.hivesys.dashboard.view.preferences.PreferencesView;
+import com.hivesys.dashboard.view.profile.ProfileView;
 import com.hivesys.dashboard.view.repository.RepositoryUpload;
 import com.hivesys.dashboard.view.repository.RepositoryView;
 import com.hivesys.dashboard.view.repository.UploadView;
@@ -11,11 +14,15 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Resource;
 
 public enum DashboardViewType {
-    //DASHBOARD("dashboard", DashboardView.class, FontAwesome.HOME, true),
+    //PROFILE("profile", ProfileView.class, FontAwesome.USER, true),
+	PROFILE("profile", ProfileView.class, FontAwesome.USER, true),
+	//BOARDDASH("dashboard", DashboardView.class, FontAwesome.HOME, true),
+    PREFERENCES("preferences", PreferencesView.class, FontAwesome.GEAR, false),
     DASHBOARD("search", SearchView.class, FontAwesome.SEARCH, true),
     //SEARCH("search", SearchView.class, FontAwesome.SEARCH, false),
     UPLOAD("upload", UploadView.class, FontAwesome.UPLOAD, false),
     REPOSITORY("repository", RepositoryView.class, FontAwesome.FOLDER, false),
+    HISTORY("history", HistoryView.class, FontAwesome.CLOCK_O, false),
     //
 ;
 ;
