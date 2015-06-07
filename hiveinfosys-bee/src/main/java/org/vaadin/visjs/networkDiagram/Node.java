@@ -61,6 +61,12 @@ public class Node {
         this.image = image;
         this.shape = Shape.image;
     }
+    
+    public Node(String label,Node.Shape shape) {
+        this.id= Long.toString(counter.getAndIncrement());
+        this.label = label;
+        this.shape = Shape.image;
+    }
 
 
     public Node(String label, Node.Shape shape,String group){

@@ -8,6 +8,7 @@ package com.hivesys.dashboard.view.search;
 import com.hivesys.core.es.ElasticSearchContext;
 import com.hivesys.core.BoxViewDocuments;
 import com.hivesys.core.db.DocumentDB;
+import com.hivesys.core.es.Carrot.ClusterResult;
 import com.vaadin.ui.CssLayout;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +35,7 @@ public class GraphView extends CssLayout {
 
     ArrayList<Node> mNodelist;
     ArrayList<Edge> mEdgelist;
+
     public GraphView() {
         this.setSizeUndefined();
         this.setSizeFull();
@@ -51,8 +53,10 @@ public class GraphView extends CssLayout {
 
     public String splitter(String src) {
         String dest = "";
-        
-        if (src.length() <= 1) return src;
+
+        if (src.length() <= 1) {
+            return src;
+        }
 
         long chunksize = Math.round(Math.sqrt(src.length()));
         long remainder = src.length() % chunksize;
@@ -87,7 +91,7 @@ public class GraphView extends CssLayout {
 
     public void UpdateRootSearch(String rootSearch) {
         // upload to box view in a thread
-        
+
         FillNodeWithResults(rootSearch);
         BuildGraph();
     }
@@ -103,38 +107,58 @@ public class GraphView extends CssLayout {
     }
 
     void FillNodeWithResults(Node rootNode, String search) {
-        rootNode.setColor(new Color("green"));
-        rootNode.setShape(Node.Shape.circle);
-        
-        SearchResponse response = null;
         try {
-            response = ElasticSearchContext.getInstance().searchClusterQuery(search, search);
-        } catch (IOException ex) {
-            Logger.getLogger(GraphView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        SearchHits results = response.getHits();
-
-        for (SearchHit hit : results) {
-            try {
-
-                String filename = splitter(DocumentDB.getInstance().getDocumentNameFromHash(hit.getId()));
-                Node child = new Node(GraphView.IDs++, filename, "/NetworkGraph/VAADIN/Company.png");
-                child.setShape(Node.Shape.circle);
-
-                Edge edge = new Edge(rootNode.getId(), child.getId(), Edge.Style.arrowCenter, new Color("white", "yellow", "blue"));
-                edge.setWidth(Math.round(hit.getScore() * 4));
-                edge.setValue(1000);
+            rootNode.setColor(new Color("#FA7D7D"));
+            rootNode.setShape(Node.Shape.circle);
+            
+            ClusterResult c = ElasticSearchContext.getInstance().searchClusterQuery(search, search);
+            
+            for (ClusterResult.Cluster cluster : c.clusters) {
+                
+                Node clusterNode = new Node(cluster.label);
+                clusterNode.setShape(Node.Shape.dot);
+                
+                Edge edge = new Edge(rootNode.getId(), clusterNode.getId(), Edge.Style.arrowCenter, new Color("green"));
+                edge.setValue(cluster.score.intValue());
                 edge.setLength(200);
-
-                this.mNodelist.add(child);
+                
+                this.mNodelist.add(clusterNode);
                 this.mEdgelist.add(edge);
-
-                String childSearch = "*"; // TODO Only a test
-                if (GraphView.IDs < 30) {
-                    FillNodeWithResults(child, childSearch);
+                
+                for (String document : cluster.documents) {
+                    Node documents = new Node(DocumentDB.getInstance().getDocumentNameFromHash(document));
+                    documents.setShape(Node.Shape.dot);
+                    documents.setColor(new Color("yellow"));
+                    documents.setFontColor("#FAF7F7");
+                    Edge edge2 = new Edge(clusterNode, documents, Edge.Style.arrowCenter, new Color("#B2B72A"));
+                    edge2.setLength(200);
+                    
+                    this.mNodelist.add(documents);
+                    this.mEdgelist.add(edge2);
                 }
+            }
+            /*for (SearchHit hit : results) {
+            try {
+            String filename = splitter(DocumentDB.getInstance().getDocumentNameFromHash(hit.getId()));
+            Node child = new Node(GraphView.IDs++, filename, "/NetworkGraph/VAADIN/Company.png");
+            child.setShape(Node.Shape.circle);
+            Edge edge = new Edge(rootNode.getId(), child.getId(), Edge.Style.arrowCenter, new Color("white", "yellow", "blue"));
+            edge.setWidth(Math.round(hit.getScore() * 4));
+            edge.setValue(1000);
+            edge.setLength(200);
+            this.mNodelist.add(child);
+            this.mEdgelist.add(edge);
+            String childSearch = "*"; // TODO Only a test
+            if (GraphView.IDs < 30) {
+            FillNodeWithResults(child, childSearch);
+            }
             } catch (SQLException ex) {
             }
+            }*/
+        } catch (IOException ex) {
+            Logger.getLogger(GraphView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(GraphView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

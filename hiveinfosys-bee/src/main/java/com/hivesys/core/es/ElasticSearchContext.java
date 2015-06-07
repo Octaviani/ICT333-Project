@@ -1,6 +1,8 @@
 package com.hivesys.core.es;
 
+import com.google.gson.Gson;
 import com.hivesys.core.Document;
+import com.hivesys.core.es.Carrot.ClusterResult;
 import static com.hivesys.core.es.TikaInstance.tika;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -9,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.HttpClient;
@@ -28,6 +32,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.hibernate.validator.internal.util.privilegedactions.GetMethod;
+import org.json.JSONObject;
 
 public class ElasticSearchContext {
 
@@ -126,7 +131,7 @@ public class ElasticSearchContext {
         return response;
     }
 
-    public SearchResponse searchClusterQuery(String queryString, String query_hint) throws IOException {
+    public ClusterResult searchClusterQuery(String queryString, String query_hint) throws IOException {
         String json = "{ \n"
                 + "   \"search_request\":{  \n"
                 + "      \"query\":{  \n"
@@ -143,31 +148,23 @@ public class ElasticSearchContext {
                 + "         }\n"
                 + "}";
 
-        QueryBuilder query = QueryBuilders.matchQuery("_all", queryString);
-
-        SearchRequestBuilder searchBuilder = mClient.prepareSearch(idxName, idxType, "_search_with_clusters")
-                .setQuery(query)
-                .setSize(100)
-                .setIndices(idxName) // restrict the search to our indice
-                .addField("title")
-                .addHighlightedField("file");
-
-        
-        
-        SearchResponse response =  mClient.prepareSearch(idxName, idxType, "_search_with_clusters").setSource(json).execute().actionGet();
         ProcessBuilder p = new ProcessBuilder("curl", "-XPOST", "http://localhost:9200/" + idxName + "/" + idxType + "/_search_with_clusters", "-d", json);
         final Process shell = p.start();
 
         InputStream shellIn = shell.getInputStream();
         StringWriter writer = new StringWriter();
         IOUtils.copy(shellIn, writer, Charset.defaultCharset());
+
+        try {
+            int rc = shell.waitFor();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ElasticSearchContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String theString = writer.toString();
-        System.out.println(theString);
-        System.out.println(response.toString());
 
-        return response;
-        
+        ClusterResult cr = new Gson().fromJson(theString, ClusterResult.class);
 
+        return cr;
     }
 
     // return the default instance of the client
