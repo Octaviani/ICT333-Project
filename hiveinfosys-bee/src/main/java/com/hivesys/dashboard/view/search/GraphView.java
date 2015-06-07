@@ -9,8 +9,11 @@ import com.hivesys.core.es.ElasticSearchContext;
 import com.hivesys.core.BoxViewDocuments;
 import com.hivesys.core.db.DocumentDB;
 import com.vaadin.ui.CssLayout;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -48,6 +51,8 @@ public class GraphView extends CssLayout {
 
     public String splitter(String src) {
         String dest = "";
+        
+        if (src.length() <= 1) return src;
 
         long chunksize = Math.round(Math.sqrt(src.length()));
         long remainder = src.length() % chunksize;
@@ -101,7 +106,12 @@ public class GraphView extends CssLayout {
         rootNode.setColor(new Color("green"));
         rootNode.setShape(Node.Shape.circle);
         
-        SearchResponse response = ElasticSearchContext.getInstance().searchSimpleQuery(search);
+        SearchResponse response = null;
+        try {
+            response = ElasticSearchContext.getInstance().searchClusterQuery(search, search);
+        } catch (IOException ex) {
+            Logger.getLogger(GraphView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         SearchHits results = response.getHits();
 
         for (SearchHit hit : results) {

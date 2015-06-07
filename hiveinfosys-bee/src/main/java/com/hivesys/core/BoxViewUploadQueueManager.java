@@ -12,19 +12,19 @@ import java.util.logging.Logger;
  *
  * @author swoorup
  */
-public class DocumentUploadQueueManager {
+public class BoxViewUploadQueueManager {
 
-    private static final DocumentUploadQueueManager singleton = new DocumentUploadQueueManager();
+    private static final BoxViewUploadQueueManager singleton = new BoxViewUploadQueueManager();
     private final Queue<Document> documentQueue = new ConcurrentLinkedQueue<>();
     UploaderThread uploaderThread = new UploaderThread();
 
-    public DocumentUploadQueueManager() {
+    public BoxViewUploadQueueManager() {
         uploaderThread.start();
         uploaderThread.setUncaughtExceptionHandler((Thread t, Throwable e) -> {
             try {
                 throw e;
             } catch (Throwable ex) {
-                Logger.getLogger(DocumentUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BoxViewUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -60,26 +60,21 @@ public class DocumentUploadQueueManager {
 
                         //System.out.println("Processing : " + document.getRootFileName());
                         try {
-                            ContentStore.getInstance().storeFileToRepository(document);
-                        } catch (SQLException ex) {
-                            document.setIsErrorOccured(true);
-                        } catch (IOException ex) {
-                            document.setIsErrorOccured(true);
-                            Logger.getLogger(DocumentUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
+                            BoxViewDocuments.getInstance().UploadToBoxView(document);
                         } catch (BoxViewException ex) {
-                            Logger.getLogger(DocumentUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(BoxViewUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         
                     }
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(DocumentUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(BoxViewUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
     }
 
-    public static DocumentUploadQueueManager getInstance() {
+    public static BoxViewUploadQueueManager getInstance() {
         return singleton;
     }
 }

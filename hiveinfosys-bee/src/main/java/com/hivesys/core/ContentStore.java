@@ -87,7 +87,7 @@ public class ContentStore {
             doc.setDateCreated(dateCreated);
             doc.setDateUploaded(new Date());
 
-            doc.setHash(Utilities.getSHAHash(tmpfile));
+            doc.setHash(Utilities.getCrcHash(tmpfile));
 
         } catch (IOException | SAXException | TikaException | ParseException ex) {
             Logger.getLogger(ContentStore.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,7 +96,7 @@ public class ContentStore {
     }
 
 
-    public int storeFileToRepository(Document doc) throws SQLException, IOException, BoxViewException {
+    public int storeFileToRepository(Document doc) throws SQLException, IOException {
         String tmpFilepath = doc.getContentFilepath();
 
         // crc hash to remove duplicate content
@@ -121,7 +121,6 @@ public class ContentStore {
         // send files to solr and database
         ElasticSearchContext.getInstance().indexFile(doc);
         DocumentDB.getInstance().storeDocumentToDatabase(doc);
-        BoxViewDocuments.getInstance().storeFileInfo(doc);
         return 0;
     }
 

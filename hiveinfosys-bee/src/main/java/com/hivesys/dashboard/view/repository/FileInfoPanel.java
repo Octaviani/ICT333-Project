@@ -2,7 +2,7 @@ package com.hivesys.dashboard.view.repository;
 
 import com.hivesys.core.ContentStore;
 import com.hivesys.core.Document;
-import com.hivesys.core.DocumentUploadQueueManager;
+import com.hivesys.core.BoxViewUploadQueueManager;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.data.fieldgroup.PropertyId;
@@ -63,11 +63,11 @@ public class FileInfoPanel extends FormLayout {
         mdateUploaded = new DateField("Date Uploaded");
         mtxtDescription = new TextArea("Brief Description");
 
-        mtxtTitle.addValidator(new BeanValidator(Document.class, "title"));
-        mtxtAuthor.addValidator(new BeanValidator(Document.class, "Author"));
-        mdateCreated.addValidator(new BeanValidator(Document.class, "dateCreated"));
-        mdateUploaded.addValidator(new BeanValidator(Document.class, "dateUploaded"));
-        //mtxtDescription.addValidator(new BeanValidator(Document.class, "description"));
+        //mtxtTitle.addValidator(new BeanValidator(Document.class, "title"));
+        //mtxtAuthor.addValidator(new BeanValidator(Document.class, "Author"));
+        //mdateCreated.addValidator(new BeanValidator(Document.class, "dateCreated"));
+        //mdateUploaded.addValidator(new BeanValidator(Document.class, "dateUploaded"));
+        
 
         this.addComponent(mtxtTitle);
         this.addComponent(mtxtAuthor);
@@ -97,10 +97,11 @@ public class FileInfoPanel extends FormLayout {
 
     public void CommitChangesToDomain() throws SQLException, IOException, FieldGroup.CommitException {
 
-        this.fieldGroup.commit();
+        //this.fieldGroup.commit();
         String tmpFilePath = mfile.getUploadedFile().toString();
         getDocument().setContentFilepath(tmpFilePath);
-        DocumentUploadQueueManager.getInstance().placeInUploadQueue(mDocument);
+        ContentStore.getInstance().storeFileToRepository(mDocument);
+        BoxViewUploadQueueManager.getInstance().placeInUploadQueue(mDocument);
     }
 
     /**

@@ -8,6 +8,7 @@ package com.hivesys.core;
 import com.box.view.BoxViewClient;
 import com.box.view.BoxViewException;
 import com.hivesys.config.Config;
+import com.hivesys.core.db.DocumentDB;
 import org.json.*;
 import java.io.BufferedReader;
 import java.io.File;
@@ -65,13 +66,13 @@ public class BoxViewDocuments {
         return BoxViewSession.getInstance().getViewURL(boxViewID);
     }
 
-    public void UploadToBoxVIew(Document fileinfo) throws BoxViewException {
+    public void UploadToBoxView(Document doc) throws BoxViewException {
         try {
             CloseableHttpClient httpclient = HttpClientBuilder.create().build();
             HttpPost httppost = new HttpPost("https://upload.view-api.box.com/1/documents");
 
             HttpEntity request = MultipartEntityBuilder.create()
-                    .addPart("file", new FileBody(new File(fileinfo.getContentFilepath())))
+                    .addPart("file", new FileBody(new File(doc.getContentFilepath())))
                     .build();
 
             httppost.setEntity(request);
@@ -99,7 +100,7 @@ public class BoxViewDocuments {
                     JSONObject obj = new JSONObject(content);
                     String docID = obj.getString("id");
                     System.out.println("Document ID:" + docID);
-                    fileinfo.setBoxViewID(docID);
+                    doc.setBoxViewID(docID);
                 }
                 EntityUtils.consume(resEntity);
             } finally {
@@ -112,7 +113,9 @@ public class BoxViewDocuments {
     }
 
     public void storeFileInfo(Document fileinfo) throws SQLException, BoxViewException {
-        UploadToBoxVIew(fileinfo);
+        UploadToBoxView(fileinfo);
+        int id = DocumentDB.getInstance().getDocumentIDFromHash(fileinfo.getHash());
+        DocumentDB.getInstance().updateBoxID(id, fileinfo.getBoxViewID());
     }
 
     public static BoxViewDocuments getInstance() {

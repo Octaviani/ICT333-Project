@@ -22,6 +22,12 @@
                         "store": true
                     },
                     
+                    "content": {
+                        "type": "string",
+                        "term_vector": "with_positions_offsets",
+                        "store": true
+                    },
+                    
                     "keywords": {
                         "store": true
                     },
