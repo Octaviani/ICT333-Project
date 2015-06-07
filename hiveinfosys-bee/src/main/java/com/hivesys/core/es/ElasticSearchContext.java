@@ -143,15 +143,18 @@ public class ElasticSearchContext {
                 + "         }\n"
                 + "}";
 
-        QueryBuilder query = QueryBuilders.queryStringQuery(queryString);
+        QueryBuilder query = QueryBuilders.matchQuery("_all", queryString);
 
         SearchRequestBuilder searchBuilder = mClient.prepareSearch(idxName, idxType, "_search_with_clusters")
                 .setQuery(query)
+                .setSize(100)
                 .setIndices(idxName) // restrict the search to our indice
                 .addField("title")
                 .addHighlightedField("file");
 
-        SearchResponse response = searchBuilder.execute().actionGet();
+        
+        
+        SearchResponse response =  mClient.prepareSearch(idxName, idxType, "_search_with_clusters").setSource(json).execute().actionGet();
         ProcessBuilder p = new ProcessBuilder("curl", "-XPOST", "http://localhost:9200/" + idxName + "/" + idxType + "/_search_with_clusters", "-d", json);
         final Process shell = p.start();
 
@@ -160,8 +163,10 @@ public class ElasticSearchContext {
         IOUtils.copy(shellIn, writer, Charset.defaultCharset());
         String theString = writer.toString();
         System.out.println(theString);
+        System.out.println(response.toString());
 
         return response;
+        
 
     }
 
