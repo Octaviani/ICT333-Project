@@ -22,6 +22,8 @@ import org.vaadin.visjs.networkDiagram.Color;
 import org.vaadin.visjs.networkDiagram.Edge;
 import org.vaadin.visjs.networkDiagram.NetworkDiagram;
 import org.vaadin.visjs.networkDiagram.Node;
+import org.vaadin.visjs.networkDiagram.event.node.ClickEvent;
+import org.vaadin.visjs.networkDiagram.event.node.DoubleClickEvent;
 import org.vaadin.visjs.networkDiagram.options.Options;
 import org.vaadin.visjs.networkDiagram.options.edges.Edges;
 
@@ -181,6 +183,19 @@ public class GraphView extends CssLayout {
             networkDiagram.addNode(node);
         }
 
+        networkDiagram.addDoubleClickListener(new NetworkDiagram.DoubleClickListener() {
+
+            @Override
+            public void onFired(DoubleClickEvent event) {
+                if (event.getNodeIds().size() > 0) {
+                    Node node2 = new Node("Hello");
+                    Edge edge1 = new Edge(event.getNodes().get(0), node2);
+                    networkDiagram.addNode(node2);
+                    networkDiagram.addEdge(edge1);
+                }
+            }
+        }
+        );
         this.addComponent(networkDiagram);
     }
 }

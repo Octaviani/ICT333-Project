@@ -155,6 +155,27 @@ public class DocumentDB {
 
     }
 
+    public String getBoxViewIDFromID(int id) throws SQLException {
+
+        Connection conn = DBConnectionPool.getInstance().reserveConnection();
+        SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();
+
+        QDocument qversioninfo = QDocument.Document;
+
+        SQLQuery query = new SQLQuery(conn, config);
+        List<String> result = query.from(qversioninfo)
+                .where(qversioninfo.id.eq(id))
+                .list(qversioninfo.boxViewID);
+
+        DBConnectionPool.getInstance().releaseConnection(conn);
+
+        if (result.isEmpty()) {
+            return null;
+        }
+
+        return result.get(0);
+    }
+    
     public String getBoxViewIDFromHash(String hash) throws SQLException {
         int versionID = getDocumentIDFromHash(hash);
 

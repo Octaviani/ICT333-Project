@@ -1,13 +1,20 @@
 package com.hivesys.dashboard.view.search;
 
+import com.hivesys.core.BoxViewDocuments;
+import com.hivesys.core.db.DocumentDB;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.shared.ui.window.WindowMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.themes.ValoTheme;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.vaadin.visjs.networkDiagram.Color;
 import org.vaadin.visjs.networkDiagram.Edge;
 import org.vaadin.visjs.networkDiagram.NetworkDiagram;
@@ -38,7 +45,6 @@ public class SearchView extends Panel implements View {
         root.addStyleName("dashboard-view");
         setContent(root);
 
-        
         this.mSearchBox = new TextField("Search Box");
         this.mSearchBox.setWidth("100%");
 
@@ -72,11 +78,9 @@ public class SearchView extends Panel implements View {
 
         tabs.addTab(this.textualview, "Search");
         tabs.addTab(this.graphview, "Visualize");
-        
-      
+
         //tabs.addTab(graph2d, "Experimental Static Immersive");
         //tabs.addTab(graphcameron, "Experimental Dynamic Graph");
-
         tabs.addSelectedTabChangeListener((TabSheet.SelectedTabChangeEvent event) -> {
             Component selected = tabs.getSelectedTab();
             Tab cur = tabs.getTab(selected);
@@ -137,10 +141,43 @@ public class SearchView extends Panel implements View {
             @Override
             public void onFired(DoubleClickEvent event) {
                 if (event.getNodeIds().size() > 0) {
-                    Node node2 = new Node("Hello");
-                    Edge edge1 = new Edge(event.getNodes().get(0), node2);
-                    networkDiagram.addNode(node2);
-                    networkDiagram.addEdge(edge1);
+                    try {
+                        Node node = event.getNodes().get(0);
+                        int doc = DocumentDB.getInstance().getDocumentIDFromName(node.getLabel());
+                        String boxviewID;
+                        try {
+                            boxviewID = DocumentDB.getInstance().getBoxViewIDFromID(doc);
+                            
+                            if (boxviewID != null) {
+                                String url = BoxViewDocuments.getInstance().getViewURL(boxviewID);
+                                if (url != null || !url.equals("")) {
+                                    url = BoxViewDocuments.getInstance().getViewURL(boxviewID);
+                                    BrowserFrame bframe = new BrowserFrame("File", new ExternalResource(url));
+                                    VerticalLayout vlayout = new VerticalLayout(bframe);
+                                    
+                                    final Window w = new Window();
+                                    w.setSizeFull();
+                                    w.setModal(true);
+                                    w.setWindowMode(WindowMode.MAXIMIZED);
+                                    w.setContent(vlayout);
+                                    vlayout.setSizeFull();
+                                    vlayout.setMargin(true);
+                                    w.setResizable(false);
+                                    w.setDraggable(false);
+                                    
+                                    UI.getCurrent().addWindow(w);
+                                    bframe.setSizeFull();
+                                    return;
+                                }
+                                Notification.show("Preview not available for this document!");
+                            }
+                        } catch (SQLException ex) {
+                            
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(SearchView.class.getName()).log(Level.SEVERE, null, ex);
+
+                    }
                 }
             }
         });

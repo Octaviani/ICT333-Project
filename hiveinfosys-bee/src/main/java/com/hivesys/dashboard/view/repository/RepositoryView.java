@@ -68,10 +68,9 @@ public final class RepositoryView extends Panel implements View {
                     if (event.isDoubleClick()) {
                         Object boxviewID = container.getContainerProperty(event.getItemId(), "BoxViewID").getValue();
                         if (boxviewID != null) {
-                            Notification.show("Opening Preview!");
                             String url = BoxViewDocuments.getInstance().getViewURL(boxviewID.toString());
                             if (url.equals("")) {
-                                Notification.show("Preview site is down for the document!");
+                                Notification.show("Unable to open preview. Box Server is down");
                                 return;
                             }
                             Object objfilename = container.getContainerProperty(event.getItemId(), "File Name").getValue();
