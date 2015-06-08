@@ -28,6 +28,11 @@
 }  
 .liquid-slider {
   background: -moz-linear-gradient(bottom,  #040406, #161626 80%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#040406), color-stop(80%,#161626)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(bottom, #040406 0%,#161626 80%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(bottom, #040406 0%,#161626 80%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(bottom, #040406 0%,#161626 80%); /* IE10+ */
+  background: linear-gradient(to bottom, #040406 0%,#161626 80%); /* W3C */
   width: 100px;
   margin: 0 auto;
   float: left;

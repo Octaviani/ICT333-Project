@@ -28,7 +28,12 @@
     <![endif]-->
     <style>
       body {
-        background-color:     -moz-linear-gradient( bottom,  #080811, #000 90%);
+        background-color:   -moz-linear-gradient( bottom,  #080811, #000 90%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#080811), color-stop(90%,#000)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(bottom, #080811 0%,#000 90%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(bottom, #080811 0%, #000 80%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(bottom, #080811 0%,#000 80%); /* IE10+ */
+        background: linear-gradient(to bottom, #080811 0%,#000 80%); /* W3C */
         margin: 0px;
         overflow: hidden;
       }
@@ -56,9 +61,8 @@
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
             <li><a href="index.html">HOME</a></li>
-                        <li><a href="?">LOGIN</a></li>
+            <li><a href="./myui/">LOGIN</a></li>
                         <li class="active"><a href="features.html">FEATURES</a></li>
-                        <li><a href="about.html">ABOUT</a></li>
                         <li><a href="help.html">HELP</a></li>
                     </ul>
                 </div>
@@ -76,7 +80,7 @@
       <br>
       <p>The concept of the data visualisation is derived of decomposed elements of <i>Force-Directed Graph</i>, it displays the occurence of keyterms that corresponds to the search query, mapping out the descended nodes. The size of each nodes corresponds to the frequency of word occurence.</p>
       <br>
-      <p>Furthermore, this prototype aims to render this data visualisation into a 3D-form of interactive network of data, which enables the users to view and interact with the structure</p> 
+      <p>Furthermore, this prototype aims to render this data visualisation into a 3D-form of interactive network of data, which enables the users to view and interact with the structure</p>
     </div>
     <div>
       <h2 class="title">Real-Time Search</h2>
@@ -84,11 +88,11 @@
       <br>
       <p>The search feature had been constructed through the use of open source enterprise search platform; Apache Solr, in conjunction with Lucene Library. This allows it to be highly scalable and fault tolerant</p>
       <br>
-      <p>The search platform is designed to process and analyse rich, structured files, particularly documents that supports text-based file extensions such as PDF, DOCX, TXT and others.</p> 
-    </div>          
+      <p>The search platform is designed to process and analyse rich, structured files, particularly documents that supports text-based file extensions such as PDF, DOCX, TXT and others.</p>
+    </div>
     <div>
       <h2 class="title">Customised Prediction</h2>
-      
+
       <p>This project aims to feature machine learning element into the prototype. The goal is to build an environment for scalable performance machine learning application by providing a customised recommendation of (potentially) relevant documents that fits individual users, based on their past activities</p>
       <br>
       <p>Potentially, this could be achieved through the integration of Apache Mahout and Apache Lucene/Solr. Which utilises the functionality called ItemRecommender and UserRecommender; using Solr for recommendation queries and Mahout to generate the similarity matrix model</p>
@@ -232,7 +236,7 @@
       function animate() {
 
         requestAnimationFrame( animate );
-            
+
         render();
 
       }
@@ -261,7 +265,7 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
-  <script src="./js/jquery.liquid-slider.min.js"></script>  
+  <script src="./js/jquery.liquid-slider.min.js"></script>
   <script>
       $('#main-slider').liquidSlider();
   </script>

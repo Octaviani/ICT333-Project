@@ -6,6 +6,7 @@
     <artifactId>hiveinfosys-bee</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
+    <name>Data Hive</name>
 
     <properties>
         <vaadin.version>7.4.7</vaadin.version>
