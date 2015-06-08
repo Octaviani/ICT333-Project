@@ -66,7 +66,7 @@ public class BoxViewDocuments {
         return BoxViewSession.getInstance().getViewURL(boxViewID);
     }
 
-    public void UploadToBoxView(Document doc) throws BoxViewException {
+    public Document UploadToBoxView(Document doc) throws BoxViewException {
         try {
             CloseableHttpClient httpclient = HttpClientBuilder.create().build();
             HttpPost httppost = new HttpPost("https://upload.view-api.box.com/1/documents");
@@ -101,6 +101,7 @@ public class BoxViewDocuments {
                     String docID = obj.getString("id");
                     System.out.println("Document ID:" + docID);
                     doc.setBoxViewID(docID);
+                    return doc;
                 }
                 EntityUtils.consume(resEntity);
             } finally {
@@ -109,11 +110,11 @@ public class BoxViewDocuments {
         } catch (IOException ex) {
             throw new BoxViewException("BoxViewException", "Wrong API Key?");
         }
-
+        return doc;
     }
 
     public void storeFileInfo(Document fileinfo) throws SQLException, BoxViewException {
-        UploadToBoxView(fileinfo);
+        fileinfo = UploadToBoxView(fileinfo);
         int id = DocumentDB.getInstance().getDocumentIDFromHash(fileinfo.getHash());
         DocumentDB.getInstance().updateBoxID(id, fileinfo.getBoxViewID());
     }

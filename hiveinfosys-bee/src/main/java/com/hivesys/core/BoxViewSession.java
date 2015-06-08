@@ -36,7 +36,7 @@ public class BoxViewSession {
 
                 Map<String, Object> params = new HashMap<>();
                 Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.HOUR, 1);
+                cal.add(Calendar.HOUR, 10);
                 params.put("expiresAt", cal.getTime());
                 params.put("isDownloadable", true);
                 params.put("isTextSelectable", true);
@@ -44,6 +44,7 @@ public class BoxViewSession {
 
                 map.put(docID, session);
             } catch (BoxViewException | NullPointerException | ParseException ex) {
+                System.out.println("Session Not working");
                 return "";
             }
         } // if expired

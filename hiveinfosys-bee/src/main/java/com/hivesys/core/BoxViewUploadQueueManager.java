@@ -60,8 +60,10 @@ public class BoxViewUploadQueueManager {
 
                         //System.out.println("Processing : " + document.getRootFileName());
                         try {
-                            BoxViewDocuments.getInstance().UploadToBoxView(document);
+                            BoxViewDocuments.getInstance().storeFileInfo(document);
                         } catch (BoxViewException ex) {
+                            Logger.getLogger(BoxViewUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
                             Logger.getLogger(BoxViewUploadQueueManager.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         
