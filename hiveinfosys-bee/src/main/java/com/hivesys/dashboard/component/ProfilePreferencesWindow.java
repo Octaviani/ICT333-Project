@@ -77,8 +77,7 @@ public class ProfilePreferencesWindow extends Window {
     @PropertyId("bio")
     private TextArea bioField;
 
-    private ProfilePreferencesWindow(final User user,
-            final boolean preferencesTabOpen) {
+    private ProfilePreferencesWindow(final User user, final boolean preferencesTabOpen) {
         addStyleName("profile-window");
         setId(ID);
         Responsive.makeResponsive(this);
@@ -183,8 +182,6 @@ public class ProfilePreferencesWindow extends Window {
         locationField = new TextField("Location");
         locationField.setWidth("100%");
         locationField.setNullRepresentation("");
-        locationField.setComponentError(new UserError(
-                "This address doesn't exist"));
         details.addComponent(locationField);
 
         phoneField = new TextField("Phone");
@@ -232,7 +229,6 @@ public class ProfilePreferencesWindow extends Window {
 
                         QUser dbUser = QUser.User;
 
-                        
                         new SQLUpdateClause(conn, config, dbUser)
                                 .where(dbUser.id.eq(usr.getId()))
                                 .set(dbUser.firstName, usr.getFirstName())
