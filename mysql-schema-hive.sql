@@ -1,27 +1,35 @@
 -- MySQL dump 10.15  Distrib 10.0.18-MariaDB, for Linux (x86_64)
---
--- Host: 127.0.0.1    Database: Hive
--- ------------------------------------------------------
--- Server version	10.0.18-MariaDB-log
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `Annotation`
---
-
-
 CREATE DATABASE IF NOT EXISTS Hive;
 USE Hive;
+
+
+DROP TABLE IF EXISTS `Document`;
+CREATE TABLE `Document` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `UploadDate` datetime NOT NULL,
+  `CreatedDate` datetime DEFAULT NULL,
+  `hash` varchar(767) DEFAULT NULL,
+  `Description` longtext,
+  `Author` varchar(1024) DEFAULT NULL,
+  `UserId` int(11) NOT NULL,
+  `FileName` varchar(1024) DEFAULT NULL,
+  `BoxViewID` varchar(1024) DEFAULT NULL,
+  `FilePath` varchar(2048) DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `hashUQ` (`hash`),
+  KEY `fk_Document_1_idx` (`UserId`),
+  CONSTRAINT `fk_Document_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Document`
+--
+
+LOCK TABLES `Document` WRITE;
+UNLOCK TABLES;
+
+
 DROP TABLE IF EXISTS `Annotation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
