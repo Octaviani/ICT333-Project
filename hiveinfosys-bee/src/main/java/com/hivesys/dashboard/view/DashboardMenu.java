@@ -10,8 +10,10 @@ import com.hivesys.dashboard.event.DashboardEvent.ReportsCountUpdatedEvent;
 import com.hivesys.dashboard.event.DashboardEvent.UserLoggedOutEvent;
 import com.google.common.eventbus.Subscribe;
 import com.vaadin.data.Property;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.ThemeResource;
+import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
@@ -31,6 +33,7 @@ import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import java.io.File;
 import java.util.LinkedHashMap;
 
 /**
@@ -119,8 +122,11 @@ public final class DashboardMenu extends CustomComponent {
 //        logo.setPrimaryStyleName("datahive-logo");
         
         
-        Image logo = new Image(null, new ThemeResource(
-                "img/logo_10.png"));
+        ;
+        String basepath = VaadinService.getCurrent()
+                  .getBaseDirectory().getAbsolutePath();
+        Image logo = new Image(null, new FileResource(new File(basepath +
+                        "/WEB-INF/logo_10.png")));
         logo.setWidth(100.0f, Unit.PIXELS);
         logo.setPrimaryStyleName("datahive-logo");
         VerticalLayout logocontainer = new VerticalLayout(logo);
