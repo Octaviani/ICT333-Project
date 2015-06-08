@@ -8,6 +8,7 @@ package com.hivesys.dashboard.view.search;
 import com.hivesys.core.es.ElasticSearchContext;
 import com.hivesys.core.BoxViewDocuments;
 import com.hivesys.core.db.DocumentDB;
+import com.vaadin.annotations.StyleSheet;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.shared.ui.window.WindowMode;
@@ -31,6 +32,7 @@ import org.elasticsearch.search.highlight.HighlightField;
  *
  * @author swoorup
  */
+@StyleSheet("hivesys.css")
 public class TextualView extends Panel {
 
     CssLayout css;
