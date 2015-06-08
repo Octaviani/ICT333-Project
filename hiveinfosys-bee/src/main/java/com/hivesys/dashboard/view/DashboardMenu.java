@@ -61,8 +61,9 @@ public final class DashboardMenu extends CustomComponent {
         themeVariants.put("tests-valo-flat", "Flat");
         themeVariants.put("tests-valo-light", "Light");
         themeVariants.put("tests-valo-metro", "Metro");
+        themeVariants.put("dashboard", "Dashboard");
     }
-    
+
     public DashboardMenu() {
         addStyleName("valo-menu");
         setId(ID);
@@ -91,9 +92,9 @@ public final class DashboardMenu extends CustomComponent {
         menuContent.addComponent(createThemeSelect());
 
         return menuContent;
-        
+
     }
-    
+
     private Component createThemeSelect() {
         final NativeSelect ns = new NativeSelect();
         ns.setNullSelectionAllowed(false);
@@ -114,16 +115,16 @@ public final class DashboardMenu extends CustomComponent {
         });
         UI.getCurrent().setTheme("tests-valo-facebook");
         return ns;
-        
+
     }
 
     private Component buildTitle() {
-//        
+//
 //        Label logo = new Label("DataHive",                ContentMode.HTML);
 //        logo.setSizeUndefined();
 //        logo.setPrimaryStyleName("datahive-logo");
-        
-        
+
+
         ;
         String basepath = VaadinService.getCurrent()
                   .getBaseDirectory().getAbsolutePath();
