@@ -77,16 +77,15 @@ public class DocumentDB {
     }
 
     public void updateBoxID(int id, String boxid) throws SQLException {
-        Tuple doc = getDocumentFromID(id);
 
         Connection conn = DBConnectionPool.getInstance().reserveConnection();
         SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();
-        
+
         new SQLUpdateClause(conn, config, QDocument.Document)
                 .where(QDocument.Document.id.eq(id))
                 .set(QDocument.Document.boxViewID, boxid)
                 .execute();
-        
+
         DBConnectionPool.getInstance().releaseConnection(conn);
     }
 
@@ -116,12 +115,12 @@ public class DocumentDB {
         Connection conn = DBConnectionPool.getInstance().reserveConnection();
         SQLTemplates config = DBConnectionPool.getInstance().getSQLTemplates();
 
-        QDocument qversioninfo = QDocument.Document;
+        QDocument qdoc = QDocument.Document;
 
         SQLQuery query = new SQLQuery(conn, config);
-        List<Integer> result = query.from(qversioninfo)
-                .where(qversioninfo.hash.eq(Hash))
-                .list(qversioninfo.id);
+        List<Integer> result = query.from(qdoc)
+                .where(qdoc.hash.eq(Hash))
+                .list(qdoc.id);
 
         DBConnectionPool.getInstance().releaseConnection(conn);
 

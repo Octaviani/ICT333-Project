@@ -93,7 +93,8 @@ public class BoxViewDocuments {
                     String content = inputStreamToString(resEntity.getContent()).trim();
 
                     if (resEntity.getContentLength() == 0 || content == "") {
-                        throw new BoxViewException("BoxViewException", "Wrong API Key?");
+                        System.out.println("csdcsdc");
+                        return doc;
                     }
 
                     System.out.println("Response content: " + content);
@@ -108,7 +109,8 @@ public class BoxViewDocuments {
                 response.close();
             }
         } catch (IOException ex) {
-            throw new BoxViewException("BoxViewException", "Wrong API Key?");
+            System.out.println("BoxViewException: Wrong API Key?");
+            return doc;
         }
         return doc;
     }
