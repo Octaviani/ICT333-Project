@@ -40,7 +40,6 @@ public class MyContextListener implements ServletContextListener
             es.initClient("localhost", 9300);
         } catch (Exception ex) {
             System.out.println("Cannot Connect to elastic search Node. Exiting!!!");
-            System.exit(1);
         }
         Config.getInstance().loadConfig();
         // …
