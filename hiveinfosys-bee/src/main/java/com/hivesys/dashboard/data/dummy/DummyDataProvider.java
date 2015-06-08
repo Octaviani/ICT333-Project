@@ -93,7 +93,7 @@ public class DummyDataProvider implements DataProvider {
             SQLQuery query = new SQLQuery( con, config);
             List<Tuple> result = query.from(dbUser)
                     .where(dbUser.userName.eq(userName).and(dbUser.pword.eq(passwordmd5hash.toString())))
-                    .list(dbUser.id, dbUser.firstName, dbUser.lastName, dbUser.email, dbUser.gender, dbUser.title, dbUser.location, dbUser.role, dbUser.telephone, dbUser.website, dbUser.bio);
+                    .list(dbUser.id, dbUser.firstName, dbUser.lastName, dbUser.email, dbUser.gender, dbUser.title, dbUser.location, dbUser.role, dbUser.telephone, dbUser.website, dbUser.bio, dbUser.userName);
 
             if (result.isEmpty()) {
                 throw new AccessControlException("Exception: Invalid username or password");
@@ -110,6 +110,7 @@ public class DummyDataProvider implements DataProvider {
             u.setPhone(result.get(0).get(dbUser.telephone));
             u.setWebsite(result.get(0).get(dbUser.website));
             u.setBio(result.get(0).get(dbUser.bio));
+            u.setUsername(result.get(0).get(dbUser.userName));
 
             // always close the connection (performance optimization)
             con.close();

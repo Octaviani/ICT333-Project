@@ -9,6 +9,7 @@ import com.hivesys.dashboard.event.DashboardEvent.ProfileUpdatedEvent;
 import com.hivesys.dashboard.event.DashboardEvent.ReportsCountUpdatedEvent;
 import com.hivesys.dashboard.event.DashboardEvent.UserLoggedOutEvent;
 import com.google.common.eventbus.Subscribe;
+import com.vaadin.data.Property;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinSession;
@@ -26,9 +27,11 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.Command;
 import com.vaadin.ui.MenuBar.MenuItem;
+import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import java.util.LinkedHashMap;
 
 /**
  * A responsive menu component providing user information and the controls for
@@ -45,6 +48,18 @@ public final class DashboardMenu extends CustomComponent {
     private Label reportsBadge;
     private MenuItem settingsItem;
 
+    private static LinkedHashMap<String, String> themeVariants = new LinkedHashMap<String, String>();
+    static {
+        themeVariants.put("tests-valo", "Default");
+        themeVariants.put("tests-valo-blueprint", "Blueprint");
+        themeVariants.put("tests-valo-dark", "Dark");
+        themeVariants.put("tests-valo-facebook", "Facebook");
+        themeVariants.put("tests-valo-flatdark", "Flat dark");
+        themeVariants.put("tests-valo-flat", "Flat");
+        themeVariants.put("tests-valo-light", "Light");
+        themeVariants.put("tests-valo-metro", "Metro");
+    }
+    
     public DashboardMenu() {
         addStyleName("valo-menu");
         setId(ID);
@@ -70,8 +85,31 @@ public final class DashboardMenu extends CustomComponent {
         menuContent.addComponent(buildUserMenu());
         menuContent.addComponent(buildToggleButton());
         menuContent.addComponent(buildMenuItems());
+        menuContent.addComponent(createThemeSelect());
 
         return menuContent;
+        
+    }
+    
+    private Component createThemeSelect() {
+        final NativeSelect ns = new NativeSelect();
+        ns.setNullSelectionAllowed(false);
+        ns.setId("themeSelect");
+        ns.addContainerProperty("caption", String.class, "");
+        ns.setItemCaptionPropertyId("caption");
+        for (final String identifier : themeVariants.keySet()) {
+            ns.addItem(identifier).getItemProperty("caption")
+                    .setValue(themeVariants.get(identifier));
+        }
+
+        ns.setValue("tests-valo");
+        ns.addValueChangeListener(new Property.ValueChangeListener() {
+            @Override
+            public void valueChange(final Property.ValueChangeEvent event) {
+                UI.getCurrent().setTheme((String) ns.getValue());
+            }
+        });
+        return ns;
     }
 
     private Component buildTitle() {

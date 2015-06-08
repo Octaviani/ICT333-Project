@@ -5,6 +5,7 @@ public final class User {
     private String role;
     private String firstName;
     private String lastName;
+    private String username;
     private String title;
     private boolean male;
     private String email;
@@ -104,6 +105,20 @@ public final class User {
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

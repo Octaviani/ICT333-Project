@@ -20,8 +20,6 @@ public class SearchView extends Panel implements View {
 
     public static final String NAME = "search";
     private VerticalLayout root;
-    private CssLayout dashboardPanels;
-    private Label labelTitle;
     public static int swi = 0;
 
     TextField mSearchBox;
@@ -30,8 +28,7 @@ public class SearchView extends Panel implements View {
     GraphView graphview;
 
     public SearchView() {
-        final VerticalLayout root = new VerticalLayout();
-        final CssLayout css = new CssLayout();
+        root = new VerticalLayout();
 
         addStyleName(ValoTheme.PANEL_BORDERLESS);
         setSizeFull();
@@ -41,15 +38,7 @@ public class SearchView extends Panel implements View {
         root.addStyleName("dashboard-view");
         setContent(root);
 
-        //css.addComponent(new Threejs());   
-        Component content = buildContent();
-        root.addComponent(content);
-        root.setExpandRatio(content, 1);
-    }
-
-    Component buildContent() {
-        VerticalLayout vLayout = new VerticalLayout();
-
+        
         this.mSearchBox = new TextField("Search Box");
         this.mSearchBox.setWidth("100%");
 
@@ -83,8 +72,10 @@ public class SearchView extends Panel implements View {
 
         tabs.addTab(this.textualview, "Search");
         tabs.addTab(this.graphview, "Visualize");
-        tabs.addTab(graph2d, "Experimental Static Immersive");
-        tabs.addTab(graphcameron, "Experimental Dynamic Graph");
+        
+      
+        //tabs.addTab(graph2d, "Experimental Static Immersive");
+        //tabs.addTab(graphcameron, "Experimental Dynamic Graph");
 
         tabs.addSelectedTabChangeListener((TabSheet.SelectedTabChangeEvent event) -> {
             Component selected = tabs.getSelectedTab();
@@ -128,12 +119,10 @@ public class SearchView extends Panel implements View {
         });
 
         tabs.setSizeFull();
-        vLayout.addComponent(this.mSearchBox);
-        vLayout.addComponent(new Label("<br>", ContentMode.HTML));
-        vLayout.addComponent(tabs);
-        vLayout.setSizeFull();
-        vLayout.setExpandRatio(tabs, 1);
-        return vLayout;
+        root.addComponent(this.mSearchBox);
+        root.addComponent(new Label("<br>", ContentMode.HTML));
+        root.addComponent(tabs);
+        root.setExpandRatio(tabs, 1);
     }
 
     Component build2dGraph() {

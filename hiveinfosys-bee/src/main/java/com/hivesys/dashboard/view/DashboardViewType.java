@@ -1,10 +1,8 @@
 package com.hivesys.dashboard.view;
 
-import com.hivesys.dashboard.view.dashboard.DashboardView;
 import com.hivesys.dashboard.view.history.HistoryView;
 import com.hivesys.dashboard.view.preferences.PreferencesView;
 import com.hivesys.dashboard.view.profile.ProfileView;
-import com.hivesys.dashboard.view.repository.RepositoryUpload;
 import com.hivesys.dashboard.view.repository.RepositoryView;
 import com.hivesys.dashboard.view.repository.UploadView;
 import com.hivesys.dashboard.view.search.SearchView;
