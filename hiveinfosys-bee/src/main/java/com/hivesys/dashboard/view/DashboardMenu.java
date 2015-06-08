@@ -56,7 +56,7 @@ public final class DashboardMenu extends CustomComponent {
         themeVariants.put("tests-valo", "Default");
         themeVariants.put("tests-valo-blueprint", "Blueprint");
         themeVariants.put("tests-valo-dark", "Dark");
-        themeVariants.put("tests-valo-facebook", "Facebook");
+        themeVariants.put("tests-valo-facebook", "Blue Mix");
         themeVariants.put("tests-valo-flatdark", "Flat dark");
         themeVariants.put("tests-valo-flat", "Flat");
         themeVariants.put("tests-valo-light", "Light");
@@ -112,7 +112,9 @@ public final class DashboardMenu extends CustomComponent {
                 UI.getCurrent().setTheme((String) ns.getValue());
             }
         });
+        UI.getCurrent().setTheme("tests-valo-facebook");
         return ns;
+        
     }
 
     private Component buildTitle() {
